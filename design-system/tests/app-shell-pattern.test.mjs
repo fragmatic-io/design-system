@@ -217,6 +217,15 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /--frgm-app-menu-item-height:\s*2\.2857rem/);
   assert.match(css, /--frgm-app-menu-item-gap:\s*0\.0714rem/);
   assert.match(css, /--frgm-app-nav-item-collapsed-width:\s*3\.4286rem/);
+  assert.match(css, /--frgm-app-type-title:\s*var\(--frgm-control-font-size-lg\)/);
+  assert.match(css, /--frgm-app-type-body:\s*var\(--frgm-control-font-size-md\)/);
+  assert.match(css, /--frgm-app-type-control:\s*var\(--frgm-control-font-size-sm\)/);
+  assert.match(css, /--frgm-app-type-meta:\s*var\(--frgm-pill-font-size\)/);
+  assert.match(css, /\.frgm-app-nav-item\s*{[\s\S]*?font:\s*500 var\(--frgm-app-type-control\)\/var\(--frgm-app-line-control\) var\(--font-sans\)/);
+  assert.match(css, /\.frgm-app-context-item\s*{[\s\S]*?font:\s*500 var\(--frgm-app-type-control\)\/var\(--frgm-app-line-control\) var\(--font-sans\)/);
+  assert.match(css, /\.frgm-app-reco h4\s*{[\s\S]*?font-size:\s*var\(--frgm-app-type-title\)/);
+  assert.match(css, /\.frgm-app-reco p\s*{[\s\S]*?font-size:\s*var\(--frgm-app-type-control\)/);
+  assert.match(css, /\.frgm-app-stat span\s*{[\s\S]*?font-size:\s*var\(--frgm-app-type-meta\)/);
   assert.match(css, /\.frgm-app-nav\s*{[\s\S]*?gap:\s*var\(--frgm-app-menu-item-gap\)/);
   assert.match(css, /\.frgm-app-context-list\s*{[\s\S]*?gap:\s*var\(--frgm-app-menu-item-gap\)/);
   assert.match(css, /\.frgm-app-nav-item\s*{[\s\S]*?height:\s*var\(--frgm-app-menu-item-height\)/);
