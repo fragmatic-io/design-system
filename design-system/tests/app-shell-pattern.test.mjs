@@ -164,9 +164,13 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /box-shadow:\s*var\(--shadow-pop\)/);
   assert.match(css, /grid-template-rows:\s*auto auto minmax\(0,\s*1fr\)/);
   assert.match(css, /\.frgm-app-topbar\s*{[\s\S]*?grid-column:\s*1 \/ -1/);
+  assert.match(css, /\.frgm-app-topbar\s*{[\s\S]*?position:\s*relative/);
+  assert.match(css, /\.frgm-app-topbar\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-dropdown\)/);
   assert.match(css, /\.frgm-app-topbar\s*{[\s\S]*?grid-template-columns:\s*max-content minmax\(14rem,\s*1fr\) minmax\(0,\s*max-content\)/);
   assert.match(css, /\.frgm-app-secondary-topbar\s*{[\s\S]*?grid-row:\s*2/);
   assert.match(css, /\.frgm-app-secondary-topbar\s*{[\s\S]*?min-height:\s*3rem/);
+  assert.match(css, /\.frgm-app-secondary-topbar-surface\s*{[\s\S]*?position:\s*relative/);
+  assert.match(css, /\.frgm-app-secondary-topbar-surface\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
   assert.match(css, /\.frgm-app-sidebar\s*{[\s\S]*?grid-row:\s*2 \/ 4/);
   assert.match(css, /\.frgm-app-main\s*{[\s\S]*?grid-row:\s*3/);
   assert.match(css, /\.frgm-app-content\s*{[\s\S]*?background:\s*var\(--page-bg\)/);

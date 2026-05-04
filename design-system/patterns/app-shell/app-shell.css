@@ -351,6 +351,8 @@
 }
 
 .frgm-app-topbar {
+  position: relative;
+  z-index: var(--frgm-layer-dropdown);
   grid-column: 1 / -1;
   grid-row: 1;
   min-height: 4.5714rem;
@@ -410,6 +412,8 @@
 }
 
 .frgm-app-secondary-topbar-surface {
+  position: relative;
+  z-index: var(--frgm-layer-popover);
   width: 100%;
   height: 100%;
 }
