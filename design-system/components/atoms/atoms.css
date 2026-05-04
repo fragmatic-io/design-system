@@ -1079,19 +1079,123 @@
 @media (max-width: 56rem) {
   .frgm-date-range-popover {
     position: fixed;
-    top: auto;
-    right: var(--frgm-date-range-mobile-inset);
+    z-index: calc(var(--frgm-layer-dropdown) + 1);
+    top: var(--frgm-date-range-mobile-inset);
     bottom: var(--frgm-date-range-mobile-inset);
-    left: var(--frgm-date-range-mobile-inset);
-    width: auto;
-    max-height: calc(100vh - (var(--frgm-date-range-mobile-inset) * 2));
+    left: 0;
+    right: auto;
+    width: 100vw;
+    max-width: 100vw;
+    max-height: none;
+    height: auto;
     grid-template-columns: 1fr;
-    overflow: auto;
+    grid-template-rows: auto minmax(0, 1fr);
+    overflow: hidden;
   }
 
   .frgm-date-range-shortcuts {
+    max-height: none;
+    display: grid;
+    overflow: hidden;
     border-right: 0;
     border-bottom: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
+  }
+
+  .frgm-date-range-shortcut-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--frgm-inline-gap-xs);
+    padding: var(--space-2);
+    overflow: visible;
+  }
+
+  .frgm-date-range-shortcut-list[data-compare='true'] {
+    display: none;
+    border-top: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
+  }
+
+  .frgm-date-range-control[data-compare='true'] .frgm-date-range-shortcut-list[data-compare='true'] {
+    display: grid;
+  }
+
+  .frgm-date-range-shortcut {
+    min-width: 0;
+    min-height: var(--frgm-control-h-sm);
+    padding: 0 var(--frgm-control-pad-x-sm);
+    justify-content: center;
+    text-align: center;
+  }
+
+  .frgm-date-range-compare-toggle {
+    min-height: var(--frgm-control-h-md);
+    padding: 0 var(--space-3);
+    border-top: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
+    border-bottom: 0;
+  }
+
+  .frgm-date-range-calendar {
+    overflow: hidden;
+  }
+
+  .frgm-date-range-fields {
+    gap: var(--frgm-inline-gap-sm);
+    padding: var(--space-2);
+  }
+
+  .frgm-date-range-field-head,
+  .frgm-date-range-field-row {
+    grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--frgm-inline-gap-sm);
+  }
+
+  .frgm-date-range-fields button {
+    min-height: var(--frgm-control-h-md);
+    padding-inline: var(--frgm-control-pad-x-sm);
+  }
+
+  .frgm-date-range-month-nav {
+    gap: var(--frgm-inline-gap-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .frgm-date-range-weekdays,
+  .frgm-date-range-days {
+    gap: var(--frgm-inline-gap-xs);
+    padding-inline: var(--space-3);
+  }
+
+  .frgm-date-range-weekdays {
+    padding-bottom: var(--frgm-inline-gap-sm);
+  }
+
+  .frgm-date-range-month {
+    max-height: none;
+    min-height: 0;
+    padding-bottom: var(--space-3);
+    overflow-y: auto;
+  }
+
+  .frgm-date-range-month-section {
+    gap: var(--frgm-inline-gap-sm);
+  }
+
+  .frgm-date-range-month-section + .frgm-date-range-month-section {
+    margin-top: var(--space-4);
+  }
+
+  .frgm-date-range-days button {
+    min-height: 2.2857rem;
+  }
+
+  .frgm-date-range-footer {
+    gap: var(--frgm-inline-gap-sm);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .frgm-date-range-footer button {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: var(--frgm-control-h-md);
   }
 }
 

@@ -171,7 +171,7 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /var\(--frgm-control-h-md\)/);
   assert.doesNotMatch(css, /\.frgm-app-command\s*{[^}]*height:\s*var\(--frgm-control-h-md\)/);
   assert.doesNotMatch(css, /\.frgm-app-command\.frgm-search input/);
-  assert.doesNotMatch(css, /\.frgm-app-secondary-topbar[\s\S]*?frgm-date-range/);
+  assert.doesNotMatch(css, /\.frgm-app-secondary-topbar[\s\S]*?\.frgm-date-range-control\s*{[\s\S]*?(width|height|min-width|min-height|padding|font-size):/);
   assert.match(css, /var\(--chart-primary\)/);
   assert.match(css, /box-shadow:\s*var\(--shadow-pop\)/);
   assert.match(css, /grid-template-rows:\s*auto auto minmax\(0,\s*1fr\)/);
@@ -189,6 +189,7 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?grid-template-rows:\s*auto auto auto minmax\(0,\s*1fr\) auto/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-context-nav\s*{[\s\S]*?grid-row:\s*3/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-context-list\s*{[\s\S]*?overflow-x:\s*auto/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-secondary-topbar:has\(\.frgm-date-range-control\[data-open='true'\]\)\s*{[\s\S]*?z-index:\s*calc\(var\(--frgm-layer-dropdown\) \+ 1\)/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-topbar-brand > \[data-ds-dropdown-slot\]\s*{[\s\S]*?flex:\s*1 1 auto/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-mobilebar\s*{[\s\S]*?position:\s*sticky/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-mobilebar\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-sticky\)/);

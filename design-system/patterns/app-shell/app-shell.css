@@ -937,7 +937,12 @@
   }
 
   .frgm-app-secondary-topbar {
+    position: relative;
     grid-row: 2;
+  }
+
+  .frgm-app-secondary-topbar:has(.frgm-date-range-control[data-open='true']) {
+    z-index: calc(var(--frgm-layer-dropdown) + 1);
   }
 
   .frgm-app-context-nav {

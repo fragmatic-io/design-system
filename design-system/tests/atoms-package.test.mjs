@@ -55,6 +55,7 @@ test('hardened atoms export the public atom surface', async () => {
   assert.match(entry, /const rootRef = React\.useRef\(null\)/);
   assert.match(entry, /document\.addEventListener\('pointerdown', closeOnOutsidePointerDown\)/);
   assert.match(entry, /window\.addEventListener\('resize', updatePopoverAlignment\)/);
+  assert.match(entry, /'data-compare': isCompare \? 'true' : undefined/);
   assert.match(entry, /root\.open = false/);
 });
 
@@ -173,6 +174,12 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-date-range-control\s*{[\s\S]*?min-width:\s*0/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-date-range-primary > span:last-child/);
   assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-secondary-topbar-controls,\s*\.frgm-secondary-topbar-actions\s*{[\s\S]*?overflow-x:\s*auto/);
+  assert.match(css, /@media \(max-width:\s*56rem\)\s*{[\s\S]*?\.frgm-date-range-popover\s*{[\s\S]*?grid-template-rows:\s*auto minmax\(0,\s*1fr\)/);
+  assert.match(css, /@media \(max-width:\s*56rem\)\s*{[\s\S]*?\.frgm-date-range-popover\s*{[\s\S]*?z-index:\s*calc\(var\(--frgm-layer-dropdown\) \+ 1\)/);
+  assert.match(css, /@media \(max-width:\s*56rem\)\s*{[\s\S]*?\.frgm-date-range-popover\s*{[\s\S]*?width:\s*100vw/);
+  assert.match(css, /@media \(max-width:\s*56rem\)\s*{[\s\S]*?\.frgm-date-range-shortcut-list\s*{[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
+  assert.match(css, /@media \(max-width:\s*56rem\)\s*{[\s\S]*?\.frgm-date-range-control\[data-compare='true'\] \.frgm-date-range-shortcut-list\[data-compare='true'\]/);
+  assert.match(css, /@media \(max-width:\s*56rem\)\s*{[\s\S]*?\.frgm-date-range-month\s*{[\s\S]*?overflow-y:\s*auto/);
   assert.doesNotMatch(css, /frgm-secondary-topbar-toggle/);
   assert.doesNotMatch(css, /data-state='collapsed'/);
   assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);

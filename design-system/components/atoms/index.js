@@ -725,6 +725,7 @@ export function DateRangeControl({
       'data-placement': resolvedPlacement,
       'data-constrained': isConstrained ? 'true' : undefined,
       'data-open': isOpen ? 'true' : undefined,
+      'data-compare': isCompare ? 'true' : undefined,
       'data-selected': selectedLabel ? 'true' : undefined,
     },
     React.createElement(
