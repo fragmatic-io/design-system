@@ -235,6 +235,69 @@
   .status.warn   { background: var(--amber-50);  border-color: var(--amber-100);  color: var(--amber-700)  }
   .status.info   { background: var(--blue-50);   border-color: var(--blue-100);   color: var(--blue-700)   }
 
+  .foundation-token-grid {
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1429rem;
+  }
+  .foundation-token-card {
+    min-height: 8.5714rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap: 1.1429rem;
+    padding: 1.1429rem;
+    border: var(--frgm-control-border-width) solid var(--border-subtle);
+    border-radius: var(--r-8);
+    background: var(--card-bg);
+  }
+  .foundation-token-card b {
+    display:block;
+    font-size: 0.9286rem;
+    font-weight: 600;
+    color: var(--text-title);
+  }
+  .foundation-token-card p {
+    margin: 0.2857rem 0 0;
+    color: var(--text-caption);
+    font-size: 0.8571rem;
+    line-height: 1.45;
+  }
+  .foundation-token-card code {
+    color: var(--text-meta);
+    font-family: var(--font-mono);
+    font-size: 0.7857rem;
+  }
+  .foundation-border-sample {
+    height: 2.8571rem;
+    border-radius: var(--r-6);
+    background: var(--page-bg);
+  }
+  .foundation-effect-sample {
+    min-height: 3.4286rem;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border: var(--frgm-control-border-width) solid var(--border-subtle);
+    border-radius: var(--r-8);
+    background: var(--card-bg);
+    color: var(--text-body);
+    font-size: 0.8571rem;
+    transition: var(--frgm-effect-transition);
+  }
+  .foundation-effect-sample:hover {
+    transform: translateY(var(--frgm-motion-hover-y));
+    border-color: var(--frgm-effect-hover-border);
+    background: var(--frgm-effect-hover-bg);
+    box-shadow: var(--frgm-effect-hover-shadow);
+  }
+  .foundation-border-subtle { border: var(--border-width-default) solid var(--border-subtle) }
+  .foundation-border-strong { border: var(--border-width-default) solid var(--border-strong) }
+  .foundation-border-interactive { border: var(--border-width-default) solid var(--border-interactive) }
+  .foundation-border-focus { border: var(--border-width-emphasis) solid var(--border-focus) }
+  .foundation-border-selected { border: var(--border-width-default) solid var(--border-selected); background: var(--frgm-state-selected-bg) }
+  .foundation-border-danger { border: var(--border-width-default) solid var(--border-danger); background: var(--frgm-state-danger-bg) }
+
   /* ── 02 Type ────────────────────────────────────── */
   .type-row {
     display:grid; grid-template-columns: 15.7143rem minmax(0,1fr) 10rem;
@@ -1904,13 +1967,15 @@
     <a href="#color"><span>Color</span><span>01</span></a>
     <a href="#type"><span>Type</span><span>02</span></a>
     <a href="#space-radius-elevation"><span>Space, radius, elevation</span><span>03</span></a>
-    <a href="#logos"><span>Logos</span><span>04</span></a>
-    <a href="#icons"><span>Icons</span><span>05</span></a>
+    <a href="#borders"><span>Borders</span><span>04</span></a>
+    <a href="#effects-motion"><span>Effects, motion</span><span>05</span></a>
+    <a href="#logos"><span>Logos</span><span>06</span></a>
+    <a href="#icons"><span>Icons</span><span>07</span></a>
     <div class="ds-nav-group">Library</div>
-    <a href="#components"><span>Components</span><span>06</span></a>
-    <a href="#charts"><span>Charts</span><span>07</span></a>
-    <a href="#patterns"><span>Patterns</span><span>08</span></a>
-    <a href="#app-shell"><span>App shell</span><span>09</span></a>
+    <a href="#components"><span>Components</span><span>08</span></a>
+    <a href="#charts"><span>Charts</span><span>09</span></a>
+    <a href="#patterns"><span>Patterns</span><span>10</span></a>
+    <a href="#app-shell"><span>App shell</span><span>11</span></a>
   </nav>
 </aside>
 <div class="shell">
@@ -2111,10 +2176,84 @@
     </div>
   </section>
 
-  <!-- ─── 04 Logos ─────────────────────────────────── -->
-  <section class="section" id="logos">
+  <!-- ─── 04 Borders ───────────────────────────────── -->
+  <section class="section" id="borders">
     <div class="section-head">
       <div class="section-num">04 — Foundations</div>
+      <h2><em>Borders.</em></h2>
+      <p>Border roles are semantic foundation tokens. Use these names for passive edges, hoverable controls, focus affordances, selected states, and danger states instead of local color picks.</p>
+    </div>
+
+    <div class="foundation-token-grid" aria-label="Border foundation tokens">
+      <div class="foundation-token-card">
+        <div><b>Subtle edge</b><p>Default page, card, divider, and shell borders.</p></div>
+        <div class="foundation-border-sample foundation-border-subtle"></div>
+        <code>--border-subtle · --border-width-default</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Strong edge</b><p>Hoverable controls and surfaces that need a clearer edge.</p></div>
+        <div class="foundation-border-sample foundation-border-strong"></div>
+        <code>--border-strong</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Interactive edge</b><p>Reusable hover border for buttons, field chips, dropdowns, and cards.</p></div>
+        <div class="foundation-border-sample foundation-border-interactive"></div>
+        <code>--border-interactive · --frgm-effect-hover-border</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Focus edge</b><p>Keyboard-visible and input focus treatments.</p></div>
+        <div class="foundation-border-sample foundation-border-focus"></div>
+        <code>--border-focus · --frgm-control-focus-ring</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Selected edge</b><p>Active selection, chosen items, and context navigation state.</p></div>
+        <div class="foundation-border-sample foundation-border-selected"></div>
+        <code>--border-selected · --frgm-state-selected-border</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Danger edge</b><p>Validation, destructive choices, and error-adjacent controls.</p></div>
+        <div class="foundation-border-sample foundation-border-danger"></div>
+        <code>--border-danger · --frgm-state-danger-fg</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 05 Effects and motion ───────────────────── -->
+  <section class="section" id="effects-motion">
+    <div class="section-head">
+      <div class="section-num">05 — Foundations</div>
+      <h2><em>Effects, motion.</em></h2>
+      <p>Effects and motion are foundation recipes. Components should consume transition, hover, focus, elevation, and loading tokens rather than inventing one-off animation timings or shadows.</p>
+    </div>
+
+    <div class="foundation-token-grid" aria-label="Effects and motion foundation tokens">
+      <div class="foundation-token-card">
+        <div><b>Transition recipe</b><p>Shared property set for background, border, text, and shadow changes.</p></div>
+        <div class="foundation-effect-sample">Hover to inspect transition</div>
+        <code>--frgm-effect-transition</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Hover effect</b><p>Reusable hover background, border, shadow, and one-pixel lift.</p></div>
+        <div class="foundation-effect-sample">Hover surface</div>
+        <code>--frgm-effect-hover-* · --frgm-motion-hover-y</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Elevation</b><p>Flat, raised, and popover surfaces use named shadow tokens.</p></div>
+        <div class="foundation-effect-sample" style="box-shadow:var(--shadow-pop)">Popover shadow</div>
+        <code>--shadow-soft · --shadow-elev · --shadow-pop</code>
+      </div>
+      <div class="foundation-token-card">
+        <div><b>Timing</b><p>Fast, medium, slow, enter, exit, spin, and typing recipes.</p></div>
+        <div class="foundation-effect-sample">0.12s / 0.15s / 0.24s</div>
+        <code>--motion-fast · --motion-med · --frgm-motion-*</code>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 06 Logos ─────────────────────────────────── -->
+  <section class="section" id="logos">
+    <div class="section-head">
+      <div class="section-num">06 — Foundations</div>
       <h2><em>Logos.</em></h2>
       <p>Fragmatic logo assets are foundation items. Use <code>components/brand</code> or the exported raw SVG assets instead of recreating the mark in previews, patterns, or product UI.</p>
     </div>
@@ -2135,10 +2274,10 @@
     </div>
   </section>
 
-  <!-- ─── 05 Icons ─────────────────────────────────── -->
+  <!-- ─── 07 Icons ─────────────────────────────────── -->
   <section class="section" id="icons">
     <div class="section-head">
-      <div class="section-num">05 — Foundations</div>
+      <div class="section-num">07 — Foundations</div>
       <h2><em>Icons.</em></h2>
       <p>Icons are part of the foundation layer. Add or change icons in <code>components/atoms/icons.js</code> first, then render them through exported components or small preview slots. Product surfaces should not paste inline SVG paths.</p>
     </div>
@@ -2159,10 +2298,10 @@
     </div>
   </section>
 
-  <!-- ─── 06 Components ────────────────────────────── -->
+  <!-- ─── 08 Components ────────────────────────────── -->
   <section class="section" id="components">
     <div class="section-head">
-      <div class="section-num">06 — Components</div>
+      <div class="section-num">08 — Components</div>
       <h2><em>Components.</em></h2>
       <p>The atoms in <code>design-system/components/atoms/*</code>, organized by job. One row per atom, one demo per row — comprehensive coverage without sprawl.</p>
     </div>
@@ -2558,10 +2697,10 @@
 
   </section>
 
-  <!-- ─── 07 Data viz ──────────────────────────────── -->
+  <!-- ─── 09 Data viz ──────────────────────────────── -->
   <section class="section" id="charts">
     <div class="section-head">
-      <div class="section-num">07 — Data visualization</div>
+      <div class="section-num">09 — Data visualization</div>
       <h2><em>Charts.</em></h2>
       <p>The chart vocabulary used across analytics, journeys, and segment performance. Built on echarts at runtime — these are the visual specs every chart should resolve to.</p>
     </div>
@@ -2733,10 +2872,10 @@
     </div>
   </section>
 
-  <!-- ─── 08 Patterns ──────────────────────────────── -->
+  <!-- ─── 10 Patterns ──────────────────────────────── -->
   <section class="section" id="patterns">
     <div class="section-head">
-      <div class="section-num">08 — Patterns</div>
+      <div class="section-num">10 — Patterns</div>
       <h2><em>Patterns.</em></h2>
       <p>How the atoms compose into the surfaces a marketer actually moves through — shells, lists, builders, detail views, and the small UI moments that wrap them. Patterns are referenced from real routes in the app, but they're cleaned up to read as the canonical version, not a snapshot of today's code.</p>
     </div>

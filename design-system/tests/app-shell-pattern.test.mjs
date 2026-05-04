@@ -66,6 +66,14 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(preview, /data-context-panel-content="notifications"/);
   assert.match(preview, /aria-hidden="true"/);
   assert.match(preview, /aria-controls="frgm-recommendation-context"/);
+  assert.match(preview, /href="#borders"/);
+  assert.match(preview, /id="borders"/);
+  assert.match(preview, /class="foundation-token-grid" aria-label="Border foundation tokens"/);
+  assert.match(preview, /--border-subtle · --border-width-default/);
+  assert.match(preview, /href="#effects-motion"/);
+  assert.match(preview, /id="effects-motion"/);
+  assert.match(preview, /class="foundation-token-grid" aria-label="Effects and motion foundation tokens"/);
+  assert.match(preview, /--frgm-effect-transition/);
   assert.match(preview, /id="logos"/);
   assert.match(preview, /class="logo-foundation-grid"/);
   assert.match(preview, /id="icons"/);

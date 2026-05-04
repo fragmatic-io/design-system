@@ -243,6 +243,8 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /Date range borders have three defined types/);
   assert.match(contract, /Date field chips have normal, hover, and active definitions/);
   assert.match(contract, /align` API \(`auto`, `start`, or `end`\)/);
+  assert.match(contract, /--frgm-layer-shell-overlay/);
+  assert.match(contract, /focus-within` preserves the neutral border/);
   assert.match(contract, /react-date-range/);
   assert.doesNotMatch(contract, /centered `vs` separator/);
   assert.match(contract, /previous, current, and next month sections/);

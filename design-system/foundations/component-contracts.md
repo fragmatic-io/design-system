@@ -16,7 +16,7 @@ This document is the audit boundary for exported atoms. Components must consume 
 | Spacing | `--space-*`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-pill-pad-*` | Shared spacing scale, control dimensions, atom gaps, pill padding. |
 | Effects | `--shadow-*`, `--frgm-effect-*` | Elevation, focus/selected rings, hover shadows, and shared transition recipes. |
 | Motion/state | `--frgm-motion-*`, `--motion-fast`, `--motion-med`, `--frgm-state-*` | Hover lift, semantic transitions, loader timing, disabled, loading, readonly, hover, active, selected, and danger states. |
-| Layers | `--frgm-layer-popover`, `--frgm-layer-dropdown` | Calendar popovers, menus, profile dropdowns, and overlays stack predictably. |
+| Layers | `--frgm-layer-popover`, `--frgm-layer-shell-overlay`, `--frgm-layer-dropdown` | Calendar popovers, shell hover overlays, menus, profile dropdowns, and overlays stack predictably. |
 | Iconography | `components/atoms/icons.js`, `--frgm-icon-size-*`, `--frgm-dot-size` | Package-local line icons and dot indicators. |
 | Brand assets | `components/brand`, `assets/brand/*.svg`, `brandLogoItems` | Fragmatic mark, sidebar tile, and wordmark as reusable foundation items. |
 
@@ -81,7 +81,7 @@ Only one app-shell page container should be visible for a selected context navig
 | `ProfitLose` | `--lime-50`, `--lime-700`, `--red-50`, `--red-700`, `--font-mono`, `--frgm-pill-*` | Positive/zero uses `up`; negative uses `down`. | Calculation stays in component logic; visual state is token mapped. |
 | `SegmentStatus` | `--gray-100`, `--gray-700`, `--emerald-50`, `--emerald-800`, `--amber-50`, `--amber-700`, `--r-4`, `--frgm-pill-*`, `--frgm-dot-size` | `active`, `scheduled/idle`, default neutral. | Dot uses `currentColor`, so it inherits status color. |
 | `ProgressBar` | `--gray-100`, `--primary`, `--frgm-dot-size`, `--frgm-pill-radius`, `--frgm-inline-gap-lg`, `--frgm-control-h-lg`, `--font-mono` | Fill defaults to `--primary`; optional `color` prop sets `--color` for data-viz overrides. | Native `progress` keeps semantics. |
-| `SearchInput` | `--card-bg`, `--text-title`, `--gray-300`, `--gray-400`, `--primary`, `--frgm-control-focus-ring`, `--frgm-control-*`, `--frgm-search-width` | `:focus-within` applies primary border and blue focus ring. | Includes visually hidden label for accessibility. |
+| `SearchInput` | `--card-bg`, `--text-title`, `--gray-300`, `--gray-400`, `--frgm-control-*`, `--frgm-search-width` | `:focus-within` preserves the neutral border and does not add an active ring in shell search contexts. | Includes visually hidden label for accessibility. |
 | `Field` | `--text-body`, `--text-meta`, `--red-700`, `--frgm-control-font-*`, `--frgm-inline-gap-sm` | Required marker uses red; error text replaces hint when present. | Structural wrapper for one label/control/help stack. |
 | `TextInput` | `--gray-100`, `--gray-300`, `--text-title`, `--text-caption`, `--primary`, `--red-700`, `--frgm-control-*`, `--frgm-state-disabled-opacity` | Focus, invalid, required, and disabled states map to shared field CSS. | Supports text-like input types through the `type` prop. |
 | `SelectField` | `--gray-100`, `--gray-300`, `--text-title`, `--primary`, `--red-700`, `--frgm-control-*`, `--frgm-state-disabled-opacity` | Focus, invalid, required, and disabled states map to shared field CSS. | Options can be passed as strings/objects or native children. |
