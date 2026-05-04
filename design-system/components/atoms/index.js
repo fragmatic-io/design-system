@@ -428,6 +428,7 @@ export function DropdownMenu({
 export function DateRangeControl({
   label = 'Last 90 Days',
   dateRange = '4 Feb-4 May 2026',
+  compareRange,
   presets = ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   onPresetSelect,
   onDateClick,
@@ -465,8 +466,18 @@ export function DateRangeControl({
         onClick: onDateClick,
         'aria-label': `Date range ${dateRange}`,
       },
-      React.createElement('span', { className: 'frgm-date-range-icon' }, icons.calendar),
-      React.createElement('span', null, dateRange),
+      React.createElement(
+        'span',
+        { className: 'frgm-date-range-primary' },
+        React.createElement('span', { className: 'frgm-date-range-icon' }, icons.calendar),
+        React.createElement('span', null, dateRange),
+      ),
+      compareRange && React.createElement(
+        'span',
+        { className: 'frgm-date-range-compare' },
+        React.createElement('span', null, 'Compare :'),
+        React.createElement('span', null, compareRange),
+      ),
     ),
   );
 }
@@ -475,6 +486,7 @@ export function SecondaryTopbar({
   title = 'Overview',
   datePreset = 'Last 90 Days',
   dateRange = '4 Feb-4 May 2026',
+  compareRange,
   presets,
   expanded,
   defaultExpanded = true,
@@ -519,6 +531,7 @@ export function SecondaryTopbar({
       React.createElement(DateRangeControl, {
         label: datePreset,
         dateRange,
+        compareRange,
         presets,
         onPresetSelect,
       }),

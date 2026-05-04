@@ -140,6 +140,7 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /var\(--card-bg\)/);
   assert.match(css, /var\(--border-subtle\)/);
   assert.match(css, /var\(--frgm-control-h-md\)/);
+  assert.doesNotMatch(css, /\.frgm-app-secondary-topbar[\s\S]*?frgm-date-range/);
   assert.match(css, /var\(--chart-primary\)/);
   assert.match(css, /box-shadow:\s*var\(--shadow-pop\)/);
   assert.match(css, /grid-template-rows:\s*auto auto minmax\(0,\s*1fr\)/);

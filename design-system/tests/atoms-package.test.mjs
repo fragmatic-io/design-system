@@ -64,6 +64,7 @@ test('hardened atoms do not depend on dashboard-local modules', async () => {
 
 test('atom styles use design tokens', async () => {
   const css = await readFile(new URL('../components/atoms/atoms.css', import.meta.url), 'utf8');
+  const tokens = await readFile(new URL('../tokens/tokens.css', import.meta.url), 'utf8');
 
   assert.match(css, /var\(--primary\)/);
   assert.match(css, /var\(--card-bg\)/);
@@ -79,6 +80,12 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-dropdown-trigger/);
   assert.match(css, /\.frgm-dropdown-panel/);
   assert.match(css, /\.frgm-date-range-control/);
+  assert.match(css, /var\(--frgm-date-range-h\)/);
+  assert.match(css, /var\(--frgm-date-range-border\)/);
+  assert.match(css, /var\(--frgm-date-range-shadow\)/);
+  assert.match(tokens, /--frgm-date-range-h:\s*3\.1429rem/);
+  assert.match(tokens, /--frgm-date-range-pad-y:\s*0\.5714rem/);
+  assert.match(tokens, /--frgm-date-range-pad-x:\s*0\.7143rem/);
   assert.match(css, /\.frgm-secondary-topbar/);
   assert.match(css, /\.frgm-secondary-topbar\[data-state='collapsed'\]/);
   assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);
@@ -122,5 +129,7 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /Domain switchers, profile menus, settings menus, and overflow menus/);
   assert.match(contract, /## Secondary Topbar Foundation/);
   assert.match(contract, /Dashboard-style page context bars use `SecondaryTopbar`/);
+  assert.match(contract, /--frgm-date-range-h/);
+  assert.match(contract, /dashboard 44px two-part date control/);
   assert.match(contract, /Audit Result/);
 });

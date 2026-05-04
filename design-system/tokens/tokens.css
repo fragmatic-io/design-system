@@ -147,6 +147,20 @@
   --frgm-control-border-width: 1px;
   --frgm-search-width: 20rem;
 
+  /* Dashboard date-range control geometry from `.custom-date-picker`.
+     These are component foundations, not app-shell overrides. */
+  --frgm-date-range-h: 3.1429rem;
+  --frgm-date-range-min-width: 16rem;
+  --frgm-date-range-max-width: 22rem;
+  --frgm-date-range-pad-y: 0.5714rem;
+  --frgm-date-range-pad-x: 0.7143rem;
+  --frgm-date-range-gap: 0.4286rem;
+  --frgm-date-range-compare-gap: 0.1429rem;
+  --frgm-date-range-border: rgb(223, 223, 223);
+  --frgm-date-range-divider: rgb(227, 232, 238);
+  --frgm-date-range-text: rgb(121, 121, 121);
+  --frgm-date-range-shadow: 0px 0px 12px 0px rgba(117, 117, 117, 0.08);
+
   --frgm-inline-gap-xs: 0.2857rem;
   --frgm-inline-gap-sm: 0.4286rem;
   --frgm-inline-gap-md: 0.5714rem;
@@ -255,6 +269,9 @@
   --overlay-scrim:  rgba(0, 0, 0, 0.35);
   --overlay-panel:  rgba(0, 0, 0, 0.46);
   --overlay-pop:    rgba(0, 0, 0, 0.52);
+  --frgm-date-range-border: var(--gray-300);
+  --frgm-date-range-divider: var(--gray-300);
+  --frgm-date-range-text: var(--gray-500);
 
   /* Semantic — data visualization */
   --chart-grid:      var(--gray-300);
