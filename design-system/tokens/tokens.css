@@ -78,6 +78,13 @@
   --page-bg:        #f6f3ec;
   --card-bg:        #fdfaf3;
   --border-subtle:  #e7e0cf;
+  --border-strong:  var(--gray-300);
+  --border-interactive: var(--gray-300);
+  --border-focus:   var(--blue-300);
+  --border-selected: var(--emerald-100);
+  --border-danger:  var(--red-100);
+  --border-width-default: 1px;
+  --border-width-emphasis: 2px;
   --text-title:     var(--gray-900);
   --text-body:      var(--gray-600);
   --text-caption:   var(--gray-400);
@@ -85,6 +92,7 @@
   --primary:        var(--emerald-800); /* #065f46 — confirmed in globals.css */
   --primary-hover:  var(--emerald-700);
   --primary-fg:     #ffffff;
+  --accent:         var(--primary);
   --overlay-scrim:  rgba(15, 23, 42, 0.20);
   --overlay-panel:  rgba(15, 23, 42, 0.40);
   --overlay-pop:    rgba(15, 23, 42, 0.45);
@@ -124,6 +132,9 @@
   --shadow-pop:
     0px 4px 6px -2px rgba(16, 24, 40, 0.04),
     0px 12px 16px -4px rgba(16, 24, 40, 0.08);
+  --shadow-soft: var(--shadow-card);
+  --shadow-focus: 0 0 0 2px var(--frgm-control-focus-ring);
+  --shadow-selected: 0 0 0 2px var(--primary);
 
   /* Type */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -174,6 +185,8 @@
   --frgm-date-range-popover-offset: var(--frgm-inline-gap-md);
   --frgm-date-range-popover-width: 50rem;
   --frgm-date-range-popover-max-width: calc(100vw - 2rem);
+  --frgm-date-range-popover-max-height: calc(100vh - (var(--space-5) * 2));
+  --frgm-date-range-popover-available-h: var(--frgm-date-range-popover-max-height);
   --frgm-date-range-popover-border: var(--border-subtle);
   --frgm-date-range-shortcuts-width: 15.7143rem;
   --frgm-date-range-panel-pad: var(--space-4);
@@ -185,23 +198,44 @@
   --frgm-date-range-field-chip-pad-x: var(--frgm-control-pad-x-md);
   --frgm-date-range-field-chip-bg: var(--card-bg);
   --frgm-date-range-field-chip-border: var(--border-subtle);
+  --frgm-date-range-field-chip-hover-bg: var(--gray-50);
+  --frgm-date-range-field-chip-hover-border: var(--border-interactive);
   --frgm-date-range-field-chip-active-bg: var(--card-bg);
   --frgm-date-range-field-chip-active-border: var(--frgm-date-range-edge-fill);
   --frgm-date-range-field-chip-active-shadow: 0 0 0 2px var(--frgm-date-range-compare-fill);
-  --frgm-date-range-vs-size: 1.7143rem;
-  --frgm-date-range-vs-bg: var(--card-bg);
-  --frgm-date-range-vs-border: var(--border-subtle);
   --frgm-date-range-option-h: var(--frgm-control-h-sm);
   --frgm-date-range-option-pad-x: var(--space-3);
   --frgm-date-range-option-active-bg: var(--gray-100);
+  --frgm-date-range-option-hover-bg: var(--gray-50);
   --frgm-date-range-switch-w: 2.8571rem;
   --frgm-date-range-switch-h: 1.5714rem;
   --frgm-date-range-switch-pad: 0.1429rem;
+  --frgm-date-range-switch-off-bg: var(--gray-200);
+  --frgm-date-range-switch-on-bg: var(--green-600);
   --frgm-date-range-compare-font-size: 0.6071rem;
   --frgm-date-range-calendar-cell-h: 2rem;
   --frgm-date-range-calendar-nav-h: var(--frgm-control-h-sm);
+  --frgm-date-range-calendar-nav-bg: var(--gray-100);
+  --frgm-date-range-calendar-nav-hover-bg: var(--gray-200);
+  --frgm-date-range-calendar-nav-text: var(--slate-700);
+  --frgm-date-range-calendar-period-gap: var(--frgm-inline-gap-xs);
+  --frgm-date-range-calendar-period-pad-x: var(--space-2);
+  --frgm-date-range-calendar-month-gap: var(--frgm-date-range-panel-section-gap);
+  --frgm-date-range-calendar-scroll-max-h: 25rem;
+  --frgm-date-range-calendar-day-hover-bg: var(--gray-100);
+  --frgm-date-range-calendar-day-muted-text: var(--text-meta);
+  --frgm-date-range-calendar-month-text: var(--text-meta);
+  --frgm-date-range-calendar-weekday-text: var(--text-meta);
+  --frgm-date-range-calendar-day-text: var(--text-title);
   --frgm-date-range-footer-button-min-width: 7.7143rem;
+  --frgm-date-range-footer-secondary-bg: var(--gray-100);
+  --frgm-date-range-footer-secondary-hover-bg: var(--gray-200);
+  --frgm-date-range-footer-secondary-text: var(--frgm-date-range-text);
+  --frgm-date-range-footer-primary-bg: var(--primary);
+  --frgm-date-range-footer-primary-hover-bg: var(--primary-hover);
+  --frgm-date-range-footer-primary-text: var(--primary-fg);
   --frgm-date-range-mobile-inset: var(--space-4);
+  --frgm-date-range-mobile-breakpoint: 56rem;
   --frgm-date-range-selection-fill: rgb(193, 193, 193);
   --frgm-date-range-compare-fill: var(--gray-100);
   --frgm-date-range-edge-fill: rgb(26, 26, 26);
@@ -236,11 +270,32 @@
 
   --frgm-motion-duration: 0.15s;
   --frgm-motion-ease: ease;
+  --frgm-motion-duration-fast: 0.12s;
+  --frgm-motion-duration-md: var(--frgm-motion-duration);
+  --frgm-motion-duration-slow: 0.24s;
+  --frgm-motion-ease-standard: var(--frgm-motion-ease);
+  --frgm-motion-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --frgm-motion-ease-exit: cubic-bezier(0.7, 0, 0.84, 0);
+  --motion-fast: var(--frgm-motion-duration-fast) var(--frgm-motion-ease-standard);
+  --motion-med: var(--frgm-motion-duration-slow) var(--frgm-motion-ease-enter);
   --frgm-motion-hover-y: -1px;
   --frgm-motion-spin-duration: 0.9s;
   --frgm-motion-typing-duration: 1.4s;
   --frgm-state-disabled-opacity: 0.55;
   --frgm-state-muted-opacity: 0.5;
+  --frgm-state-loading-opacity: 0.85;
+  --frgm-state-readonly-opacity: 0.75;
+  --frgm-state-hover-bg: var(--gray-50);
+  --frgm-state-active-bg: var(--emerald-50);
+  --frgm-state-selected-bg: var(--emerald-50);
+  --frgm-state-selected-border: var(--emerald-100);
+  --frgm-state-danger-bg: var(--red-50);
+  --frgm-state-danger-fg: var(--red-700);
+  --frgm-effect-transition: background-color var(--frgm-motion-duration-fast) var(--frgm-motion-ease-standard), border-color var(--frgm-motion-duration-fast) var(--frgm-motion-ease-standard), color var(--frgm-motion-duration-fast) var(--frgm-motion-ease-standard), box-shadow var(--frgm-motion-duration-fast) var(--frgm-motion-ease-standard);
+  --frgm-effect-hover-bg: var(--frgm-state-hover-bg);
+  --frgm-effect-hover-border: var(--border-interactive);
+  --frgm-effect-hover-shadow: var(--shadow-elev);
+  --frgm-effect-focus-shadow: var(--shadow-focus);
 }
 
 /* ── Dark mode ─────────────────────────────────────────────────────────

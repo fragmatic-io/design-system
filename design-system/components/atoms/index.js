@@ -456,28 +456,47 @@ export function DateRangeControl({
   const rootRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
   const [resolvedAlign, setResolvedAlign] = React.useState(align === 'end' ? 'end' : 'start');
+  const [resolvedPlacement, setResolvedPlacement] = React.useState('bottom');
+  const [isConstrained, setIsConstrained] = React.useState(false);
   const [selectedLabel, setSelectedLabel] = React.useState(label);
   const [isCompare, setIsCompare] = React.useState(!!compareRange || defaultCompare);
   const [selectedCompare, setSelectedCompare] = React.useState(comparisonOptions[0]?.key);
-  const calendarDays = [
-    { key: 'mar-29', label: '29', muted: true },
-    { key: 'mar-30', label: '30', muted: true },
-    { key: 'mar-31', label: '31', muted: true },
-    ...Array.from({ length: 30 }, (_, index) => {
-      const day = index + 1;
-      return {
-        key: `apr-${day}`,
-        label: String(day),
-        selection: day >= 28,
-        selectionStart: day === 28,
-        selectionEnd: day === 30,
-        compare: day >= 21 && day <= 27,
-        compareStart: day === 21,
-        compareEnd: day === 27,
-      };
-    }),
-    { key: 'may-1', label: '1', muted: true },
-    { key: 'may-2', label: '2', muted: true },
+  const formatCalendarKey = (date) => [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
+  const isBetweenCalendarKeys = (key, start, end) => key >= start && key <= end;
+  const buildCalendarMonth = ({ key, label: monthLabel, year, month }) => {
+    const firstOfMonth = new Date(year, month, 1);
+    const firstVisible = new Date(year, month, 1 - firstOfMonth.getDay());
+
+    return {
+      key,
+      label: monthLabel,
+      days: Array.from({ length: 42 }, (_, index) => {
+        const date = new Date(firstVisible);
+        date.setDate(firstVisible.getDate() + index);
+        const dateKey = formatCalendarKey(date);
+
+        return {
+          key: `${key}-${dateKey}`,
+          label: String(date.getDate()),
+          muted: date.getMonth() !== month,
+          selection: isBetweenCalendarKeys(dateKey, '2026-04-28', '2026-05-04'),
+          selectionStart: dateKey === '2026-04-28',
+          selectionEnd: dateKey === '2026-05-04',
+          compare: isBetweenCalendarKeys(dateKey, '2026-04-21', '2026-04-27'),
+          compareStart: dateKey === '2026-04-21',
+          compareEnd: dateKey === '2026-04-27',
+        };
+      }),
+    };
+  };
+  const calendarMonths = [
+    buildCalendarMonth({ key: 'mar-2026', label: 'Mar 2026', year: 2026, month: 2 }),
+    buildCalendarMonth({ key: 'apr-2026', label: 'Apr 2026', year: 2026, month: 3 }),
+    buildCalendarMonth({ key: 'may-2026', label: 'May 2026', year: 2026, month: 4 }),
   ];
   const presetItems = presets.map((preset) => {
     const presetLabel = typeof preset === 'string' ? preset : preset.label;
@@ -503,17 +522,32 @@ export function DateRangeControl({
     return () => document.removeEventListener('pointerdown', closeOnOutsidePointerDown);
   }, [isOpen]);
 
+  React.useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      const scroller = rootRef.current?.querySelector('.frgm-date-range-month');
+      const currentMonth = rootRef.current?.querySelector('[data-current-month="true"]');
+      const selectionStart = rootRef.current?.querySelector('[data-selection-start="true"]');
+      const target = selectionStart || currentMonth;
+
+      if (scroller && target) {
+        const centeredOffset = target.offsetTop - scroller.offsetTop - (scroller.clientHeight / 2);
+        scroller.scrollTop = Math.max(0, centeredOffset);
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [isOpen]);
+
   React.useLayoutEffect(() => {
     if (!isOpen) {
       return;
     }
 
     const updatePopoverAlignment = () => {
-      if (align !== 'auto') {
-        setResolvedAlign(align === 'end' ? 'end' : 'start');
-        return;
-      }
-
       const root = rootRef.current;
       const popover = root?.querySelector('.frgm-date-range-popover');
 
@@ -523,11 +557,19 @@ export function DateRangeControl({
 
       const rootRect = root.getBoundingClientRect();
       const popoverWidth = popover.getBoundingClientRect().width;
+      const popoverHeight = popover.getBoundingClientRect().height;
       const viewportPadding = 16;
       const wouldOverflowRight = rootRect.left + popoverWidth > window.innerWidth - viewportPadding;
       const fitsFromRightEdge = rootRect.right - popoverWidth >= viewportPadding;
+      const availableBelow = window.innerHeight - rootRect.bottom - viewportPadding;
+      const availableAbove = rootRect.top - viewportPadding;
+      const nextPlacement = availableBelow < Math.min(popoverHeight, 420) && availableAbove > availableBelow ? 'top' : 'bottom';
+      const availableHeight = nextPlacement === 'top' ? availableAbove : availableBelow;
 
-      setResolvedAlign(wouldOverflowRight && fitsFromRightEdge ? 'end' : 'start');
+      setResolvedAlign(align !== 'auto' ? (align === 'end' ? 'end' : 'start') : (wouldOverflowRight && fitsFromRightEdge ? 'end' : 'start'));
+      setResolvedPlacement(nextPlacement);
+      setIsConstrained(availableHeight < popoverHeight);
+      root.style.setProperty('--frgm-date-range-popover-available-h', `${Math.max(320, availableHeight)}px`);
     };
 
     updatePopoverAlignment();
@@ -559,6 +601,8 @@ export function DateRangeControl({
       ref: rootRef,
       className: cx('frgm-date-range-control', className),
       'data-align': resolvedAlign,
+      'data-placement': resolvedPlacement,
+      'data-constrained': isConstrained ? 'true' : undefined,
       'data-open': isOpen ? 'true' : undefined,
       'data-selected': selectedLabel ? 'true' : undefined,
     },
@@ -674,7 +718,6 @@ export function DateRangeControl({
             React.createElement('button', { type: 'button', 'data-active': 'true' }, 'Apr 28, 2026'),
             React.createElement('button', { type: 'button' }, 'May 4, 2026'),
           ),
-          isCompare && React.createElement('span', { className: 'frgm-date-range-vs', 'aria-hidden': 'true' }, 'vs'),
           isCompare && React.createElement(
             'div',
             { className: 'frgm-date-range-field-row', 'data-variant': 'compare', role: 'group', 'aria-label': 'Compare date range' },
@@ -686,10 +729,20 @@ export function DateRangeControl({
         React.createElement(
           'div',
           { className: 'frgm-date-range-month-nav' },
-          React.createElement('button', { type: 'button', 'aria-label': 'Previous month' }, '‹'),
-          React.createElement('b', null, 'April', React.createElement('span', null, '⌄')),
-          React.createElement('b', null, '2026', React.createElement('span', null, '⌄')),
-          React.createElement('button', { type: 'button', 'aria-label': 'Next month' }, '›'),
+          React.createElement('button', { className: 'frgm-date-range-nav-button', type: 'button', 'aria-label': 'Previous month' }, '‹'),
+          React.createElement(
+            'button',
+            { className: 'frgm-date-range-period-button', type: 'button', 'aria-label': 'Choose month' },
+            React.createElement('span', null, 'April'),
+            React.createElement('span', { className: 'frgm-date-range-period-chevron' }, icons.chevronDown),
+          ),
+          React.createElement(
+            'button',
+            { className: 'frgm-date-range-period-button', type: 'button', 'aria-label': 'Choose year' },
+            React.createElement('span', null, '2026'),
+            React.createElement('span', { className: 'frgm-date-range-period-chevron' }, icons.chevronDown),
+          ),
+          React.createElement('button', { className: 'frgm-date-range-nav-button', type: 'button', 'aria-label': 'Next month' }, '›'),
         ),
         React.createElement(
           'div',
@@ -699,27 +752,34 @@ export function DateRangeControl({
         React.createElement(
           'div',
           { className: 'frgm-date-range-month' },
-          React.createElement('b', null, 'Apr 2026'),
-          React.createElement(
-            'div',
-            { className: 'frgm-date-range-days' },
-            ...calendarDays.map((day) => React.createElement(
-              'button',
-              {
-                key: day.key,
-                type: 'button',
-                'data-muted': day.muted ? 'true' : undefined,
-                'data-selection': day.selection ? 'true' : undefined,
-                'data-selection-start': day.selectionStart ? 'true' : undefined,
-                'data-selection-end': day.selectionEnd ? 'true' : undefined,
-                'data-compare': isCompare && day.compare ? 'true' : undefined,
-                'data-compare-start': isCompare && day.compareStart ? 'true' : undefined,
-                'data-compare-end': isCompare && day.compareEnd ? 'true' : undefined,
-              },
-              day.label,
-            )),
-          ),
-          React.createElement('b', null, 'May 2026'),
+          ...calendarMonths.map((month) => React.createElement(
+            'section',
+            {
+              className: 'frgm-date-range-month-section',
+              key: month.key,
+              'data-current-month': month.key === 'apr-2026' ? 'true' : undefined,
+            },
+            React.createElement('b', null, month.label),
+            React.createElement(
+              'div',
+              { className: 'frgm-date-range-days' },
+              ...month.days.map((day) => React.createElement(
+                'button',
+                {
+                  key: day.key,
+                  type: 'button',
+                  'data-muted': day.muted ? 'true' : undefined,
+                  'data-selection': day.selection ? 'true' : undefined,
+                  'data-selection-start': day.selectionStart ? 'true' : undefined,
+                  'data-selection-end': day.selectionEnd ? 'true' : undefined,
+                  'data-compare': isCompare && day.compare ? 'true' : undefined,
+                  'data-compare-start': isCompare && day.compareStart ? 'true' : undefined,
+                  'data-compare-end': isCompare && day.compareEnd ? 'true' : undefined,
+                },
+                day.label,
+              )),
+            ),
+          )),
         ),
         React.createElement(
           'div',

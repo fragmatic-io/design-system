@@ -110,9 +110,11 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-date-range-field-head/);
   assert.match(css, /\.frgm-date-range-field-row/);
   assert.match(css, /\.frgm-date-range-field-label/);
-  assert.match(css, /\.frgm-date-range-vs/);
   assert.match(css, /\.frgm-date-range-month-nav/);
+  assert.match(css, /\.frgm-date-range-period-button/);
+  assert.match(css, /\.frgm-date-range-month-section/);
   assert.match(css, /\.frgm-date-range-footer/);
+  assert.doesNotMatch(css, /\.frgm-date-range-vs/);
   assert.doesNotMatch(css, /frgm-date-range-presets/);
   assert.match(css, /var\(--frgm-date-range-h\)/);
   assert.match(css, /var\(--frgm-date-range-border\)/);
@@ -121,7 +123,10 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /var\(--frgm-date-range-popover-border\)/);
   assert.match(css, /var\(--frgm-date-range-shortcuts-width\)/);
   assert.match(css, /var\(--frgm-date-range-field-chip-active-border\)/);
+  assert.match(css, /var\(--frgm-date-range-field-chip-hover-bg\)/);
   assert.match(css, /var\(--frgm-date-range-option-active-bg\)/);
+  assert.match(css, /var\(--frgm-date-range-calendar-day-hover-bg\)/);
+  assert.match(css, /var\(--frgm-effect-transition\)/);
   assert.match(css, /var\(--frgm-date-range-selection-fill\)/);
   assert.match(css, /\.frgm-date-range-control\[data-open='true'\]\s*{[\s\S]*?border-color:\s*var\(--frgm-date-range-border-active\)/);
   assert.match(css, /\.frgm-date-range-control\[data-selected='true'\]\s+\.frgm-date-range-display/);
@@ -134,8 +139,14 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-date-range-popover-border:\s*var\(--border-subtle\)/);
   assert.match(tokens, /--frgm-date-range-panel-pad:\s*var\(--space-4\)/);
   assert.match(tokens, /--frgm-date-range-field-chip-active-shadow:/);
-  assert.match(tokens, /--frgm-date-range-vs-size:\s*1\.7143rem/);
   assert.match(tokens, /--frgm-date-range-option-active-bg:\s*var\(--gray-100\)/);
+  assert.match(tokens, /--frgm-date-range-calendar-nav-hover-bg:/);
+  assert.match(tokens, /--frgm-date-range-calendar-day-hover-bg:/);
+  assert.match(tokens, /--frgm-effect-transition:/);
+  assert.match(tokens, /--border-strong:/);
+  assert.match(tokens, /--shadow-soft:/);
+  assert.match(tokens, /--motion-fast:/);
+  assert.match(tokens, /--accent:/);
   assert.match(tokens, /--frgm-date-range-edge-fill:\s*rgb\(26, 26, 26\)/);
   assert.match(css, /\.frgm-secondary-topbar/);
   assert.match(css, /\.frgm-secondary-topbar-breadcrumb/);
@@ -143,6 +154,25 @@ test('atom styles use design tokens', async () => {
   assert.doesNotMatch(css, /frgm-secondary-topbar-toggle/);
   assert.doesNotMatch(css, /data-state='collapsed'/);
   assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);
+});
+
+test('foundation CSS variables used by atoms and app shell are defined', async () => {
+  const sources = await Promise.all([
+    readFile(new URL('../tokens/tokens.css', import.meta.url), 'utf8'),
+    readFile(new URL('../components/atoms/atoms.css', import.meta.url), 'utf8'),
+    readFile(new URL('../patterns/app-shell/app-shell.css', import.meta.url), 'utf8'),
+  ]);
+  const [tokens, atomsCss, appShellCss] = sources;
+  const definitions = new Set([...tokens.matchAll(/(--[\w-]+)\s*:/g)].map((match) => match[1]));
+
+  for (const css of [atomsCss, appShellCss]) {
+    for (const match of css.matchAll(/var\((--[\w-]+)(\s*,)?/g)) {
+      if (match[2]) {
+        continue;
+      }
+      assert.ok(definitions.has(match[1]) || css.includes(`${match[1]}:`), `${match[1]} is used but not defined`);
+    }
+  }
 });
 
 test('preview form examples use foundation form primitives', async () => {
@@ -194,10 +224,12 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /--frgm-date-range-h/);
   assert.match(contract, /--frgm-date-range-popover-\*/);
   assert.match(contract, /Date range borders have three defined types/);
-  assert.match(contract, /Date field chips have normal and active definitions/);
+  assert.match(contract, /Date field chips have normal, hover, and active definitions/);
   assert.match(contract, /align` API \(`auto`, `start`, or `end`\)/);
   assert.match(contract, /react-date-range/);
-  assert.match(contract, /centered `vs` separator/);
+  assert.doesNotMatch(contract, /centered `vs` separator/);
+  assert.match(contract, /previous, current, and next month sections/);
+  assert.match(contract, /Effects/);
   assert.match(contract, /compare toggle/);
   assert.match(contract, /dashboard 44px two-part date trigger/);
   assert.match(contract, /Audit Result/);

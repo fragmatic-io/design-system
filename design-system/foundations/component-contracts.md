@@ -8,12 +8,14 @@ This document is the audit boundary for exported atoms. Components must consume 
 | --- | --- | --- |
 | Brand color | `--emerald-*`, `--primary`, `--primary-hover`, `--primary-fg` | Brand actions, active states, selected pills, progress fill. |
 | Surface | `--page-bg`, `--card-bg`, `--border-subtle` | Page, card, neutral control backgrounds, borders. |
+| Borders | `--border-subtle`, `--border-strong`, `--border-interactive`, `--border-focus`, `--border-selected`, `--border-danger`, `--border-width-*` | Passive, hover, focus, selected, danger, and emphasis border roles. |
 | Text | `--text-title`, `--text-body`, `--text-caption`, `--text-meta`, `--gray-*` | Text hierarchy, inactive states, muted metadata. |
 | Status | `--amber-*`, `--red-*`, `--lime-*`, `--blue-*` | Warning, error, positive/negative metric, focus ring. |
 | Shape | `--r-4`, `--r-6`, `--r-pill`, `--frgm-control-radius`, `--frgm-pill-radius` | Control, segment, and pill shape. |
 | Type | `--font-sans`, `--font-mono`, `--frgm-control-font-*`, `--frgm-pill-font-size` | Component text sizing and weights. |
 | Spacing | `--space-*`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-pill-pad-*` | Shared spacing scale, control dimensions, atom gaps, pill padding. |
-| Motion/state | `--frgm-motion-*`, `--frgm-state-*` | Hover lift, transitions, loader timing, disabled opacity. |
+| Effects | `--shadow-*`, `--frgm-effect-*` | Elevation, focus/selected rings, hover shadows, and shared transition recipes. |
+| Motion/state | `--frgm-motion-*`, `--motion-fast`, `--motion-med`, `--frgm-state-*` | Hover lift, semantic transitions, loader timing, disabled, loading, readonly, hover, active, selected, and danger states. |
 | Iconography | `components/atoms/icons.js`, `--frgm-icon-size-*`, `--frgm-dot-size` | Package-local line icons and dot indicators. |
 | Brand assets | `components/brand`, `assets/brand/*.svg`, `brandLogoItems` | Fragmatic mark, sidebar tile, and wordmark as reusable foundation items. |
 
@@ -37,11 +39,13 @@ Dashboard-style page context bars use `SecondaryTopbar`, composed with `DateRang
 
 The app shell secondary topbar preserves the existing page breadcrumb and contextual action area; date fields are an additive control in the same row, not a replacement for the breadcrumb.
 
-`DateRangeControl` follows the dashboard `DateRangeDropdown` behavior: preset shortcuts (`Last 7/14/28/30/90 Days`, `Custom`), compare toggle, comparison options, draft selection, cancel, and apply. The field area uses a compact Range row, a centered `vs` separator, and a Compare row when comparison is enabled. The dashboard code uses `react-date-range` with `date-fns`; the design-system component extracts that reusable UI contract while avoiding app-only Redux preference wiring.
+`DateRangeControl` follows the dashboard `DateRangeDropdown` behavior: preset shortcuts (`Last 7/14/28/30/90 Days`, `Custom`), compare toggle, comparison options, draft selection, cancel, and apply. The field area uses compact Range and Compare rows without decorative separators. The dashboard code uses `react-date-range` with `date-fns`; the design-system component extracts that reusable UI contract while avoiding app-only Redux preference wiring.
 
-`DateRangeControl` uses the dashboard-derived date range tokens in `tokens/tokens.css`: `--frgm-date-range-h`, `--frgm-date-range-min-width`, `--frgm-date-range-max-width`, `--frgm-date-range-pad-*`, `--frgm-date-range-popover-*`, `--frgm-date-range-panel-*`, `--frgm-date-range-border`, `--frgm-date-range-border-active`, `--frgm-date-range-divider`, `--frgm-date-range-text`, `--frgm-date-range-shadow`, `--frgm-date-range-surface`, `--frgm-date-range-field-*`, `--frgm-date-range-option-*`, and `--frgm-date-range-selection-*`. Do not resize this control with shell-local CSS.
+`DateRangeControl` uses the dashboard-derived date range tokens in `tokens/tokens.css`: `--frgm-date-range-h`, `--frgm-date-range-min-width`, `--frgm-date-range-max-width`, `--frgm-date-range-pad-*`, `--frgm-date-range-popover-*`, `--frgm-date-range-panel-*`, `--frgm-date-range-border`, `--frgm-date-range-border-active`, `--frgm-date-range-divider`, `--frgm-date-range-text`, `--frgm-date-range-shadow`, `--frgm-date-range-surface`, `--frgm-date-range-field-*`, `--frgm-date-range-option-*`, `--frgm-date-range-calendar-*`, `--frgm-date-range-footer-*`, and `--frgm-date-range-selection-*`. Do not resize this control with shell-local CSS.
 
-Date range borders have three defined types: control border (`--frgm-date-range-border`), active/open control border (`--frgm-date-range-border-active`), and popover section border (`--frgm-date-range-popover-border`). Date field chips have normal and active definitions through `--frgm-date-range-field-chip-*`; selected range cells use `--frgm-date-range-selection-fill` with edge cells using `--frgm-date-range-edge-fill`. Spacing between the trigger and popover, shortcut rail, field area, calendar, and footer must come from the date-range spacing tokens, not component-local margins.
+Date range borders have three defined types: control border (`--frgm-date-range-border`), active/open control border (`--frgm-date-range-border-active`), and popover section border (`--frgm-date-range-popover-border`). Date field chips have normal, hover, and active definitions through `--frgm-date-range-field-chip-*`; selected range cells use `--frgm-date-range-selection-fill` with edge cells using `--frgm-date-range-edge-fill`. Calendar hover, period-button spacing, switch colors, and footer button states must use date-range tokens plus `--frgm-effect-transition`. Spacing between the trigger and popover, shortcut rail, field area, calendar, and footer must come from the date-range spacing tokens, not component-local margins.
+
+The calendar scroll area shows previous, current, and next month sections so selection and comparison ranges can render across month boundaries. Month and year selectors must be tokenized buttons that use the icon module chevron, not text glyphs or locally positioned dropdown arrows.
 
 Date popovers must use the component `align` API (`auto`, `start`, or `end`) instead of preview or shell positioning overrides. `auto` is the default and resolves against the viewport so a date control placed near the right edge opens left without clipping, while left-side placements open from the left.
 
