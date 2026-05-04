@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { DropdownMenu, SecondaryTopbar } from '../components/atoms/index.js';
+import { DateRangeControl, DropdownMenu, SecondaryTopbar } from '../components/atoms/index.js';
 import { icons } from '../components/atoms/icons.js';
 import { BrandLogoButton, FragmaticMark, FragmaticSidebarTile } from '../components/brand/index.js';
 
@@ -64,11 +64,20 @@ const secondaryTopbarByPage = {
 };
 
 const secondaryTopbarDemo = document.querySelector('[data-ds-secondary-topbar-demo]');
+const dateRangeDemo = document.querySelector('[data-ds-date-range-demo]');
 
 if (secondaryTopbarDemo) {
   createRoot(secondaryTopbarDemo).render(React.createElement(SecondaryTopbar, {
     breadcrumbPath: [{ label: 'Analytics' }, { label: 'Overview' }],
     datePreset: 'Last 90 Days',
+    dateRange: '4 Feb-4 May 2026',
+    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
+  }));
+}
+
+if (dateRangeDemo) {
+  createRoot(dateRangeDemo).render(React.createElement(DateRangeControl, {
+    label: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
     presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   }));
@@ -95,8 +104,8 @@ const dropdownSlotRenderers = {
     variant: 'avatar',
     align: 'end',
     items: [
-      { label: 'Logout', danger: true },
       { label: 'Profile Settings', icon: icons.profiles },
+      { label: 'Logout', danger: true },
     ],
   }),
 };

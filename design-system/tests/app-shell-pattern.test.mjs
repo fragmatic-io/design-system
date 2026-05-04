@@ -6,6 +6,7 @@ test('app shell is packaged as a modular pattern', async () => {
   const pkg = JSON.parse(await readFile(new URL('../../package.json', import.meta.url), 'utf8'));
   const readme = await readFile(new URL('../README.md', import.meta.url), 'utf8');
   const index = await readFile(new URL('../index.js', import.meta.url), 'utf8');
+  const appShellPage = await readFile(new URL('../previews/app-shell.html', import.meta.url), 'utf8');
 
   assert.equal(pkg.exports['./patterns/app-shell.css'], './design-system/patterns/app-shell/app-shell.css');
   assert.match(readme, /patterns\/app-shell\.css/);
@@ -14,6 +15,9 @@ test('app shell is packaged as a modular pattern', async () => {
   assert.match(readme, /`narrow`: settings, forms/);
   assert.match(readme, /Context navigation should switch between page containers from a component\/data map/);
   assert.match(index, /appShell: '@fragmatic\/design-system\/patterns\/app-shell\.css'/);
+  assert.match(appShellPage, /<title>Fragmatic — App Shell Preview<\/title>/);
+  assert.match(appShellPage, /class="frgm-app-shell"/);
+  assert.match(appShellPage, /src="\.\/app-shell-preview\.mjs"/);
 });
 
 test('app shell preview uses product concepts from the dashboard reference', async () => {
@@ -25,6 +29,10 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(preview, /href="\.\.\/components\/brand\/brand\.css"/);
   assert.match(preview, /href="\.\.\/patterns\/app-shell\/app-shell\.css"/);
   assert.match(preview, /src="\.\/app-shell-preview\.mjs"/);
+  assert.match(preview, /href="#app-shell"/);
+  assert.match(preview, /id="app-shell"/);
+  assert.match(preview, /href="\.\/app-shell\.html" target="_blank"/);
+  assert.match(preview, /Open full app shell/);
   assert.match(preview, /data-ds-dropdown-slot="domain"/);
   assert.match(preview, /data-ds-dropdown-slot="profile"/);
   assert.doesNotMatch(preview, /Production domain/);
@@ -75,7 +83,7 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /const shellNavSections = \[/);
   assert.match(previewModule, /const shellContextItems = \[/);
   assert.match(previewModule, /const secondaryTopbarByPage = \{/);
-  assert.match(previewModule, /import \{ DropdownMenu, SecondaryTopbar \} from '\.\.\/components\/atoms\/index\.js'/);
+  assert.match(previewModule, /import \{ DateRangeControl, DropdownMenu, SecondaryTopbar \} from '\.\.\/components\/atoms\/index\.js'/);
   assert.match(previewModule, /import \{ BrandLogoButton, FragmaticMark, FragmaticSidebarTile \} from '\.\.\/components\/brand\/index\.js'/);
   assert.match(previewModule, /const dropdownSlotRenderers = \{/);
   assert.match(previewModule, /domain: \(\) => React\.createElement\(DropdownMenu/);
@@ -84,8 +92,8 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /variant: 'avatar'/);
   assert.match(previewModule, /label: 'acme\.io'/);
   assert.match(previewModule, /caption: 'Acme'/);
-  assert.match(previewModule, /label: 'Logout', danger: true/);
-  assert.match(previewModule, /label: 'Profile Settings'/);
+  assert.match(previewModule, /label: 'Profile Settings'[\s\S]*label: 'Logout', danger: true/);
+  assert.doesNotMatch(previewModule, /label: 'Logout', danger: true[\s\S]*label: 'Profile Settings'/);
   assert.doesNotMatch(previewModule, /settings: \(\) => React\.createElement\(DropdownMenu/);
   assert.doesNotMatch(previewModule, /Workspace members/);
   assert.match(previewModule, /const brandSlotRenderers = \{/);

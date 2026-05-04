@@ -79,6 +79,11 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-dropdown/);
   assert.match(css, /\.frgm-dropdown-trigger/);
   assert.match(css, /\.frgm-dropdown-panel/);
+  assert.match(css, /\.frgm-search svg\s*{[\s\S]*?width:\s*var\(--frgm-icon-size-md\)/);
+  assert.match(css, /\.frgm-field-group\s*{[\s\S]*?gap:\s*var\(--frgm-inline-gap-md\)/);
+  assert.match(css, /\.frgm-field-group-body\s*{[\s\S]*?margin-top:\s*var\(--frgm-inline-gap-xs\)/);
+  assert.match(css, /\.frgm-dropdown\[open\]\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
+  assert.match(css, /\.frgm-dropdown-panel\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
   assert.match(css, /\.frgm-date-range-control/);
   assert.match(css, /var\(--frgm-date-range-h\)/);
   assert.match(css, /var\(--frgm-date-range-border\)/);
@@ -105,6 +110,8 @@ test('preview form examples use foundation form primitives', async () => {
   assert.match(preview, /class="frgm-choice"/);
   assert.match(preview, /class="frgm-toggle-field"/);
   assert.match(preview, /class="frgm-field-group"/);
+  assert.match(preview, /Dropdown and date controls/);
+  assert.match(preview, /data-ds-date-range-demo/);
   assert.match(preview, /DropdownMenu/);
   assert.match(preview, /class="frgm-dropdown"/);
   assert.match(preview, /class="frgm-dropdown-trigger" data-variant="domain"/);

@@ -399,11 +399,23 @@
   .comp-meta .ref b { color: var(--gray-900); font-weight: 500 }
 
   .comp-body {
+    position: relative;
     display:flex; flex-wrap: wrap; gap: 0.8571rem; align-items: center; min-height: 2.8571rem;
   }
   .comp-body.col { flex-direction: column; align-items: flex-start; gap: 1.1429rem }
   .comp-body.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 1.7143rem; align-items: start }
   .comp-body.full { display: block }
+  .comp-body.surface {
+    align-items: flex-start;
+    padding: 1.1429rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--r-8);
+    background: var(--gray-50);
+  }
+  .comp:has(.frgm-dropdown[open]) {
+    position: relative;
+    z-index: var(--frgm-layer-popover);
+  }
 
   /* Buttons */
   .btn {
@@ -1888,6 +1900,7 @@
     <a href="#components"><span>Components</span><span>06</span></a>
     <a href="#charts"><span>Charts</span><span>07</span></a>
     <a href="#patterns"><span>Patterns</span><span>08</span></a>
+    <a href="#app-shell"><span>App shell</span><span>09</span></a>
   </nav>
 </aside>
 <div class="shell">
@@ -2213,8 +2226,8 @@
             <span class="frgm-dropdown-chevron" data-ds-icon-slot="chevronDown"></span>
           </summary>
           <div class="frgm-dropdown-panel" role="menu">
-            <button class="frgm-dropdown-item" type="button" role="menuitem" data-danger="true"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Logout</span></span></button>
             <button class="frgm-dropdown-item" type="button" role="menuitem"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Profile Settings</span></span></button>
+            <button class="frgm-dropdown-item" type="button" role="menuitem" data-danger="true"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Logout</span></span></button>
           </div>
         </details>
       </div>
@@ -2378,6 +2391,28 @@
           <input type="search" placeholder="Search segments, campaigns…">
           <kbd>⌘K</kbd>
         </label>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-meta">
+        <h4>Dropdown and date controls</h4>
+        <p>Form-adjacent selectors use the dropdown foundation. Date range uses the dashboard-derived two-part control and stays tokenized.</p>
+        <span class="ref"><b>DropdownMenu</b> · <b>DateRangeControl</b></span>
+      </div>
+      <div class="comp-body surface">
+        <details class="frgm-dropdown">
+          <summary class="frgm-dropdown-trigger">
+            <span class="frgm-dropdown-trigger-copy"><span class="frgm-dropdown-label">Audience status</span></span>
+            <span class="frgm-dropdown-chevron" data-ds-icon-slot="chevronDown"></span>
+          </summary>
+          <div class="frgm-dropdown-panel" role="menu">
+            <button class="frgm-dropdown-item" type="button" role="menuitem" data-active="true"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Active</span><span class="frgm-dropdown-item-description">Currently receiving campaigns</span></span></button>
+            <button class="frgm-dropdown-item" type="button" role="menuitem"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Scheduled</span><span class="frgm-dropdown-item-description">Starts later</span></span></button>
+            <button class="frgm-dropdown-item" type="button" role="menuitem"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Paused</span><span class="frgm-dropdown-item-description">Excluded from automation</span></span></button>
+          </div>
+        </details>
+        <div data-ds-date-range-demo></div>
       </div>
     </div>
 
@@ -2689,7 +2724,7 @@
     </div>
 
     <!-- App shell -->
-    <div class="group-head"><h3>App shell</h3><span class="note">design-system/patterns/app-shell · product routes, not dashboard UX</span></div>
+    <div class="group-head" id="app-shell"><h3>App shell</h3><span class="note">design-system/patterns/app-shell · product routes, not dashboard UX</span><a class="frgm-button" data-variant="secondary" data-size="sm" href="./app-shell.html" target="_blank" rel="noopener">Open full app shell</a></div>
     <div class="pattern-frame tight">
       <div class="frgm-app-shell">
         <header class="frgm-app-topbar">

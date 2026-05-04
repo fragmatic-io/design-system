@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Fragmatic — App Shell Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="../tokens/tokens.css" />
+<link rel="stylesheet" href="../components/atoms/atoms.css" />
+<link rel="stylesheet" href="../components/brand/brand.css" />
+<link rel="stylesheet" href="../patterns/app-shell/app-shell.css" />
+<style>
+  *,*::before,*::after { box-sizing: border-box }
+  html, body { margin: 0; min-height: 100% }
+  html { font-size: 14px }
+  body {
+    background: var(--page-bg);
+    color: var(--text-title);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  .frgm-app-shell {
+    min-height: 100vh;
+    border: 0;
+    border-radius: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="frgm-app-shell">
+    <header class="frgm-app-topbar">
+      <div class="frgm-app-topbar-brand">
+        <a class="frgm-app-topbar-logo" href="./fragmatic-design-system.html#app-shell" aria-label="Fragmatic home" data-ds-brand-slot="topbarMark"></a>
+        <span data-ds-dropdown-slot="domain"></span>
+      </div>
+      <div class="frgm-app-topbar-spacer"></div>
+      <div class="frgm-app-actions">
+        <label class="frgm-search frgm-app-command">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
+          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search workspace</span>
+          <input type="search" placeholder="Search, jump, or ask..." />
+        </label>
+        <button class="frgm-app-icon-button" title="Notifications" type="button" data-context-open data-context-panel-target="notifications" aria-controls="frgm-recommendation-context" aria-expanded="false">
+          <span data-ds-icon-slot="notification"></span>
+        </button>
+        <span data-ds-dropdown-slot="profile"></span>
+      </div>
+    </header>
+    <div class="frgm-app-secondary-topbar" data-ds-secondary-topbar></div>
+    <aside class="frgm-app-sidebar" aria-label="Product navigation">
+      <nav class="frgm-app-nav" data-ds-shell-nav></nav>
+    </aside>
+
+    <aside class="frgm-app-context-nav" aria-label="Analytics navigation">
+      <div class="frgm-app-context-head">
+        <b>Analytics</b>
+        <span>Context navigation replaces page-level tabs.</span>
+      </div>
+      <nav class="frgm-app-context-list" data-ds-shell-context-nav></nav>
+    </aside>
+
+    <main class="frgm-app-main">
+      <section class="frgm-app-content">
+        <div class="frgm-app-workspace">
+          <section class="frgm-app-main-container" data-width="full" data-shell-page="analytics" aria-label="Full width analytics container">
+            <div class="frgm-app-page-head">
+              <div class="frgm-app-page-title">
+                <h3>Analytics overview</h3>
+                <p>Full-width main container for data-heavy dashboards, charts, tables, and recommendation surfaces.</p>
+              </div>
+            </div>
+            <div class="frgm-app-stat-row">
+              <div class="frgm-app-stat"><span>Profiles</span><strong>28.4k</strong><small class="frgm-profit" data-direction="up">↗ 8.2%</small></div>
+              <div class="frgm-app-stat"><span>Conversion</span><strong>4.82%</strong><small class="frgm-profit" data-direction="up">↗ 0.4 pts</small></div>
+              <div class="frgm-app-stat"><span>Revenue influenced</span><strong>$84.2k</strong><small class="frgm-profit" data-direction="up">↗ 12.4%</small></div>
+              <div class="frgm-app-stat"><span>Open recommendations</span><strong>12</strong><small class="frgm-profit" data-direction="down">↘ 3 overdue</small></div>
+            </div>
+            <div class="frgm-app-canvas">
+              <div class="frgm-app-panel">
+                <div class="frgm-app-panel-head">
+                  <div class="frgm-app-panel-title">
+                    <h4>Acquisition to activation</h4>
+                    <p>Journey and content performance over the last 7 days.</p>
+                  </div>
+                  <span class="frgm-segment-status" data-status="active"><span class="frgm-icon-dot"></span><span>active</span></span>
+                </div>
+                <div class="frgm-app-chart">
+                  <svg viewBox="0 0 680 220" role="img" aria-label="Activation trend chart">
+                    <g class="frgm-app-grid-line">
+                      <line x1="24" y1="42" x2="656" y2="42"/><line x1="24" y1="92" x2="656" y2="92"/><line x1="24" y1="142" x2="656" y2="142"/><line x1="24" y1="192" x2="656" y2="192"/>
+                    </g>
+                    <g class="frgm-app-bars">
+                      <rect x="54" y="150" width="28" height="42" rx="4"/><rect x="142" y="130" width="28" height="62" rx="4"/><rect x="230" y="116" width="28" height="76" rx="4"/><rect x="318" y="96" width="28" height="96" rx="4"/><rect x="406" y="108" width="28" height="84" rx="4"/><rect x="494" y="82" width="28" height="110" rx="4"/><rect x="582" y="62" width="28" height="130" rx="4"/>
+                    </g>
+                    <path class="frgm-app-series-muted" d="M54 170 C132 152 180 148 230 136 C314 116 358 126 406 110 C480 84 526 92 610 68"/>
+                    <path class="frgm-app-series" d="M54 182 C132 166 180 144 230 150 C314 158 358 96 406 92 C480 88 526 68 610 44"/>
+                  </svg>
+                  <div class="frgm-app-chart-labels"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                </div>
+              </div>
+              <div class="frgm-app-panel">
+                <div class="frgm-app-panel-head">
+                  <div class="frgm-app-panel-title">
+                    <h4>Top segments</h4>
+                    <p>Audiences currently shaping goals.</p>
+                  </div>
+                </div>
+                <div class="frgm-app-segments">
+                  <div class="frgm-app-segment"><span><strong>High-intent visitors</strong><span>Pricing + trial start in 7d</span></span><span class="frgm-profit" data-direction="up">↗ 18%</span></div>
+                  <div class="frgm-app-segment"><span><strong>Trial day 5</strong><span>Needs onboarding nudge</span></span><span class="frgm-profit" data-direction="up">↗ 9%</span></div>
+                  <div class="frgm-app-segment"><span><strong>Returning shoppers</strong><span>Cart abandoners with SMS gap</span></span><span class="frgm-profit" data-direction="down">↘ 6%</span></div>
+                  <div class="frgm-app-segment"><span><strong>Enterprise evaluators</strong><span>Security page + demo views</span></span><span class="frgm-profit" data-direction="up">↗ 14%</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="frgm-app-reco-list">
+              <article class="frgm-app-reco" data-context-card>
+                <h4>AI Marketer recommends a 24h SMS journey for cart abandoners.</h4>
+                <p>Impact estimate is based on 3,914 sessions, current channel coverage, and goal attribution from the last 30 days.</p>
+                <div class="frgm-app-reco-foot">
+                  <span class="frgm-badge" data-status="active"><span>High confidence</span></span>
+                  <button class="frgm-button" data-variant="secondary" data-size="sm" type="button" data-context-open data-context-panel-target="recommendation" aria-controls="frgm-recommendation-context" aria-expanded="false">Open context panel</button>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="frgm-app-main-container" data-width="narrow" data-shell-page="settings" aria-label="Narrow centered settings container" hidden>
+            <div class="frgm-app-page-head">
+              <div class="frgm-app-page-title">
+                <h3>Project settings</h3>
+                <p>Centered narrow main container for forms, settings, and low-density configuration pages.</p>
+              </div>
+            </div>
+            <div class="frgm-app-settings-card">
+              <div class="frgm-app-settings-row">
+                <div><h4>Project name</h4><p>Displayed throughout the workspace.</p></div>
+                <label class="frgm-field" style="--frgm-field-width:100%"><span class="frgm-field-label">Project name</span><input class="frgm-input" type="text" value="FMEA"></label>
+              </div>
+              <div class="frgm-app-settings-row">
+                <div><h4>Default channel</h4><p>New recommendations start with this channel.</p></div>
+                <label class="frgm-field" style="--frgm-field-width:100%"><span class="frgm-field-label">Default channel</span><select class="frgm-select"><option>Email</option><option>SMS</option><option>Push</option></select></label>
+              </div>
+              <div class="frgm-app-settings-row">
+                <div><h4>Workspace access</h4><p>Binary settings keep the form compact.</p></div>
+                <div class="frgm-field-group-body">
+                  <label class="frgm-toggle-field"><input type="checkbox" checked> <span>Organization-wide access</span></label>
+                  <label class="frgm-toggle-field"><input type="checkbox"> <span>Require approval for drafts</span></label>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <div class="frgm-app-context-overlay" id="frgm-recommendation-context" data-context-overlay aria-label="Reusable context panel" aria-hidden="true">
+      <div class="frgm-app-context-scrim" data-context-close></div>
+      <div class="frgm-app-context-panel">
+        <div class="frgm-app-context-panel-head">
+          <div><h4 data-context-panel-title>Recommendation context</h4><p data-context-panel-description>Reusable right panel for selected rows, charts, segments, journey nodes, and AI recommendations.</p></div>
+          <button class="frgm-app-icon-button" type="button" title="Close context panel" data-context-close><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l8 8M12 4l-8 8"/></svg></button>
+        </div>
+        <div class="frgm-app-context-panel-body">
+          <div class="frgm-app-context-panel-content" data-context-panel-content="recommendation">
+            <div class="frgm-app-context-panel-section"><b>Selected item</b><p>24h SMS journey for returning shoppers who abandoned cart after viewing pricing.</p></div>
+            <div class="frgm-app-context-panel-section"><b>Why it matters</b><p>3,914 sessions match this behavior. SMS coverage is currently 0, and similar profiles convert 3.4x better when reached within one day.</p></div>
+            <div class="frgm-app-context-panel-section"><b>Actions</b><button class="frgm-button" data-variant="primary" data-size="sm">Create journey draft</button><button class="frgm-button" data-variant="secondary" data-size="sm">Save for later</button></div>
+          </div>
+          <div class="frgm-app-context-panel-content" data-context-panel-content="notifications" hidden>
+            <div class="frgm-app-context-panel-section"><b>Sync completed</b><p>GA4 properties finished syncing 4 minutes ago. No action needed.</p></div>
+            <div class="frgm-app-context-panel-section"><b>Draft needs review</b><p>The abandoned-cart recommendation has a new confidence estimate.</p></div>
+            <div class="frgm-app-context-panel-section"><b>Usage alert</b><p>Profile ingestion is at 82 percent of the monthly plan limit.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <nav class="frgm-app-mobilebar" aria-label="Mobile product navigation">
+      <span class="active"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg>Home</span>
+      <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12l4-4 3 3 5-6"/></svg>Analytics</span>
+      <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="11" cy="11" r="3"/></svg>Segments</span>
+      <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l1.8 4.2L14 8l-4.2 1.8L8 14l-1.8-4.2L2 8l4.2-1.8z"/></svg>AI</span>
+    </nav>
+  </div>
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react-dom/client": "https://esm.sh/react-dom@18.3.1/client"
+      }
+    }
+  </script>
+  <script type="module" src="./app-shell-preview.mjs"></script>
+</body>
+</html>

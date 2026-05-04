@@ -104,7 +104,12 @@
   color: var(--text-title);
 }
 .frgm-search:focus-within { border-color: var(--primary); outline: 2px solid var(--frgm-control-focus-ring); outline-offset: var(--frgm-control-focus-offset) }
-.frgm-search svg { color: var(--gray-400); flex: 0 0 auto }
+.frgm-search svg {
+  width: var(--frgm-icon-size-md);
+  height: var(--frgm-icon-size-md);
+  color: var(--gray-400);
+  flex: 0 0 var(--frgm-icon-size-md);
+}
 .frgm-search input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: inherit; font: var(--frgm-control-font-size-md)/var(--frgm-control-line) var(--font-sans) }
 
 .frgm-field,
@@ -122,6 +127,7 @@
   margin: 0;
   padding: 0;
   border: 0;
+  gap: var(--frgm-inline-gap-md);
 }
 
 .frgm-field-group[data-layout='inline'] .frgm-field-group-body {
@@ -136,6 +142,10 @@
   min-width: 0;
   display: grid;
   gap: var(--frgm-inline-gap-md);
+}
+
+.frgm-field-group-body {
+  margin-top: var(--frgm-inline-gap-xs);
 }
 
 .frgm-field-row {
@@ -308,6 +318,10 @@
   min-width: 0;
 }
 
+.frgm-dropdown[open] {
+  z-index: var(--frgm-layer-popover);
+}
+
 .frgm-dropdown-trigger {
   min-height: var(--frgm-control-h-md);
   display: inline-flex;
@@ -446,7 +460,7 @@
   position: absolute;
   top: calc(100% + 0.4286rem);
   left: 0;
-  z-index: 50;
+  z-index: var(--frgm-layer-popover);
   width: max-content;
   min-width: var(--frgm-dropdown-panel-width, 14.8571rem);
   max-width: min(22rem, calc(100vw - 2rem));
