@@ -5,8 +5,8 @@ import assert from 'node:assert/strict';
 test('design system loads the tweak scripts', async () => {
   const html = await readFile(new URL('../previews/fragmatic-design-system.html', import.meta.url), 'utf8');
 
-  assert.match(html, /src="\.\.\/tools\/tweaks-panel\.jsx"/);
-  assert.match(html, /src="\.\.\/tools\/tweaks\.jsx"/);
+  assert.match(html, /src="\.\.\/tools\/tweaks-panel\.jsx\?v=dark-contrast"/);
+  assert.match(html, /src="\.\.\/tools\/tweaks\.jsx\?v=dark-contrast"/);
 });
 
 test('tweaks panel has a standalone browser launcher', async () => {

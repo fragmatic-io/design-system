@@ -139,6 +139,32 @@ const __TWEAKS_STYLE = `
     box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
     font:600 11.5px/1 ui-sans-serif,system-ui,-apple-system,sans-serif;cursor:default}
   .twk-launch:hover{background:rgba(255,255,255,.88)}
+
+  :root[data-theme="dark"] .twk-panel,
+  :root[data-theme="dark"] .twk-launch{
+    background:rgba(23,28,38,.86);color:var(--text-title,#f7f9fc);
+    border-color:rgba(255,255,255,.12);
+    box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 14px 44px rgba(0,0,0,.44)}
+  :root[data-theme="dark"] .twk-launch:hover{background:rgba(36,44,59,.94)}
+  :root[data-theme="dark"] .twk-hd b{color:var(--text-title,#f7f9fc)}
+  :root[data-theme="dark"] .twk-x{color:var(--text-caption,#9aa6bd)}
+  :root[data-theme="dark"] .twk-x:hover{background:rgba(255,255,255,.08);color:var(--text-title,#f7f9fc)}
+  :root[data-theme="dark"] .twk-lbl{color:var(--text-body,#d3dae7)}
+  :root[data-theme="dark"] .twk-val,
+  :root[data-theme="dark"] .twk-sect{color:var(--text-caption,#9aa6bd)}
+  :root[data-theme="dark"] .twk-field,
+  :root[data-theme="dark"] .twk-num{
+    background:var(--gray-100,#171c26);border-color:var(--border-subtle,#2c3547);
+    color:var(--text-title,#f7f9fc)}
+  :root[data-theme="dark"] .twk-field:focus{
+    background:var(--gray-100,#171c26);border-color:var(--primary,#10b981)}
+  :root[data-theme="dark"] .twk-seg{background:var(--gray-100,#171c26)}
+  :root[data-theme="dark"] .twk-seg-thumb{
+    background:var(--gray-200,#242c3b);box-shadow:0 0 0 1px var(--border-subtle,#2c3547)}
+  :root[data-theme="dark"] .twk-toggle{background:var(--gray-300,#374156)}
+  :root[data-theme="dark"] .twk-toggle[data-on="1"]{background:var(--primary,#10b981)}
+  :root[data-theme="dark"] .twk-btn.secondary{background:var(--gray-100,#171c26)}
+  :root[data-theme="dark"] .twk-btn.secondary:hover{background:var(--gray-200,#242c3b)}
 `;
 
 // ── useTweaks ───────────────────────────────────────────────────────────────

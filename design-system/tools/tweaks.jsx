@@ -82,6 +82,20 @@ const DENSITY = {
   dense:    { name: "Dense",    px: 12, sub: "compact · pro · ops view" },
 };
 
+function hexToRgb(hex) {
+  const value = hex.replace('#', '');
+  return {
+    r: parseInt(value.slice(0, 2), 16),
+    g: parseInt(value.slice(2, 4), 16),
+    b: parseInt(value.slice(4, 6), 16),
+  };
+}
+
+function alpha(hex, opacity) {
+  const { r, g, b } = hexToRgb(hex);
+  return `rgba(${r},${g},${b},${opacity})`;
+}
+
 function applyTweaks(t) {
   const temp = TEMPERAMENT[t.temperament] || TEMPERAMENT.cool;
   const surf = SURFACE[t.surface] || SURFACE.paper;
@@ -101,7 +115,15 @@ function applyTweaks(t) {
     r.setProperty("--primary", temp[800]);
     r.setProperty("--primary-hover", temp[700]);
   } else {
-    // In dark, lean on a bright accent rather than the deep brand
+    // In dark, preserve temperament but remap active text and subtle fills
+    // to readable values. Deep 700/800 brand steps are too low-contrast on
+    // dark cards, and many demos reference them directly.
+    r.setProperty("--emerald-50", alpha(temp[500], 0.14));
+    r.setProperty("--emerald-100", alpha(temp[500], 0.26));
+    r.setProperty("--emerald-200", alpha(temp[500], 0.38));
+    r.setProperty("--emerald-700", temp[400]);
+    r.setProperty("--emerald-800", temp[300]);
+    r.setProperty("--emerald-900", temp[200]);
     r.setProperty("--primary", temp[500]);
     r.setProperty("--primary-hover", temp[400]);
   }
@@ -151,7 +173,11 @@ function FragmaticTweaks() {
     </div>
   );
 
-  const subStyle = {fontSize:10,color:'rgba(41,38,27,.55)',marginTop:-2};
+  const subStyle = {
+    fontSize: 10,
+    color: t.dark ? 'var(--text-caption)' : 'rgba(41,38,27,.55)',
+    marginTop: -2,
+  };
 
   return (
     <TweaksPanel title="Tweaks · Fragmatic">
