@@ -85,6 +85,9 @@
   --primary:        var(--emerald-800); /* #065f46 — confirmed in globals.css */
   --primary-hover:  var(--emerald-700);
   --primary-fg:     #ffffff;
+  --overlay-scrim:  rgba(15, 23, 42, 0.20);
+  --overlay-panel:  rgba(15, 23, 42, 0.40);
+  --overlay-pop:    rgba(15, 23, 42, 0.45);
 
   /* Semantic — data visualization */
   --chart-grid:      var(--gray-100);
@@ -249,6 +252,9 @@
   --primary:        var(--emerald-500);
   --primary-hover:  var(--emerald-400);
   --primary-fg:     #08110d;
+  --overlay-scrim:  rgba(0, 0, 0, 0.35);
+  --overlay-panel:  rgba(0, 0, 0, 0.46);
+  --overlay-pop:    rgba(0, 0, 0, 0.52);
 
   /* Semantic — data visualization */
   --chart-grid:      var(--gray-300);

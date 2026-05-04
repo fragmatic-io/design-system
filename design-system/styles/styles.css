@@ -121,7 +121,7 @@ em   { font-style: italic; color: var(--emerald-800) }
   content: 'PRIMARY';
   position: absolute; top: -9px; right: -2px;
   font-size: 9px; letter-spacing: 0.1em;
-  background: var(--emerald-800); color: #fff;
+  background: var(--primary); color: var(--primary-fg);
   padding: 2px 5px; border-radius: 3px;
 }
 
@@ -206,7 +206,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 /* shadow swatches */
 .shadow-list { display:flex; flex-direction:column; gap: 16px }
 .shadow {
-  height: 64px; border-radius: var(--r-8); background: #fff;
+  height: 64px; border-radius: var(--r-8); background: var(--card-bg);
   display:flex; align-items:center; justify-content:space-between; padding: 0 18px;
   font-size: 13px; color: var(--gray-900);
 }
@@ -252,13 +252,13 @@ em   { font-style: italic; color: var(--emerald-800) }
 }
 .btn-primary:hover { background: var(--primary-hover) }
 .btn-secondary {
-  background: #fff; color: var(--gray-800);
+  background: var(--card-bg); color: var(--gray-800);
   border-color: var(--gray-300); box-shadow: var(--shadow-elev);
 }
 .btn-secondary:hover { background: var(--gray-50); border-color: var(--gray-400) }
 .btn-ghost { background: transparent; color: var(--gray-700) }
 .btn-ghost:hover { background: var(--gray-100); color: var(--gray-900) }
-.btn-danger { background: var(--red-700); color: #fff }
+.btn-danger { background: var(--red-700); color: var(--primary-fg) }
 .btn-danger:hover { filter: brightness(1.05) }
 .btn-sm { height: 30px; padding: 0 12px; font-size: 13px }
 .btn-lg { height: 46px; padding: 0 22px; font-size: 15px }
@@ -272,7 +272,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 /* ─── Square button (icon-only) ──────────────────────── */
 .sq-btn {
   width: 36px; height: 36px; display:inline-flex; align-items:center; justify-content:center;
-  background: #fff; border: 1px solid var(--gray-300); border-radius: var(--r-6);
+  background: var(--card-bg); border: 1px solid var(--gray-300); border-radius: var(--r-6);
   box-shadow: var(--shadow-elev); cursor: pointer; color: var(--gray-700);
   transition: all .15s ease;
 }
@@ -309,13 +309,13 @@ em   { font-style: italic; color: var(--emerald-800) }
   display:inline-flex; align-items:center; gap: 8px;
   padding: 8px 16px; border-radius: var(--r-pill);
   font-size: 13px; font-weight: 500; color: var(--gray-700);
-  background: #fff; border: 1px solid var(--gray-300); cursor: pointer;
+  background: var(--card-bg); border: 1px solid var(--gray-300); cursor: pointer;
   transition: all .15s ease;
 }
 .pill:hover { border-color: var(--gray-400); background: var(--gray-50) }
-.pill.is-active { background: var(--emerald-800); color: #fff; border-color: var(--emerald-800) }
+.pill.is-active { background: var(--primary); color: var(--primary-fg); border-color: var(--primary) }
 .pill .count {
-  background: rgba(255,255,255,0.18); color: inherit;
+  background: color-mix(in srgb, var(--primary-fg) 18%, transparent); color: inherit;
   padding: 1px 6px; border-radius: var(--r-pill); font-size: 11px;
 }
 .pill:not(.is-active) .count { background: var(--gray-100); color: var(--gray-600) }
@@ -367,7 +367,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 }
 .profile-tag .pic {
   width: 24px; height: 24px; border-radius: 50%;
-  background: var(--emerald-800); color: #fff;
+  background: var(--primary); color: var(--primary-fg);
   display:flex; align-items:center; justify-content:center;
   font-size: 11px; font-weight: 600;
 }
@@ -376,14 +376,14 @@ em   { font-style: italic; color: var(--emerald-800) }
 .frgm-breadcrumb { font-size: 13px }
 .frgm-breadcrumb ol { list-style: none; margin:0; padding:0; display:flex; align-items:center; gap: 8px }
 .frgm-breadcrumb li { display:inline-flex; align-items:center; gap: 8px; color: var(--gray-900); text-transform: capitalize }
-.frgm-breadcrumb li a { color: #6F7C88; text-decoration: none }
+.frgm-breadcrumb li a { color: var(--gray-500); text-decoration: none }
 .frgm-breadcrumb li a:hover { color: var(--gray-900) }
 .frgm-breadcrumb .sep { color: var(--gray-400); font-size: 14px }
 .frgm-breadcrumb li[aria-current=page] { font-weight: 500 }
 
 /* ─── Cards ──────────────────────────────────────────── */
 .card-demo {
-  background: #fff; border: 1px solid var(--neutral-200);
+  background: var(--card-bg); border: 1px solid var(--neutral-200);
   border-radius: var(--r-6); box-shadow: var(--shadow-card);
   padding: 20px;
 }
@@ -423,7 +423,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 .search {
   display:flex; align-items:center; gap: 8px;
   height: 38px; padding: 0 12px;
-  border-radius: var(--r-6); background: #fff;
+  border-radius: var(--r-6); background: var(--card-bg);
   border: 1px solid var(--gray-300);
   width: 280px;
 }
@@ -437,7 +437,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 
 /* checkbox */
 .cbx { display:inline-flex; align-items:center; gap: 8px; cursor: pointer; font-size: 14px; color: var(--gray-700) }
-.cbx input { appearance: none; width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--gray-300); background: #fff; cursor: pointer; position: relative; flex: 0 0 auto }
+.cbx input { appearance: none; width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid var(--gray-300); background: var(--card-bg); cursor: pointer; position: relative; flex: 0 0 auto }
 .cbx input:checked { background: var(--emerald-50); border-color: var(--emerald-700) }
 .cbx input:checked::after {
   content: ''; position: absolute; left: 3px; top: 0px; width: 5px; height: 9px;
@@ -446,7 +446,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 
 /* radio */
 .radio { display:inline-flex; align-items:center; gap: 8px; cursor: pointer; font-size: 14px; color: var(--gray-700) }
-.radio input { appearance: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--gray-300); background: #fff; cursor: pointer; position: relative; flex: 0 0 auto }
+.radio input { appearance: none; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--gray-300); background: var(--card-bg); cursor: pointer; position: relative; flex: 0 0 auto }
 .radio input:checked { border-color: var(--emerald-700) }
 .radio input:checked::after { content: ''; position: absolute; left: 3px; top: 3px; width: 7px; height: 7px; border-radius: 50%; background: var(--emerald-700) }
 
@@ -455,7 +455,7 @@ em   { font-style: italic; color: var(--emerald-800) }
 .toggle input { appearance: none; width: 36px; height: 20px; border-radius: 9999px; background: var(--slate-200); position: relative; cursor: pointer; transition: background .15s ease; flex: 0 0 auto }
 .toggle input::after {
   content: ''; position: absolute; top: 2px; left: 2px; width: 16px; height: 16px;
-  border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  border-radius: 50%; background: var(--card-bg); box-shadow: 0 1px 2px rgba(0,0,0,.15);
   transition: left .15s ease;
 }
 .toggle input:checked { background: var(--emerald-500) }
@@ -474,7 +474,7 @@ em   { font-style: italic; color: var(--emerald-800) }
   font-size: 13px; font-weight: 500; color: var(--slate-400);
   border-radius: var(--r-4);
 }
-.allany p.active { background: #fff; color: var(--slate-900); box-shadow: var(--shadow-elev) }
+.allany p.active { background: var(--card-bg); color: var(--slate-900); box-shadow: var(--shadow-elev) }
 
 /* ─── Tabs ───────────────────────────────────────────── */
 .tabs {
@@ -570,7 +570,7 @@ table.t thead .num { font-family: var(--font-sans) }
 /* ─── Pattern (KPI strip + chart) ────────────────────── */
 .pattern {
   border: 1px solid var(--border-subtle); border-radius: var(--r-8);
-  background: #fff; padding: 28px; box-shadow: var(--shadow-card);
+  background: var(--card-bg); padding: 28px; box-shadow: var(--shadow-card);
 }
 .pattern-row {
   display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px;
@@ -578,7 +578,7 @@ table.t thead .num { font-family: var(--font-sans) }
 }
 .kpi {
   border: 1px solid var(--border-subtle); border-radius: var(--r-8);
-  padding: 18px 20px; background: #fff;
+  padding: 18px 20px; background: var(--card-bg);
   display:flex; flex-direction: column; gap: 4px;
   position: relative; overflow: hidden;
 }
@@ -596,7 +596,7 @@ table.t thead .num { font-family: var(--font-sans) }
 }
 .page-mock .top {
   display:flex; align-items:center; gap: 12px; padding: 12px 18px;
-  background: #fff; border-bottom: 1px solid var(--border-subtle);
+  background: var(--card-bg); border-bottom: 1px solid var(--border-subtle);
   font-size: 13px;
 }
 .page-mock .top .crumbs { color: var(--gray-500); display:flex; gap: 6px; align-items:center }
@@ -610,7 +610,7 @@ table.t thead .num { font-family: var(--font-sans) }
 
 /* segment row card */
 .seg-card {
-  background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--r-8);
+  background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: var(--r-8);
   padding: 16px 20px; display:grid;
   grid-template-columns: 28px minmax(0,1.4fr) minmax(0,1fr) minmax(0,1fr) 100px 100px 28px;
   gap: 18px; align-items: center; box-shadow: var(--shadow-card);
@@ -627,7 +627,7 @@ table.t thead .num { font-family: var(--font-sans) }
 /* journey nodes */
 .journey { display:flex; align-items:center; gap: 12px; flex-wrap: wrap; padding: 24px; background: var(--gray-50); border: 1px dashed var(--gray-300); border-radius: var(--r-8) }
 .j-node {
-  background: #fff; border: 1px solid var(--border-subtle); border-radius: var(--r-8);
+  background: var(--card-bg); border: 1px solid var(--border-subtle); border-radius: var(--r-8);
   box-shadow: var(--shadow-card); padding: 14px 16px;
   display:flex; flex-direction:column; gap: 6px; min-width: 180px;
   position: relative;

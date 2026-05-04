@@ -77,13 +77,27 @@ test('chart and pattern examples use formal tokens directly', async () => {
   assert.match(preview, /\.ex-builder\.rich \.ai-card\s*\{[\s\S]*background:\s*linear-gradient\(180deg, var\(--emerald-50\) 0%, var\(--card-bg\) 100%\)/);
   assert.match(preview, /\.ex-builder\.rich \.type-editor \.te-icon\.on\s*\{\s*background:\s*var\(--primary\)/);
   assert.match(preview, /\.config-shell \.subnav \.nv\.active\s*\{\s*background:\s*var\(--primary\)/);
+  assert.match(preview, /\.chat-shell \.c-input input\s*\{[\s\S]*color:\s*var\(--text-title\);\s*background:\s*var\(--gray-100\)/);
+  assert.match(preview, /--overlay-scrim/);
   assert.doesNotMatch(preview, /Dark preview repairs/);
   assert.doesNotMatch(preview, /:root\[data-theme="dark"\] svg \[stroke=/);
   assert.doesNotMatch(preview, /background:#fff/);
+  assert.doesNotMatch(preview, /background:\s*var\(--gray-900\);\s*color:\s*var\(--primary-fg\)/);
   assert.doesNotMatch(preview, /stroke="#(?:f3f4f6|065f46|9ca3af|d1d5db|f59e0b|3b82f6)"/);
   assert.doesNotMatch(preview, /#(?:f5f3ff|e0e7ff|6366f1|d5ff17|6d28d9)/i);
   assert.doesNotMatch(preview, /rgba\(0,0,0,0\.03\)/);
   assert.doesNotMatch(preview, /background:\s*var\(--gray-900\);\s*color:\s*#fff/);
+});
+
+test('packaged styles do not hardcode light surfaces', async () => {
+  const styles = await readFile(new URL('../styles/styles.css', import.meta.url), 'utf8');
+  const atoms = await readFile(new URL('../components/atoms/atoms.css', import.meta.url), 'utf8');
+
+  for (const css of [styles, atoms]) {
+    assert.doesNotMatch(css, /background:\s*#fff/i);
+    assert.doesNotMatch(css, /color:\s*#fff/i);
+    assert.doesNotMatch(css, /border:\s*1px solid #[0-9a-fA-F]{3,6}/);
+  }
 });
 
 test('protected email labels inherit readable metadata color', async () => {
