@@ -60,3 +60,22 @@ test('tweaks panel has theme-aware dark styles', async () => {
   assert.match(tweaks, /r\.setProperty\("--emerald-800", temp\[300\]\)/);
   assert.match(tweaks, /alpha\(temp\[500\], 0\.14\)/);
 });
+
+test('chart and pattern examples use formal tokens directly', async () => {
+  const preview = await readFile(
+    new URL('../previews/fragmatic-design-system.html', import.meta.url),
+    'utf8',
+  );
+  const css = await readFile(new URL('../tokens/tokens.css', import.meta.url), 'utf8');
+
+  assert.match(css, /--chart-primary:\s*var\(--emerald-800\)/);
+  assert.match(css, /--chart-grid:\s*var\(--gray-300\)/);
+  assert.match(preview, /\.series-primary\s*\{\s*color:\s*var\(--chart-primary\)/);
+  assert.match(preview, /\.chart-surface\s*\{\s*background:\s*var\(--card-bg\)/);
+  assert.match(preview, /\.ex-builder\.rich \.select-banner[\s\S]*background:\s*var\(--card-bg\)/);
+  assert.match(preview, /\.chat-bubble\.user[\s\S]*background:\s*var\(--primary\)/);
+  assert.doesNotMatch(preview, /Dark preview repairs/);
+  assert.doesNotMatch(preview, /:root\[data-theme="dark"\] svg \[stroke=/);
+  assert.doesNotMatch(preview, /background:#fff/);
+  assert.doesNotMatch(preview, /stroke="#(?:f3f4f6|065f46|9ca3af|d1d5db|f59e0b|3b82f6)"/);
+});

@@ -86,6 +86,16 @@
   --primary-hover:  var(--emerald-700);
   --primary-fg:     #ffffff;
 
+  /* Semantic — data visualization */
+  --chart-grid:      var(--gray-100);
+  --chart-primary:   var(--emerald-800);
+  --chart-secondary: var(--emerald-700);
+  --chart-forecast:  var(--gray-400);
+  --chart-muted:     var(--gray-300);
+  --chart-warning:   var(--amber-500);
+  --chart-info:      var(--blue-500);
+  --chart-negative:  var(--amber-700);
+
   /* Radius */
   --r-2:    2px;
   --r-4:    4px;
@@ -239,6 +249,16 @@
   --primary:        var(--emerald-500);
   --primary-hover:  var(--emerald-400);
   --primary-fg:     #08110d;
+
+  /* Semantic — data visualization */
+  --chart-grid:      var(--gray-300);
+  --chart-primary:   var(--emerald-800);
+  --chart-secondary: var(--emerald-700);
+  --chart-forecast:  var(--gray-500);
+  --chart-muted:     var(--gray-400);
+  --chart-warning:   var(--amber-700);
+  --chart-info:      var(--blue-700);
+  --chart-negative:  var(--amber-700);
 
   /* Elevation — subtle on dark; rely on tone separation instead of shadow */
   --shadow-card:
