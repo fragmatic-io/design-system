@@ -50,13 +50,13 @@ const shellContextItems = [
 
 const secondaryTopbarByPage = {
   analytics: {
-    title: 'Overview',
+    breadcrumbPath: [{ label: 'Analytics' }, { label: 'Overview' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
     presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   },
   settings: {
-    title: 'Project Settings',
+    breadcrumbPath: [{ label: 'Settings' }, { label: 'Project Settings' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
     presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
@@ -67,7 +67,7 @@ const secondaryTopbarDemo = document.querySelector('[data-ds-secondary-topbar-de
 
 if (secondaryTopbarDemo) {
   createRoot(secondaryTopbarDemo).render(React.createElement(SecondaryTopbar, {
-    title: 'Overview',
+    breadcrumbPath: [{ label: 'Analytics' }, { label: 'Overview' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
     presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
@@ -204,9 +204,20 @@ const renderSecondaryTopbar = (activeItem) => {
   secondaryTopbarRoot?.render(React.createElement(SecondaryTopbar, {
     ...topbar,
     className: 'frgm-app-secondary-topbar-surface',
-    onExpandedChange: (isExpanded) => {
-      secondaryTopbarSlot.closest('.frgm-app-shell')?.setAttribute('data-secondary-topbar-state', isExpanded ? 'expanded' : 'collapsed');
-    },
+    actions: React.createElement(
+      'button',
+      {
+        className: 'frgm-button',
+        'data-variant': 'secondary',
+        'data-size': 'sm',
+        type: 'button',
+        'data-context-open': true,
+        'data-context-panel-target': 'recommendation',
+        'aria-controls': 'frgm-recommendation-context',
+        'aria-expanded': 'false',
+      },
+      'Recommendation context',
+    ),
   }));
 };
 
@@ -248,7 +259,6 @@ if (shellContextNav) {
 }
 
 const contextOverlay = document.querySelector('[data-context-overlay]');
-const contextOpeners = document.querySelectorAll('[data-context-open]');
 const contextClosers = document.querySelectorAll('[data-context-close]');
 const contextPanelTitle = document.querySelector('[data-context-panel-title]');
 const contextPanelDescription = document.querySelector('[data-context-panel-description]');
@@ -292,13 +302,17 @@ const setContextPanelOpen = (isOpen, target = 'recommendation') => {
 
   contextOverlay.classList.toggle('is-open', isOpen);
   contextOverlay.setAttribute('aria-hidden', String(!isOpen));
-  contextOpeners.forEach((trigger) => {
+  document.querySelectorAll('[data-context-open]').forEach((trigger) => {
     trigger.setAttribute('aria-expanded', String(isOpen));
   });
 };
 
-contextOpeners.forEach((trigger) => {
-  trigger.addEventListener('click', () => setContextPanelOpen(true, trigger.dataset.contextPanelTarget || 'recommendation'));
+document.addEventListener('click', (event) => {
+  const trigger = event.target.closest('[data-context-open]');
+
+  if (trigger) {
+    setContextPanelOpen(true, trigger.dataset.contextPanelTarget || 'recommendation');
+  }
 });
 
 contextClosers.forEach((trigger) => {

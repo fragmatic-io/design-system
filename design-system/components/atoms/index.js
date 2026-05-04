@@ -483,51 +483,37 @@ export function DateRangeControl({
 }
 
 export function SecondaryTopbar({
-  title = 'Overview',
+  breadcrumbPath = [{ label: 'Analytics' }, { label: 'Overview' }],
   datePreset = 'Last 90 Days',
   dateRange = '4 Feb-4 May 2026',
   compareRange,
   presets,
-  expanded,
-  defaultExpanded = true,
-  onExpandedChange,
   onPresetSelect,
   className = '',
   actions,
 }) {
-  const isControlled = typeof expanded === 'boolean';
-  const [internalExpanded, setInternalExpanded] = React.useState(defaultExpanded);
-  const isExpanded = isControlled ? expanded : internalExpanded;
-  const setExpanded = (nextExpanded) => {
-    if (!isControlled) {
-      setInternalExpanded(nextExpanded);
-    }
-
-    onExpandedChange?.(nextExpanded);
-  };
-
   return React.createElement(
     'section',
     {
       className: cx('frgm-secondary-topbar', className),
-      'data-state': isExpanded ? 'expanded' : 'collapsed',
       'aria-label': 'Current page context',
     },
     React.createElement(
-      'button',
-      {
-        className: 'frgm-secondary-topbar-toggle',
-        type: 'button',
-        'aria-expanded': isExpanded,
-        'aria-label': isExpanded ? 'Collapse page context' : 'Expand page context',
-        onClick: () => setExpanded(!isExpanded),
-      },
-      icons.panelLeft,
+      'nav',
+      { className: 'frgm-secondary-topbar-breadcrumb', 'aria-label': 'Breadcrumb' },
+      breadcrumbPath.map((item, index) => {
+        const isLast = index === breadcrumbPath.length - 1;
+        return React.createElement(
+          React.Fragment,
+          { key: `${item.label}-${index}` },
+          React.createElement(isLast ? 'b' : 'span', null, item.label),
+          !isLast && React.createElement('span', { 'aria-hidden': 'true' }, '›'),
+        );
+      }),
     ),
     React.createElement(
       'div',
-      { className: 'frgm-secondary-topbar-body' },
-      React.createElement('h2', { className: 'frgm-secondary-topbar-title' }, title),
+      { className: 'frgm-secondary-topbar-controls' },
       React.createElement(DateRangeControl, {
         label: datePreset,
         dateRange,

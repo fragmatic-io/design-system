@@ -41,7 +41,7 @@ This design system is a contract, not a collection of attractive snippets. Every
    Use the app shell `full` container for dense workspaces and the `narrow` container for settings or forms. Do not stack multiple shell page variants in one preview state or invent page-width rules outside the app shell container contract.
 
 13. Secondary topbars are components, not page snippets.
-   Use `SecondaryTopbar` and `DateRangeControl` for page-context rows with titles, filters, dates, or collapse behavior. Add missing behavior to the component/foundation contract before using it in app shell patterns.
+   Use `SecondaryTopbar` and `DateRangeControl` for page-context rows with breadcrumbs, filters, dates, and contextual actions. Add missing behavior to the component/foundation contract before using it in app shell patterns.
 
 14. Hardening means formalizing, not hiding.
    If cleanup exposes an invented value, either remove it or promote it into the foundation contract with a clear name and usage. Avoid compatibility shims unless they are temporary, documented, and tested.

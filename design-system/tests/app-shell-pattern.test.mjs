@@ -108,16 +108,19 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /label: 'Configuration', icon: 'gear'/);
   assert.match(previewModule, /label: 'Overview', count: 'live', page: 'analytics', active: true/);
   assert.match(previewModule, /label: 'Settings', count: 'form', page: 'settings'/);
-  assert.match(previewModule, /title: 'Overview'/);
+  assert.match(previewModule, /breadcrumbPath: \[\{ label: 'Analytics' \}, \{ label: 'Overview' \}\]/);
   assert.match(previewModule, /datePreset: 'Last 90 Days'/);
   assert.match(previewModule, /dateRange: '4 Feb-4 May 2026'/);
-  assert.match(previewModule, /title: 'Project Settings'/);
+  assert.match(previewModule, /breadcrumbPath: \[\{ label: 'Settings' \}, \{ label: 'Project Settings' \}\]/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-context-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-secondary-topbar\]'\)/);
   assert.match(previewModule, /React\.createElement\(SecondaryTopbar/);
   assert.match(previewModule, /className: 'frgm-app-secondary-topbar-surface'/);
-  assert.match(previewModule, /setAttribute\('data-secondary-topbar-state'/);
+  assert.match(previewModule, /Recommendation context/);
+  assert.match(previewModule, /document\.addEventListener\('click'/);
+  assert.match(previewModule, /closest\('\[data-context-open\]'\)/);
+  assert.doesNotMatch(previewModule, /data-secondary-topbar-state/);
   assert.match(previewModule, /querySelectorAll\('\[data-shell-page\]'\)/);
   assert.match(previewModule, /const setShellPage = \(activeItem\) =>/);
   assert.match(previewModule, /page\.hidden = page\.dataset\.shellPage !== activeItem\.page/);
@@ -206,6 +209,7 @@ test('app shell container variants are formalized in the foundation contract', a
   assert.match(contract, /Only one app-shell page container should be visible/);
   assert.match(contract, /drive labels, counts, active state, target page, and container width from a component\/data map/);
   assert.match(contract, /Dashboard-style page context bars use `SecondaryTopbar`/);
+  assert.match(contract, /preserves the existing page breadcrumb/);
   assert.match(ethos, /App surfaces choose documented container variants/);
   assert.match(ethos, /Do not stack multiple shell page variants in one preview state/);
   assert.match(ethos, /Secondary topbars are components/);
@@ -256,7 +260,6 @@ test('dashboard-derived shell icons are available from the design system', async
     'gear',
     'journey',
     'calendar',
-    'panelLeft',
   ]) {
     assert.match(icons, new RegExp(`${icon}: svg`));
   }

@@ -28,10 +28,6 @@ export const icons = {
   calendar: svg([
     React.createElement('path', { key: 'p1', d: 'M5 2v3M11 2v3M3 6h10M4 4h8c.6 0 1 .4 1 1v8c0 .6-.4 1-1 1H4c-.6 0-1-.4-1-1V5c0-.6.4-1 1-1Z' }),
   ]),
-  panelLeft: svg([
-    React.createElement('path', { key: 'p1', d: 'M3 3h10c.6 0 1 .4 1 1v8c0 .6-.4 1-1 1H3c-.6 0-1-.4-1-1V4c0-.6.4-1 1-1Z' }),
-    React.createElement('path', { key: 'p2', d: 'M6 3v10M10 6 8 8l2 2' }),
-  ]),
   arrowUpBig: svg(React.createElement('path', { d: 'M8 13V3M4 7l4-4 4 4' })),
   arrowDownBig: svg(React.createElement('path', { d: 'M8 3v10M4 9l4 4 4-4' })),
   arrowRightBig: svg(React.createElement('path', { d: 'M3 8h10M9 4l4 4-4 4' })),

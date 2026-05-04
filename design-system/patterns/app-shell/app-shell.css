@@ -411,14 +411,6 @@
   height: 100%;
 }
 
-.frgm-app-secondary-actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--frgm-inline-gap-md);
-  min-width: 0;
-}
-
 .frgm-app-secondary-topbar .frgm-button {
   white-space: nowrap;
 }
@@ -426,20 +418,6 @@
 .frgm-app-topbar-spacer {
   gap: 0.5714rem;
   flex-wrap: wrap;
-}
-
-.frgm-app-breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: var(--frgm-inline-gap-sm);
-  color: var(--text-meta);
-  font-size: 0.9286rem;
-  min-width: 11rem;
-}
-
-.frgm-app-breadcrumb b {
-  color: var(--text-title);
-  font-weight: 600;
 }
 
 .frgm-app-actions {
@@ -938,11 +916,13 @@
   }
 
   .frgm-app-secondary-topbar-surface {
-    grid-template-columns: 2.8571rem minmax(0, 1fr);
+    grid-template-columns: 1fr;
   }
 
-  .frgm-app-secondary-topbar-surface .frgm-secondary-topbar-body {
+  .frgm-app-secondary-topbar-surface .frgm-secondary-topbar-controls,
+  .frgm-app-secondary-topbar-surface .frgm-secondary-topbar-actions {
     flex-wrap: wrap;
+    justify-content: flex-start;
     gap: 0.8571rem;
   }
 

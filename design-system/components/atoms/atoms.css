@@ -598,7 +598,7 @@
 .frgm-secondary-topbar {
   min-height: 3.7143rem;
   display: grid;
-  grid-template-columns: 2.8571rem minmax(0, 1fr) max-content;
+  grid-template-columns: minmax(11rem, 1fr) max-content max-content;
   align-items: center;
   gap: var(--frgm-inline-gap-lg);
   padding: 0.5714rem 1.1429rem;
@@ -607,42 +607,29 @@
   color: var(--text-title);
 }
 
-.frgm-secondary-topbar-toggle {
-  width: 2rem;
-  height: 2rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  justify-self: center;
-  border: 0;
-  border-radius: var(--r-4);
-  background: transparent;
-  color: var(--text-meta);
-  cursor: pointer;
-}
-
-.frgm-secondary-topbar-toggle:hover,
-.frgm-secondary-topbar-toggle:focus-visible {
-  background: var(--gray-50);
-  color: var(--text-title);
-}
-
-.frgm-secondary-topbar-toggle:focus-visible {
-  outline: 2px solid var(--frgm-control-focus-ring);
-  outline-offset: var(--frgm-control-focus-offset);
-}
-
-.frgm-secondary-topbar-body {
+.frgm-secondary-topbar-breadcrumb {
   min-width: 0;
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: var(--frgm-inline-gap-sm);
+  color: var(--text-meta);
+  font: var(--frgm-control-font-size-sm)/var(--frgm-breadcrumb-line) var(--font-sans);
 }
 
-.frgm-secondary-topbar-title {
-  margin: 0;
+.frgm-secondary-topbar-breadcrumb b {
   color: var(--text-title);
-  font: var(--frgm-control-strong-font-weight) 1rem/var(--frgm-control-line) var(--font-sans);
+  font-weight: var(--frgm-control-strong-font-weight);
+}
+
+.frgm-secondary-topbar-controls {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--frgm-inline-gap-lg);
+}
+
+.frgm-secondary-topbar .frgm-button {
   white-space: nowrap;
 }
 
@@ -652,15 +639,6 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--frgm-inline-gap-md);
-}
-
-.frgm-secondary-topbar[data-state='collapsed'] {
-  min-height: 3rem;
-}
-
-.frgm-secondary-topbar[data-state='collapsed'] .frgm-secondary-topbar-body,
-.frgm-secondary-topbar[data-state='collapsed'] .frgm-secondary-topbar-actions {
-  display: none;
 }
 
 .frgm-switch {
