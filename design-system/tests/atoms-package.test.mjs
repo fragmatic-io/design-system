@@ -1,4 +1,5 @@
 import { readFile } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -60,6 +61,22 @@ test('hardened atoms do not depend on dashboard-local modules', async () => {
     assert.doesNotMatch(source, /@\/components\/Atoms/);
     assert.doesNotMatch(source, /\.\.\/Icons\/constants/);
     assert.doesNotMatch(source, /next\/image|next\/link|antd|@ant-design\/icons/);
+  }
+});
+
+test('legacy atom folder entrypoints re-export canonical atoms', async () => {
+  const atomsDir = new URL('../components/atoms/', import.meta.url);
+  const entries = await readdir(atomsDir, { recursive: true, withFileTypes: true });
+  const jsxFiles = entries
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.jsx'))
+    .map((entry) => new URL(`../components/atoms/${entry.parentPath.replace(`${atomsDir.pathname}`, '')}/${entry.name}`, import.meta.url));
+
+  assert.ok(jsxFiles.length > 0);
+
+  for (const fileUrl of jsxFiles) {
+    const source = await readFile(fileUrl, 'utf8');
+    assert.match(source, /export \{ [^}]+ \} from '\.\.\/index\.js';/);
+    assert.doesNotMatch(source, /next\/image|next\/link|antd|@ant-design\/icons|@\/components|LoadingOutlined|PropTypes|className="flex|bg-\[/);
   }
 });
 
