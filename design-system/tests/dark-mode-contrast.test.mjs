@@ -79,3 +79,14 @@ test('chart and pattern examples use formal tokens directly', async () => {
   assert.doesNotMatch(preview, /background:#fff/);
   assert.doesNotMatch(preview, /stroke="#(?:f3f4f6|065f46|9ca3af|d1d5db|f59e0b|3b82f6)"/);
 });
+
+test('protected email labels inherit readable metadata color', async () => {
+  const preview = await readFile(
+    new URL('../previews/fragmatic-design-system.html', import.meta.url),
+    'utf8',
+  );
+
+  assert.match(preview, /a\.__cf_email__\s*\{\s*color:\s*currentColor;/);
+  assert.match(preview, /a\.__cf_email__:hover\s*\{\s*color:\s*var\(--text-body\)/);
+  assert.match(preview, /class="__cf_email__"/);
+});
