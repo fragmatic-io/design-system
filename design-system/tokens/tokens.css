@@ -172,14 +172,14 @@
   --frgm-date-range-min-width: 16rem;
   --frgm-date-range-max-width: 22rem;
   --frgm-date-range-pad-y: 0.5714rem;
-  --frgm-date-range-pad-x: 0.7143rem;
+  --frgm-date-range-pad-x: var(--space-3);
   --frgm-date-range-gap: 0.4286rem;
   --frgm-date-range-compare-gap: 0.1429rem;
-  --frgm-date-range-border: rgb(223, 223, 223);
-  --frgm-date-range-border-active: var(--gray-400);
+  --frgm-date-range-border: transparent;
+  --frgm-date-range-border-active: var(--border-interactive);
   --frgm-date-range-divider: rgb(227, 232, 238);
   --frgm-date-range-text: rgb(121, 121, 121);
-  --frgm-date-range-shadow: 0px 0px 12px 0px rgba(117, 117, 117, 0.08);
+  --frgm-date-range-shadow: none;
   --frgm-date-range-surface: var(--card-bg);
   --frgm-date-range-trigger-active-bg: var(--gray-50);
   --frgm-date-range-popover-offset: var(--frgm-inline-gap-md);
@@ -220,6 +220,8 @@
   --frgm-date-range-calendar-nav-text: var(--slate-700);
   --frgm-date-range-calendar-period-gap: var(--frgm-inline-gap-xs);
   --frgm-date-range-calendar-period-pad-x: var(--space-2);
+  --frgm-date-range-calendar-period-menu-min-width: 10rem;
+  --frgm-date-range-calendar-period-menu-pad: var(--space-2);
   --frgm-date-range-calendar-month-gap: var(--frgm-date-range-panel-section-gap);
   --frgm-date-range-calendar-scroll-max-h: 25rem;
   --frgm-date-range-calendar-day-hover-bg: var(--gray-100);

@@ -427,6 +427,61 @@ export function DropdownMenu({
   );
 }
 
+const dateRangeToday = new Date(2026, 4, 4);
+const monthLabels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const monthShortLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const msPerDay = 24 * 60 * 60 * 1000;
+
+const cloneDate = (date) => new Date(date.getFullYear(), date.getMonth(), date.getDate());
+const addDays = (date, days) => new Date(date.getFullYear(), date.getMonth(), date.getDate() + days);
+const addMonths = (date, months) => new Date(date.getFullYear(), date.getMonth() + months, 1);
+const addYears = (date, years) => new Date(date.getFullYear() + years, date.getMonth(), date.getDate());
+const daysBetween = (start, end) => Math.max(1, Math.round((cloneDate(end) - cloneDate(start)) / msPerDay) + 1);
+const dateKey = (date) => [
+  date.getFullYear(),
+  String(date.getMonth() + 1).padStart(2, '0'),
+  String(date.getDate()).padStart(2, '0'),
+].join('-');
+const formatDateLabel = (date) => `${monthShortLabels[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
+const formatRangeLabel = ({ start, end }) => (
+  start.getFullYear() === end.getFullYear()
+    ? `${start.getDate()} ${monthShortLabels[start.getMonth()]}-${end.getDate()} ${monthShortLabels[end.getMonth()]} ${end.getFullYear()}`
+    : `${formatDateLabel(start)}-${formatDateLabel(end)}`
+);
+const labelToPresetKey = (label) => ({
+  'Last 7 Days': '7d',
+  'Last 14 Days': '14d',
+  'Last 28 Days': '28d',
+  'Last 30 Days': '30d',
+  'Last 90 Days': '90d',
+}[label]);
+const presetRangeByKey = (key, fallbackRange) => {
+  const daysByKey = { '7d': 7, '14d': 14, '28d': 28, '30d': 30, '90d': 90 };
+  const days = daysByKey[key];
+
+  if (!days) {
+    return fallbackRange ?? { start: addDays(dateRangeToday, -89), end: cloneDate(dateRangeToday) };
+  }
+
+  return { start: addDays(dateRangeToday, -(days - 1)), end: cloneDate(dateRangeToday) };
+};
+const compareRangeByKey = (key, range) => {
+  const duration = daysBetween(range.start, range.end);
+
+  if (key === 'last_year_match_day' || key === 'last_year') {
+    return { start: addYears(range.start, -1), end: addYears(range.end, -1) };
+  }
+
+  if (key === 'custom') {
+    return { start: addDays(range.start, -(duration * 2)), end: addDays(range.start, -(duration + 1)) };
+  }
+
+  return { start: addDays(range.start, -duration), end: addDays(range.end, -duration) };
+};
+const normalizeRange = (start, end) => (
+  dateKey(start) <= dateKey(end) ? { start, end } : { start: end, end: start }
+);
+
 export function DateRangeControl({
   label = 'Last 90 Days',
   dateRange = '4 Feb-4 May 2026',
@@ -454,22 +509,28 @@ export function DateRangeControl({
   className = '',
 }) {
   const rootRef = React.useRef(null);
+  const initialRange = React.useMemo(() => presetRangeByKey(labelToPresetKey(label) ?? '90d'), [label]);
   const [isOpen, setIsOpen] = React.useState(false);
   const [resolvedAlign, setResolvedAlign] = React.useState(align === 'end' ? 'end' : 'start');
   const [resolvedPlacement, setResolvedPlacement] = React.useState('bottom');
   const [isConstrained, setIsConstrained] = React.useState(false);
   const [selectedLabel, setSelectedLabel] = React.useState(label);
+  const [range, setRange] = React.useState(initialRange);
   const [isCompare, setIsCompare] = React.useState(!!compareRange || defaultCompare);
   const [selectedCompare, setSelectedCompare] = React.useState(comparisonOptions[0]?.key);
-  const formatCalendarKey = (date) => [
-    date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, '0'),
-    String(date.getDate()).padStart(2, '0'),
-  ].join('-');
-  const isBetweenCalendarKeys = (key, start, end) => key >= start && key <= end;
+  const [activeBoundary, setActiveBoundary] = React.useState('start');
+  const [visibleMonth, setVisibleMonth] = React.useState(new Date(initialRange.start.getFullYear(), initialRange.start.getMonth(), 1));
+  const [periodMenu, setPeriodMenu] = React.useState(null);
+  const compareRangeSelection = compareRangeByKey(selectedCompare, range);
+  const rangeLabel = formatRangeLabel(range);
+  const compareRangeLabel = formatRangeLabel(compareRangeSelection);
   const buildCalendarMonth = ({ key, label: monthLabel, year, month }) => {
     const firstOfMonth = new Date(year, month, 1);
     const firstVisible = new Date(year, month, 1 - firstOfMonth.getDay());
+    const rangeStartKey = dateKey(range.start);
+    const rangeEndKey = dateKey(range.end);
+    const compareStartKey = dateKey(compareRangeSelection.start);
+    const compareEndKey = dateKey(compareRangeSelection.end);
 
     return {
       key,
@@ -477,27 +538,81 @@ export function DateRangeControl({
       days: Array.from({ length: 42 }, (_, index) => {
         const date = new Date(firstVisible);
         date.setDate(firstVisible.getDate() + index);
-        const dateKey = formatCalendarKey(date);
+        const dayKey = dateKey(date);
 
         return {
-          key: `${key}-${dateKey}`,
+          key: `${key}-${dayKey}`,
           label: String(date.getDate()),
           muted: date.getMonth() !== month,
-          selection: isBetweenCalendarKeys(dateKey, '2026-04-28', '2026-05-04'),
-          selectionStart: dateKey === '2026-04-28',
-          selectionEnd: dateKey === '2026-05-04',
-          compare: isBetweenCalendarKeys(dateKey, '2026-04-21', '2026-04-27'),
-          compareStart: dateKey === '2026-04-21',
-          compareEnd: dateKey === '2026-04-27',
+          date,
+          selection: dayKey >= rangeStartKey && dayKey <= rangeEndKey,
+          selectionStart: dayKey === rangeStartKey,
+          selectionEnd: dayKey === rangeEndKey,
+          compare: dayKey >= compareStartKey && dayKey <= compareEndKey,
+          compareStart: dayKey === compareStartKey,
+          compareEnd: dayKey === compareEndKey,
         };
       }),
     };
   };
   const calendarMonths = [
-    buildCalendarMonth({ key: 'mar-2026', label: 'Mar 2026', year: 2026, month: 2 }),
-    buildCalendarMonth({ key: 'apr-2026', label: 'Apr 2026', year: 2026, month: 3 }),
-    buildCalendarMonth({ key: 'may-2026', label: 'May 2026', year: 2026, month: 4 }),
-  ];
+    addMonths(visibleMonth, -1),
+    visibleMonth,
+    addMonths(visibleMonth, 1),
+  ].map((monthDate) => buildCalendarMonth({
+    key: dateKey(monthDate).slice(0, 7),
+    label: `${monthShortLabels[monthDate.getMonth()]} ${monthDate.getFullYear()}`,
+    year: monthDate.getFullYear(),
+    month: monthDate.getMonth(),
+  }));
+  const monthOptions = monthLabels.map((monthLabel, index) => ({ label: monthLabel, value: index }));
+  const yearOptions = Array.from({ length: 5 }, (_, index) => visibleMonth.getFullYear() - 2 + index);
+  const setVisibleMonthValue = (nextMonth, nextYear = visibleMonth.getFullYear()) => {
+    setVisibleMonth(new Date(nextYear, nextMonth, 1));
+    setPeriodMenu(null);
+  };
+  const setDateBoundary = (date) => {
+    const pickedDate = cloneDate(date);
+
+    if (activeBoundary === 'start') {
+      setRange(normalizeRange(pickedDate, range.end));
+      setActiveBoundary('end');
+      return;
+    }
+
+    setRange(normalizeRange(range.start, pickedDate));
+    setActiveBoundary('start');
+  };
+  const choosePreset = (preset) => {
+    const presetLabel = typeof preset === 'string' ? preset : preset.label;
+    const presetKey = typeof preset === 'string' ? labelToPresetKey(preset) : preset.key;
+    const nextRange = presetRangeByKey(presetKey, range);
+
+    setSelectedLabel(presetLabel);
+    setRange(nextRange);
+    setVisibleMonth(new Date(nextRange.start.getFullYear(), nextRange.start.getMonth(), 1));
+    setActiveBoundary('start');
+    onPresetSelect?.(preset);
+  };
+  const periodMenuContent = periodMenu === 'month' ? monthOptions : yearOptions.map((year) => ({ label: String(year), value: year }));
+  const renderPeriodMenu = periodMenu && React.createElement(
+    'div',
+    { className: 'frgm-date-range-period-menu', 'data-menu': periodMenu },
+    ...periodMenuContent.map((item) => {
+      const isMonth = periodMenu === 'month';
+      const activeValue = isMonth ? visibleMonth.getMonth() : visibleMonth.getFullYear();
+      return React.createElement(
+        'button',
+        {
+          key: item.value,
+          type: 'button',
+          'data-active': item.value === activeValue ? 'true' : undefined,
+          onClick: () => (isMonth ? setVisibleMonthValue(item.value) : setVisibleMonthValue(visibleMonth.getMonth(), item.value)),
+        },
+        item.label,
+      );
+    }),
+  );
   const presetItems = presets.map((preset) => {
     const presetLabel = typeof preset === 'string' ? preset : preset.label;
 
@@ -508,6 +623,12 @@ export function DateRangeControl({
   });
 
   React.useEffect(() => {
+    setSelectedLabel(label);
+    setRange(initialRange);
+    setVisibleMonth(new Date(initialRange.start.getFullYear(), initialRange.start.getMonth(), 1));
+  }, [initialRange, label]);
+
+  React.useEffect(() => {
     const closeOnOutsidePointerDown = (event) => {
       const root = rootRef.current;
 
@@ -516,6 +637,7 @@ export function DateRangeControl({
       }
 
       setIsOpen(false);
+      setPeriodMenu(null);
     };
 
     document.addEventListener('pointerdown', closeOnOutsidePointerDown);
@@ -540,7 +662,7 @@ export function DateRangeControl({
     });
 
     return () => window.cancelAnimationFrame(frame);
-  }, [isOpen]);
+  }, [isOpen, range, visibleMonth]);
 
   React.useLayoutEffect(() => {
     if (!isOpen) {
@@ -578,20 +700,19 @@ export function DateRangeControl({
     return () => window.removeEventListener('resize', updatePopoverAlignment);
   }, [align, isOpen]);
 
-  const selectPreset = (preset) => {
-    const presetLabel = typeof preset === 'string' ? preset : preset.label;
-    setSelectedLabel(presetLabel);
-    onPresetSelect?.(preset);
-  };
-
   const applySelection = () => {
-    onApply?.({ label: selectedLabel, dateRange, isCompare, compareKey: selectedCompare });
+    onApply?.({ label: selectedLabel, dateRange: rangeLabel, compareRange: isCompare ? compareRangeLabel : undefined, isCompare, compareKey: selectedCompare });
     setIsOpen(false);
   };
 
   const cancelSelection = () => {
     setSelectedLabel(label);
+    setRange(initialRange);
     setIsCompare(!!compareRange || defaultCompare);
+    setSelectedCompare(comparisonOptions[0]?.key);
+    setVisibleMonth(new Date(initialRange.start.getFullYear(), initialRange.start.getMonth(), 1));
+    setActiveBoundary('start');
+    setPeriodMenu(null);
     setIsOpen(false);
   };
 
@@ -627,7 +748,7 @@ export function DateRangeControl({
           setIsOpen(true);
           onDateClick?.(event);
         },
-        'aria-label': `Date range ${dateRange}`,
+        'aria-label': `Date range ${rangeLabel}`,
         'aria-expanded': isOpen,
         'aria-haspopup': 'dialog',
       },
@@ -635,13 +756,13 @@ export function DateRangeControl({
         'span',
         { className: 'frgm-date-range-primary' },
         React.createElement('span', { className: 'frgm-date-range-icon' }, icons.calendar),
-        React.createElement('span', null, dateRange),
+        React.createElement('span', null, rangeLabel),
       ),
-      compareRange && React.createElement(
+      isCompare && React.createElement(
         'span',
         { className: 'frgm-date-range-compare' },
         React.createElement('span', null, 'Compare :'),
-        React.createElement('span', null, compareRange),
+        React.createElement('span', null, compareRangeLabel),
       ),
     ),
     isOpen && React.createElement(
@@ -662,7 +783,7 @@ export function DateRangeControl({
                 className: 'frgm-date-range-shortcut',
                 type: 'button',
                 'data-active': item.label === selectedLabel ? 'true' : undefined,
-                onClick: () => selectPreset(item),
+                onClick: () => choosePreset(item),
               },
               item.label,
             ),
@@ -715,34 +836,35 @@ export function DateRangeControl({
             'div',
             { className: 'frgm-date-range-field-row', role: 'group', 'aria-label': 'Selected date range' },
             React.createElement('span', { className: 'frgm-date-range-field-label' }, 'Range'),
-            React.createElement('button', { type: 'button', 'data-active': 'true' }, 'Apr 28, 2026'),
-            React.createElement('button', { type: 'button' }, 'May 4, 2026'),
+            React.createElement('button', { type: 'button', 'data-active': activeBoundary === 'start' ? 'true' : undefined, onClick: () => setActiveBoundary('start') }, formatDateLabel(range.start)),
+            React.createElement('button', { type: 'button', 'data-active': activeBoundary === 'end' ? 'true' : undefined, onClick: () => setActiveBoundary('end') }, formatDateLabel(range.end)),
           ),
           isCompare && React.createElement(
             'div',
             { className: 'frgm-date-range-field-row', 'data-variant': 'compare', role: 'group', 'aria-label': 'Compare date range' },
             React.createElement('span', { className: 'frgm-date-range-field-label' }, 'Compare'),
-            React.createElement('button', { type: 'button' }, 'Apr 21, 2026'),
-            React.createElement('button', { type: 'button' }, 'Apr 27, 2026'),
+            React.createElement('button', { type: 'button' }, formatDateLabel(compareRangeSelection.start)),
+            React.createElement('button', { type: 'button' }, formatDateLabel(compareRangeSelection.end)),
           ),
         ),
         React.createElement(
           'div',
           { className: 'frgm-date-range-month-nav' },
-          React.createElement('button', { className: 'frgm-date-range-nav-button', type: 'button', 'aria-label': 'Previous month' }, '‹'),
+          React.createElement('button', { className: 'frgm-date-range-nav-button', type: 'button', 'aria-label': 'Previous month', onClick: () => setVisibleMonth(addMonths(visibleMonth, -1)) }, '‹'),
           React.createElement(
             'button',
-            { className: 'frgm-date-range-period-button', type: 'button', 'aria-label': 'Choose month' },
-            React.createElement('span', null, 'April'),
+            { className: 'frgm-date-range-period-button', type: 'button', 'aria-label': 'Choose month', 'aria-expanded': periodMenu === 'month', onClick: () => setPeriodMenu(periodMenu === 'month' ? null : 'month') },
+            React.createElement('span', null, monthLabels[visibleMonth.getMonth()]),
             React.createElement('span', { className: 'frgm-date-range-period-chevron' }, icons.chevronDown),
           ),
           React.createElement(
             'button',
-            { className: 'frgm-date-range-period-button', type: 'button', 'aria-label': 'Choose year' },
-            React.createElement('span', null, '2026'),
+            { className: 'frgm-date-range-period-button', type: 'button', 'aria-label': 'Choose year', 'aria-expanded': periodMenu === 'year', onClick: () => setPeriodMenu(periodMenu === 'year' ? null : 'year') },
+            React.createElement('span', null, String(visibleMonth.getFullYear())),
             React.createElement('span', { className: 'frgm-date-range-period-chevron' }, icons.chevronDown),
           ),
-          React.createElement('button', { className: 'frgm-date-range-nav-button', type: 'button', 'aria-label': 'Next month' }, '›'),
+          React.createElement('button', { className: 'frgm-date-range-nav-button', type: 'button', 'aria-label': 'Next month', onClick: () => setVisibleMonth(addMonths(visibleMonth, 1)) }, '›'),
+          renderPeriodMenu,
         ),
         React.createElement(
           'div',
@@ -757,7 +879,7 @@ export function DateRangeControl({
             {
               className: 'frgm-date-range-month-section',
               key: month.key,
-              'data-current-month': month.key === 'apr-2026' ? 'true' : undefined,
+              'data-current-month': month.key === dateKey(visibleMonth).slice(0, 7) ? 'true' : undefined,
             },
             React.createElement('b', null, month.label),
             React.createElement(
@@ -775,6 +897,7 @@ export function DateRangeControl({
                   'data-compare': isCompare && day.compare ? 'true' : undefined,
                   'data-compare-start': isCompare && day.compareStart ? 'true' : undefined,
                   'data-compare-end': isCompare && day.compareEnd ? 'true' : undefined,
+                  onClick: () => setDateBoundary(day.date),
                 },
                 day.label,
               )),

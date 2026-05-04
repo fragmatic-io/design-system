@@ -117,11 +117,11 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /label: 'Profiles', icon: 'profiles', count: '2k'/);
   assert.match(previewModule, /label: 'Configuration', icon: 'gear'/);
   assert.match(previewModule, /label: 'Overview', count: 'live', page: 'analytics', active: true/);
-  assert.match(previewModule, /label: 'Settings', count: 'form', page: 'settings'/);
+  assert.match(previewModule, /label: 'Project settings', count: 'form', page: 'settings'/);
   assert.match(previewModule, /breadcrumbPath: \[\{ label: 'Analytics' \}, \{ label: 'Overview' \}\]/);
   assert.match(previewModule, /datePreset: 'Last 90 Days'/);
   assert.match(previewModule, /dateRange: '4 Feb-4 May 2026'/);
-  assert.match(previewModule, /breadcrumbPath: \[\{ label: 'Settings' \}, \{ label: 'Project Settings' \}\]/);
+  assert.match(previewModule, /breadcrumbPath: \[\{ label: 'Analytics' \}, \{ label: 'Project settings' \}\]/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-context-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-secondary-topbar\]'\)/);
@@ -172,6 +172,7 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /\.frgm-app-content\s*{[\s\S]*?background:\s*var\(--page-bg\)/);
   assert.doesNotMatch(css, /\.frgm-app-content\s*{[\s\S]*?linear-gradient/);
   assert.match(css, /\.frgm-app-main-container\s*{[\s\S]*?width:\s*100%/);
+  assert.match(css, /\.frgm-app-main-container\[hidden\]\s*{[\s\S]*?display:\s*none/);
   assert.match(css, /\.frgm-app-main-container\[data-width='full'\]\s*{[\s\S]*?max-width:\s*none/);
   assert.match(css, /\.frgm-app-main-container\[data-width='narrow'\]\s*{[\s\S]*?width:\s*min\(100%,\s*49\.1429rem\)/);
   assert.match(css, /\.frgm-app-main-container\[data-width='narrow'\]\s*{[\s\S]*?margin-inline:\s*auto/);

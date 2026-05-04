@@ -45,7 +45,7 @@ const shellContextItems = [
   { label: 'Topics', count: '12', page: 'analytics' },
   { label: 'Funnels', count: '3', page: 'analytics' },
   { label: 'Recommendations', count: '12', page: 'analytics' },
-  { label: 'Settings', count: 'form', page: 'settings' },
+  { label: 'Project settings', count: 'form', page: 'settings' },
 ];
 
 const secondaryTopbarByPage = {
@@ -55,7 +55,7 @@ const secondaryTopbarByPage = {
     dateRange: '4 Feb-4 May 2026',
   },
   settings: {
-    breadcrumbPath: [{ label: 'Settings' }, { label: 'Project Settings' }],
+    breadcrumbPath: [{ label: 'Analytics' }, { label: 'Project settings' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
   },

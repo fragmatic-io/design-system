@@ -858,6 +858,7 @@
 }
 
 .frgm-date-range-month-nav {
+  position: relative;
   display: grid;
   grid-template-columns: auto 1fr 1fr auto;
   gap: var(--frgm-inline-gap-lg);
@@ -909,6 +910,45 @@
   align-items: center;
   justify-content: center;
   color: var(--text-meta);
+}
+
+.frgm-date-range-period-menu {
+  position: absolute;
+  top: calc(100% - var(--frgm-inline-gap-md));
+  left: calc(var(--frgm-date-range-panel-pad) + var(--frgm-date-range-calendar-nav-h) + var(--frgm-inline-gap-lg));
+  z-index: calc(var(--frgm-layer-popover) + 1);
+  min-width: var(--frgm-date-range-calendar-period-menu-min-width);
+  display: grid;
+  gap: var(--frgm-inline-gap-xs);
+  padding: var(--frgm-date-range-calendar-period-menu-pad);
+  border: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
+  border-radius: var(--r-8);
+  background: var(--frgm-date-range-surface);
+  box-shadow: var(--shadow-pop);
+}
+
+.frgm-date-range-period-menu[data-menu='year'] {
+  right: calc(var(--frgm-date-range-panel-pad) + var(--frgm-date-range-calendar-nav-h) + var(--frgm-inline-gap-lg));
+  left: auto;
+}
+
+.frgm-date-range-period-menu button {
+  min-height: var(--frgm-date-range-option-h);
+  padding: 0 var(--frgm-date-range-option-pad-x);
+  border: 0;
+  border-radius: var(--r-6);
+  background: transparent;
+  color: var(--frgm-date-range-text);
+  font: var(--frgm-control-strong-font-weight) var(--frgm-control-font-size-sm)/1.2 var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  transition: var(--frgm-effect-transition);
+}
+
+.frgm-date-range-period-menu button:hover,
+.frgm-date-range-period-menu button[data-active='true'] {
+  background: var(--frgm-date-range-option-active-bg);
+  color: var(--text-title);
 }
 
 .frgm-date-range-weekdays,

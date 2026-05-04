@@ -1,7 +1,11 @@
 import { readFile } from 'node:fs/promises';
 import { readdir } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import test from 'node:test';
 import assert from 'node:assert/strict';
+
+const execFileAsync = promisify(execFile);
 
 const atomNames = [
   'Button',
@@ -41,6 +45,7 @@ test('package exports hardened atom entrypoints', async () => {
 
 test('hardened atoms export the public atom surface', async () => {
   const entry = await readFile(new URL('../components/atoms/index.js', import.meta.url), 'utf8');
+  await execFileAsync(process.execPath, ['--check', new URL('../components/atoms/index.js', import.meta.url).pathname]);
 
   for (const atomName of atomNames) {
     assert.match(entry, new RegExp(`export function ${atomName}\\b`));
@@ -134,7 +139,9 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-date-range-h:\s*3\.1429rem/);
   assert.match(tokens, /--space-4:\s*1\.1429rem/);
   assert.match(tokens, /--frgm-date-range-pad-y:\s*0\.5714rem/);
-  assert.match(tokens, /--frgm-date-range-pad-x:\s*0\.7143rem/);
+  assert.match(tokens, /--frgm-date-range-pad-x:\s*var\(--space-3\)/);
+  assert.match(tokens, /--frgm-date-range-border:\s*transparent/);
+  assert.match(tokens, /--frgm-date-range-shadow:\s*none/);
   assert.match(tokens, /--frgm-date-range-popover-width:\s*50rem/);
   assert.match(tokens, /--frgm-date-range-popover-border:\s*var\(--border-subtle\)/);
   assert.match(tokens, /--frgm-date-range-panel-pad:\s*var\(--space-4\)/);

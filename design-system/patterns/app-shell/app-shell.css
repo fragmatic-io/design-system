@@ -478,6 +478,10 @@
   gap: 1.1429rem;
 }
 
+.frgm-app-main-container[hidden] {
+  display: none;
+}
+
 .frgm-app-main-container[data-width='full'] {
   max-width: none;
 }
