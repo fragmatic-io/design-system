@@ -147,6 +147,8 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-date-range-border:\s*transparent/);
   assert.match(tokens, /--frgm-date-range-border-active:\s*transparent/);
   assert.match(tokens, /--frgm-date-range-shadow:\s*none/);
+  assert.match(tokens, /--frgm-layer-popover:\s*1000/);
+  assert.match(tokens, /--frgm-layer-shell-overlay:\s*1050/);
   assert.match(tokens, /--frgm-layer-dropdown:\s*1100/);
   assert.match(tokens, /--frgm-date-range-font-size:\s*var\(--frgm-control-font-size-sm\)/);
   assert.match(tokens, /--frgm-date-range-calendar-font-size:\s*var\(--frgm-control-font-size-sm\)/);

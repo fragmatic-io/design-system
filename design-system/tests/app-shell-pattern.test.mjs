@@ -172,6 +172,7 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /\.frgm-app-secondary-topbar-surface\s*{[\s\S]*?position:\s*relative/);
   assert.match(css, /\.frgm-app-secondary-topbar-surface\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
   assert.match(css, /\.frgm-app-sidebar\s*{[\s\S]*?grid-row:\s*2 \/ 4/);
+  assert.match(css, /\.frgm-app-sidebar\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-shell-overlay\)/);
   assert.match(css, /\.frgm-app-main\s*{[\s\S]*?grid-row:\s*3/);
   assert.match(css, /\.frgm-app-content\s*{[\s\S]*?background:\s*var\(--page-bg\)/);
   assert.doesNotMatch(css, /\.frgm-app-content\s*{[\s\S]*?linear-gradient/);

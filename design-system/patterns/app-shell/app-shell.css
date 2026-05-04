@@ -28,7 +28,7 @@
   grid-column: 1;
   grid-row: 2 / 4;
   position: relative;
-  z-index: 10;
+  z-index: var(--frgm-layer-shell-overlay);
   width: var(--frgm-app-sidebar-collapsed);
   display: flex;
   flex-direction: column;
