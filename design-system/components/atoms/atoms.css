@@ -519,6 +519,7 @@
 }
 
 .frgm-date-range-control {
+  position: relative;
   width: auto;
   min-width: var(--frgm-date-range-min-width);
   max-width: var(--frgm-date-range-max-width);
@@ -535,24 +536,24 @@
   overflow: visible;
 }
 
-.frgm-date-range-presets,
+.frgm-date-range-preset-trigger,
 .frgm-date-range-display {
   min-width: 0;
 }
 
-.frgm-date-range-presets {
-  width: 100%;
-}
-
-.frgm-date-range-presets .frgm-dropdown-trigger {
-  width: 100%;
-  max-width: none;
+.frgm-date-range-preset-trigger {
+  min-height: var(--frgm-date-range-h);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--frgm-date-range-gap);
   padding: var(--frgm-date-range-pad-y) var(--frgm-date-range-pad-x);
-}
-
-.frgm-date-range-presets .frgm-dropdown-panel {
-  min-width: 11.7143rem;
-  top: calc(100% + 0.8571rem);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
 .frgm-date-range-display {
@@ -573,23 +574,38 @@
   cursor: pointer;
 }
 
+.frgm-date-range-preset-trigger:hover,
+.frgm-date-range-display:hover,
+.frgm-date-range-control[data-open='true'] .frgm-date-range-preset-trigger,
+.frgm-date-range-control[data-open='true'] .frgm-date-range-display {
+  background: var(--gray-50);
+  color: var(--text-title);
+}
+
+.frgm-date-range-preset-trigger:focus-visible,
+.frgm-date-range-display:focus-visible {
+  outline: 2px solid var(--frgm-control-focus-ring);
+  outline-offset: var(--frgm-control-focus-offset);
+}
+
+.frgm-date-range-chevron {
+  width: var(--frgm-icon-size-md);
+  height: var(--frgm-icon-size-md);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-meta);
+}
+
+.frgm-date-range-control[data-open='true'] .frgm-date-range-chevron {
+  transform: rotate(180deg);
+}
+
 .frgm-date-range-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--frgm-date-range-gap);
-}
-
-.frgm-date-range-display:hover,
-.frgm-date-range-presets .frgm-dropdown-trigger:hover,
-.frgm-date-range-presets.frgm-dropdown[open] .frgm-dropdown-trigger {
-  background: var(--gray-50);
-  color: var(--text-title);
-}
-
-.frgm-date-range-display:focus-visible {
-  outline: 2px solid var(--frgm-control-focus-ring);
-  outline-offset: var(--frgm-control-focus-offset);
 }
 
 .frgm-date-range-icon {
@@ -607,6 +623,248 @@
   justify-content: center;
   gap: var(--frgm-date-range-gap);
   font-size: 0.6071rem;
+}
+
+.frgm-date-range-popover {
+  position: absolute;
+  top: calc(100% + 1.2857rem);
+  left: 0;
+  z-index: var(--frgm-layer-popover);
+  width: min(77.7143rem, calc(100vw - 3rem));
+  min-height: 40rem;
+  display: grid;
+  grid-template-columns: 27.4286rem minmax(0, 1fr);
+  border-radius: var(--r-8);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-pop);
+  color: var(--frgm-date-range-text);
+  overflow: hidden;
+}
+
+.frgm-date-range-shortcuts {
+  display: grid;
+  align-content: start;
+  border-right: var(--frgm-control-border-width) solid var(--border-subtle);
+}
+
+.frgm-date-range-shortcut-list {
+  display: grid;
+  gap: 0.8571rem;
+  margin: 0;
+  padding: 2.2857rem;
+  list-style: none;
+}
+
+.frgm-date-range-shortcut {
+  width: 100%;
+  min-height: 3.7143rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: var(--r-6);
+  background: transparent;
+  color: inherit;
+  font: var(--frgm-control-strong-font-weight) 1.4286rem/1.2 var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+}
+
+.frgm-date-range-shortcut:hover,
+.frgm-date-range-shortcut[data-active='true'] {
+  background: var(--gray-100);
+}
+
+.frgm-date-range-compare-toggle {
+  min-height: 7.7143rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--frgm-inline-gap-lg);
+  padding: 0 2.2857rem;
+  border-top: var(--frgm-control-border-width) solid var(--border-subtle);
+  border-bottom: var(--frgm-control-border-width) solid var(--border-subtle);
+  font: var(--frgm-control-strong-font-weight) 1.5714rem/1.2 var(--font-sans);
+}
+
+.frgm-date-range-switch {
+  position: relative;
+  width: 4rem;
+  height: 2rem;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.frgm-date-range-switch input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.frgm-date-range-switch span {
+  width: 100%;
+  border-radius: var(--r-pill);
+  background: var(--gray-200);
+}
+
+.frgm-date-range-switch span::after {
+  content: "";
+  width: 1.7143rem;
+  height: 1.7143rem;
+  display: block;
+  margin: 0.1429rem;
+  border-radius: var(--r-pill);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-elev);
+  transition: transform var(--frgm-motion-duration) var(--frgm-motion-ease);
+}
+
+.frgm-date-range-switch input:checked + span {
+  background: var(--green-600);
+}
+
+.frgm-date-range-switch input:checked + span::after {
+  transform: translateX(2rem);
+}
+
+.frgm-date-range-calendar {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+}
+
+.frgm-date-range-fields {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.4286rem;
+  align-items: center;
+  padding: 2rem;
+  background: var(--gray-100);
+  color: var(--text-meta);
+  text-align: center;
+  font: var(--frgm-control-strong-font-weight) 1.4286rem/1.2 var(--font-sans);
+}
+
+.frgm-date-range-fields button {
+  min-height: 4rem;
+  border: var(--frgm-control-border-width) solid var(--border-subtle);
+  border-radius: var(--r-6);
+  background: var(--card-bg);
+  color: inherit;
+  box-shadow: var(--shadow-elev);
+  font: inherit;
+}
+
+.frgm-date-range-fields button[data-active='true'] {
+  border-color: var(--gray-400);
+}
+
+.frgm-date-range-month-nav {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto;
+  gap: 1.7143rem;
+  align-items: center;
+  padding: 2.2857rem 2rem 1.7143rem;
+  color: var(--text-title);
+  font: var(--frgm-control-font-weight) 1.4286rem/1.2 var(--font-sans);
+}
+
+.frgm-date-range-month-nav button {
+  width: 3.4286rem;
+  height: 3.4286rem;
+  border: 0;
+  border-radius: var(--r-8);
+  background: var(--gray-100);
+  color: var(--slate-700);
+  font: inherit;
+}
+
+.frgm-date-range-month-nav b {
+  display: inline-flex;
+  justify-content: center;
+  gap: var(--frgm-inline-gap-lg);
+  font-weight: var(--frgm-control-font-weight);
+}
+
+.frgm-date-range-month-nav b span {
+  color: var(--text-meta);
+}
+
+.frgm-date-range-weekdays,
+.frgm-date-range-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.5714rem;
+  padding-inline: 2rem;
+}
+
+.frgm-date-range-weekdays {
+  padding-bottom: 1.7143rem;
+  color: var(--text-meta);
+  font: var(--frgm-control-font-weight) 1.2857rem/1.2 var(--font-sans);
+  text-align: center;
+}
+
+.frgm-date-range-month {
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 1.7143rem;
+}
+
+.frgm-date-range-month > b {
+  display: block;
+  padding: 0 2rem 1.1429rem;
+  color: var(--text-meta);
+  font: var(--frgm-control-strong-font-weight) 1.4286rem/1.2 var(--font-sans);
+}
+
+.frgm-date-range-days button {
+  min-height: 2.8571rem;
+  border: 0;
+  background: transparent;
+  color: var(--text-title);
+  font: var(--frgm-control-font-weight) 1.2857rem/1.2 var(--font-sans);
+}
+
+.frgm-date-range-days button[data-range='true'] {
+  background: rgb(193, 193, 193);
+}
+
+.frgm-date-range-days button[data-start='true'] {
+  background: rgb(26, 26, 26);
+  color: var(--primary-fg);
+}
+
+.frgm-date-range-days button:nth-child(7n + 4),
+.frgm-date-range-days button:nth-child(7n + 1) {
+  border-radius: var(--r-pill) 0 0 var(--r-pill);
+}
+
+.frgm-date-range-days button:nth-child(7n) {
+  border-radius: 0 var(--r-pill) var(--r-pill) 0;
+}
+
+.frgm-date-range-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.7143rem;
+  padding: 1.1429rem 2rem;
+  border-top: var(--frgm-control-border-width) solid var(--border-subtle);
+}
+
+.frgm-date-range-footer button {
+  min-width: 10.4286rem;
+  min-height: 4.8571rem;
+  border: 0;
+  border-radius: var(--r-6);
+  background: var(--gray-100);
+  color: var(--frgm-date-range-text);
+  font: var(--frgm-control-strong-font-weight) 1.4286rem/1.2 var(--font-sans);
+}
+
+.frgm-date-range-footer button:last-child {
+  background: var(--primary);
+  color: var(--primary-fg);
 }
 
 .frgm-secondary-topbar {

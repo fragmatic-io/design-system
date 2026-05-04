@@ -389,7 +389,8 @@
 }
 
 .frgm-app-topbar-brand > [data-ds-dropdown-slot],
-.frgm-app-actions > [data-ds-dropdown-slot] {
+.frgm-app-actions > [data-ds-dropdown-slot],
+.frgm-app-actions > [data-ds-search-slot] {
   min-width: 0;
   display: inline-flex;
 }

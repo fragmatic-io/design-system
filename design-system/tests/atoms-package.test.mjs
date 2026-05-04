@@ -85,6 +85,12 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-dropdown\[open\]\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
   assert.match(css, /\.frgm-dropdown-panel\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
   assert.match(css, /\.frgm-date-range-control/);
+  assert.match(css, /\.frgm-date-range-popover/);
+  assert.match(css, /\.frgm-date-range-shortcuts/);
+  assert.match(css, /\.frgm-date-range-compare-toggle/);
+  assert.match(css, /\.frgm-date-range-month-nav/);
+  assert.match(css, /\.frgm-date-range-footer/);
+  assert.doesNotMatch(css, /frgm-date-range-presets/);
   assert.match(css, /var\(--frgm-date-range-h\)/);
   assert.match(css, /var\(--frgm-date-range-border\)/);
   assert.match(css, /var\(--frgm-date-range-shadow\)/);
@@ -141,6 +147,8 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /Dashboard-style page context bars use `SecondaryTopbar`/);
   assert.match(contract, /preserves the existing page breadcrumb/);
   assert.match(contract, /--frgm-date-range-h/);
-  assert.match(contract, /dashboard 44px two-part date control/);
+  assert.match(contract, /react-date-range/);
+  assert.match(contract, /compare toggle/);
+  assert.match(contract, /dashboard 44px two-part date trigger/);
   assert.match(contract, /Audit Result/);
 });

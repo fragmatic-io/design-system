@@ -35,6 +35,8 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(preview, /Open full app shell/);
   assert.match(preview, /data-ds-dropdown-slot="domain"/);
   assert.match(preview, /data-ds-dropdown-slot="profile"/);
+  assert.match(preview, /data-ds-search-slot/);
+  assert.doesNotMatch(preview, /<label class="frgm-search frgm-app-command">/);
   assert.doesNotMatch(preview, /Production domain/);
   assert.doesNotMatch(preview, /data-ds-dropdown-slot="settings"/);
   assert.doesNotMatch(preview, /class="frgm-app-domain-switcher"/);
@@ -83,7 +85,7 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /const shellNavSections = \[/);
   assert.match(previewModule, /const shellContextItems = \[/);
   assert.match(previewModule, /const secondaryTopbarByPage = \{/);
-  assert.match(previewModule, /import \{ DateRangeControl, DropdownMenu, SecondaryTopbar \} from '\.\.\/components\/atoms\/index\.js'/);
+  assert.match(previewModule, /import \{ DateRangeControl, DropdownMenu, SearchInput, SecondaryTopbar \} from '\.\.\/components\/atoms\/index\.js'/);
   assert.match(previewModule, /import \{ BrandLogoButton, FragmaticMark, FragmaticSidebarTile \} from '\.\.\/components\/brand\/index\.js'/);
   assert.match(previewModule, /const dropdownSlotRenderers = \{/);
   assert.match(previewModule, /domain: \(\) => React\.createElement\(DropdownMenu/);
@@ -123,9 +125,11 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /querySelector\('\[data-ds-shell-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-context-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-secondary-topbar\]'\)/);
+  assert.match(previewModule, /document\.querySelectorAll\('\[data-ds-search-slot\]'\)\.forEach\(renderSearchSlot\)/);
+  assert.match(previewModule, /React\.createElement\(SearchInput/);
   assert.match(previewModule, /React\.createElement\(SecondaryTopbar/);
   assert.match(previewModule, /className: 'frgm-app-secondary-topbar-surface'/);
-  assert.match(previewModule, /Recommendation context/);
+  assert.doesNotMatch(previewModule, /actions:\s*React\.createElement\([\s\S]*Recommendation context/);
   assert.match(previewModule, /document\.addEventListener\('click'/);
   assert.match(previewModule, /closest\('\[data-context-open\]'\)/);
   assert.doesNotMatch(previewModule, /data-secondary-topbar-state/);

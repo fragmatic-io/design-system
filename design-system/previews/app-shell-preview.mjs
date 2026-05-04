@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { DateRangeControl, DropdownMenu, SecondaryTopbar } from '../components/atoms/index.js';
+import { DateRangeControl, DropdownMenu, SearchInput, SecondaryTopbar } from '../components/atoms/index.js';
 import { icons } from '../components/atoms/icons.js';
 import { BrandLogoButton, FragmaticMark, FragmaticSidebarTile } from '../components/brand/index.js';
 
@@ -53,13 +53,11 @@ const secondaryTopbarByPage = {
     breadcrumbPath: [{ label: 'Analytics' }, { label: 'Overview' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
-    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   },
   settings: {
     breadcrumbPath: [{ label: 'Settings' }, { label: 'Project Settings' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
-    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   },
 };
 
@@ -71,7 +69,6 @@ if (secondaryTopbarDemo) {
     breadcrumbPath: [{ label: 'Analytics' }, { label: 'Overview' }],
     datePreset: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
-    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   }));
 }
 
@@ -79,7 +76,6 @@ if (dateRangeDemo) {
   createRoot(dateRangeDemo).render(React.createElement(DateRangeControl, {
     label: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
-    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
   }));
 }
 
@@ -160,6 +156,14 @@ const renderDropdownSlot = (slot) => {
   createRoot(slot).render(render());
 };
 
+const renderSearchSlot = (slot) => {
+  createRoot(slot).render(React.createElement(SearchInput, {
+    className: 'frgm-app-command',
+    label: 'Search workspace',
+    placeholder: 'Search, jump, or ask...',
+  }));
+};
+
 const initializeDropdownDismissal = () => {
   document.addEventListener('pointerdown', (event) => {
     document.querySelectorAll('details.frgm-dropdown[open]').forEach((dropdown) => {
@@ -213,20 +217,6 @@ const renderSecondaryTopbar = (activeItem) => {
   secondaryTopbarRoot?.render(React.createElement(SecondaryTopbar, {
     ...topbar,
     className: 'frgm-app-secondary-topbar-surface',
-    actions: React.createElement(
-      'button',
-      {
-        className: 'frgm-button',
-        'data-variant': 'secondary',
-        'data-size': 'sm',
-        type: 'button',
-        'data-context-open': true,
-        'data-context-panel-target': 'recommendation',
-        'aria-controls': 'frgm-recommendation-context',
-        'aria-expanded': 'false',
-      },
-      'Recommendation context',
-    ),
   }));
 };
 
@@ -339,4 +329,5 @@ setContextPanelOpen(false);
 document.querySelectorAll('[data-ds-icon-slot]').forEach(renderIconSlot);
 document.querySelectorAll('[data-ds-brand-slot]').forEach(renderBrandSlot);
 document.querySelectorAll('[data-ds-dropdown-slot]').forEach(renderDropdownSlot);
+document.querySelectorAll('[data-ds-search-slot]').forEach(renderSearchSlot);
 initializeDropdownDismissal();

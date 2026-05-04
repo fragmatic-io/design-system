@@ -429,42 +429,99 @@ export function DateRangeControl({
   label = 'Last 90 Days',
   dateRange = '4 Feb-4 May 2026',
   compareRange,
-  presets = ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
+  presets = [
+    { key: '7d', label: 'Last 7 Days' },
+    { key: '14d', label: 'Last 14 Days' },
+    { key: '28d', label: 'Last 28 Days' },
+    { key: '30d', label: 'Last 30 Days' },
+    { key: '90d', label: 'Last 90 Days' },
+    { key: 'custom', label: 'Custom' },
+  ],
+  comparisonOptions = [
+    { key: 'prev_match_day', label: 'Preceding period (match day of week)' },
+    { key: 'last_year_match_day', label: 'Same period last year (match day of week)' },
+    { key: 'prev_period', label: 'Preceding period' },
+    { key: 'last_year', label: 'Same period last year' },
+    { key: 'custom', label: 'Custom' },
+  ],
   onPresetSelect,
   onDateClick,
+  onApply,
   className = '',
 }) {
+  const rootRef = React.useRef(null);
+  const [isOpen, setIsOpen] = React.useState(false);
   const [selectedLabel, setSelectedLabel] = React.useState(label);
+  const [isCompare, setIsCompare] = React.useState(!!compareRange);
+  const [selectedCompare, setSelectedCompare] = React.useState(comparisonOptions[0]?.key);
   const presetItems = presets.map((preset) => {
     const presetLabel = typeof preset === 'string' ? preset : preset.label;
 
     return {
       key: typeof preset === 'string' ? preset : preset.key ?? preset.label,
       label: presetLabel,
-      active: presetLabel === selectedLabel,
-      onClick: () => {
-        setSelectedLabel(presetLabel);
-        onPresetSelect?.(preset);
-      },
     };
   });
 
+  React.useEffect(() => {
+    const closeOnOutsidePointerDown = (event) => {
+      const root = rootRef.current;
+
+      if (!isOpen || root?.contains(event.target)) {
+        return;
+      }
+
+      setIsOpen(false);
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsidePointerDown);
+    return () => document.removeEventListener('pointerdown', closeOnOutsidePointerDown);
+  }, [isOpen]);
+
+  const selectPreset = (preset) => {
+    const presetLabel = typeof preset === 'string' ? preset : preset.label;
+    setSelectedLabel(presetLabel);
+    onPresetSelect?.(preset);
+  };
+
+  const applySelection = () => {
+    onApply?.({ label: selectedLabel, dateRange, isCompare, compareKey: selectedCompare });
+    setIsOpen(false);
+  };
+
+  const cancelSelection = () => {
+    setSelectedLabel(label);
+    setIsCompare(!!compareRange);
+    setIsOpen(false);
+  };
+
   return React.createElement(
     'div',
-    { className: cx('frgm-date-range-control', className) },
-    React.createElement(DropdownMenu, {
-      label: selectedLabel,
-      variant: 'date-range',
-      items: presetItems,
-      className: 'frgm-date-range-presets',
-    }),
+    { ref: rootRef, className: cx('frgm-date-range-control', className), 'data-open': isOpen ? 'true' : undefined },
+    React.createElement(
+      'button',
+      {
+        className: 'frgm-date-range-preset-trigger',
+        type: 'button',
+        onClick: () => setIsOpen(true),
+        'aria-expanded': isOpen,
+        'aria-haspopup': 'dialog',
+      },
+      React.createElement('span', null, selectedLabel),
+      React.createElement('span', { className: 'frgm-date-range-chevron' }, icons.chevronDown),
+    ),
     React.createElement(
       'button',
       {
         className: 'frgm-date-range-display',
         type: 'button',
-        onClick: onDateClick,
+        onClick: (event) => {
+          setIsOpen(true);
+          onDateClick?.(event);
+        },
         'aria-label': `Date range ${dateRange}`,
+        'aria-expanded': isOpen,
+        'aria-haspopup': 'dialog',
       },
       React.createElement(
         'span',
@@ -477,6 +534,119 @@ export function DateRangeControl({
         { className: 'frgm-date-range-compare' },
         React.createElement('span', null, 'Compare :'),
         React.createElement('span', null, compareRange),
+      ),
+    ),
+    isOpen && React.createElement(
+      'div',
+      { className: 'frgm-date-range-popover', role: 'dialog', 'aria-label': 'Date range picker' },
+      React.createElement(
+        'aside',
+        { className: 'frgm-date-range-shortcuts' },
+        React.createElement(
+          'ul',
+          { className: 'frgm-date-range-shortcut-list' },
+          ...presetItems.map((item) => React.createElement(
+            'li',
+            { key: item.key },
+            React.createElement(
+              'button',
+              {
+                className: 'frgm-date-range-shortcut',
+                type: 'button',
+                'data-active': item.label === selectedLabel ? 'true' : undefined,
+                onClick: () => selectPreset(item),
+              },
+              item.label,
+            ),
+          )),
+        ),
+        React.createElement(
+          'div',
+          { className: 'frgm-date-range-compare-toggle' },
+          React.createElement('span', null, 'Compare'),
+          React.createElement(
+            'label',
+            { className: 'frgm-date-range-switch' },
+            React.createElement('input', { type: 'checkbox', checked: isCompare, onChange: (event) => setIsCompare(event.target.checked) }),
+            React.createElement('span', null),
+          ),
+        ),
+        isCompare && React.createElement(
+          'ul',
+          { className: 'frgm-date-range-shortcut-list', 'data-compare': 'true' },
+          ...comparisonOptions.map((item) => React.createElement(
+            'li',
+            { key: item.key },
+            React.createElement(
+              'button',
+              {
+                className: 'frgm-date-range-shortcut',
+                type: 'button',
+                'data-active': item.key === selectedCompare ? 'true' : undefined,
+                onClick: () => setSelectedCompare(item.key),
+              },
+              item.label,
+            ),
+          )),
+        ),
+      ),
+      React.createElement(
+        'section',
+        { className: 'frgm-date-range-calendar' },
+        React.createElement(
+          'div',
+          { className: 'frgm-date-range-fields' },
+          React.createElement('span', null, 'Start date'),
+          React.createElement('span', null, '-'),
+          React.createElement('span', null, 'End date'),
+          React.createElement('button', { type: 'button', 'data-active': 'true' }, 'Feb 4, 2026'),
+          React.createElement('button', { type: 'button' }, 'May 4, 2026'),
+          isCompare && React.createElement('button', { type: 'button' }, 'Nov 5, 2025'),
+          isCompare && React.createElement('button', { type: 'button' }, 'Feb 2, 2026'),
+        ),
+        React.createElement(
+          'div',
+          { className: 'frgm-date-range-month-nav' },
+          React.createElement('button', { type: 'button', 'aria-label': 'Previous month' }, '‹'),
+          React.createElement('b', null, 'February', React.createElement('span', null, '⌄')),
+          React.createElement('b', null, '2026', React.createElement('span', null, '⌄')),
+          React.createElement('button', { type: 'button', 'aria-label': 'Next month' }, '›'),
+        ),
+        React.createElement(
+          'div',
+          { className: 'frgm-date-range-weekdays' },
+          ...['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => React.createElement('span', { key: day }, day)),
+        ),
+        React.createElement(
+          'div',
+          { className: 'frgm-date-range-month' },
+          React.createElement('b', null, 'Feb 2026'),
+          React.createElement(
+            'div',
+            { className: 'frgm-date-range-days' },
+            ...Array.from({ length: 28 }, (_, index) => {
+              const day = index + 1;
+              const isInRange = day >= 4;
+              return React.createElement(
+                'button',
+                {
+                  key: day,
+                  type: 'button',
+                  'data-range': isInRange ? 'true' : undefined,
+                  'data-start': day === 4 ? 'true' : undefined,
+                },
+                day,
+              );
+            }),
+          ),
+          React.createElement('b', null, 'Mar 2026'),
+        ),
+        React.createElement(
+          'div',
+          { className: 'frgm-date-range-footer' },
+          React.createElement('button', { type: 'button', onClick: cancelSelection }, 'Cancel'),
+          React.createElement('button', { type: 'button', onClick: applySelection }, 'Apply'),
+        ),
       ),
     ),
   );

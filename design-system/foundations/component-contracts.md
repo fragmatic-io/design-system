@@ -31,9 +31,11 @@ Dropdown triggers use the shared control radius and border tokens. The `domain`,
 
 ## Secondary Topbar Foundation
 
-Dashboard-style page context bars use `SecondaryTopbar`, composed with `DateRangeControl` and `DropdownMenu`. Product shells should pass breadcrumb path, date preset, date range, and optional actions through the component API instead of hand-maintaining breadcrumb/filter HTML in app shell patterns.
+Dashboard-style page context bars use `SecondaryTopbar`, composed with `DateRangeControl`. Product shells should pass breadcrumb path, date preset, and date range through the component API instead of hand-maintaining breadcrumb/filter HTML in app shell patterns.
 
 The app shell secondary topbar preserves the existing page breadcrumb and contextual action area; date fields are an additive control in the same row, not a replacement for the breadcrumb.
+
+`DateRangeControl` follows the dashboard `DateRangeDropdown` behavior: preset shortcuts (`Last 7/14/28/30/90 Days`, `Custom`), compare toggle, comparison options, draft selection, cancel, and apply. The dashboard code uses `react-date-range` with `date-fns`; the design-system component extracts that reusable UI contract while avoiding app-only Redux preference wiring.
 
 `DateRangeControl` uses the dashboard-derived date range tokens in `tokens/tokens.css`: `--frgm-date-range-h`, `--frgm-date-range-min-width`, `--frgm-date-range-max-width`, `--frgm-date-range-pad-*`, `--frgm-date-range-border`, `--frgm-date-range-divider`, `--frgm-date-range-text`, and `--frgm-date-range-shadow`. Do not resize this control with shell-local CSS.
 
@@ -79,7 +81,7 @@ Only one app-shell page container should be visible for a selected context navig
 | `RadioField` | `--card-bg`, `--gray-300`, `--primary`, `--frgm-icon-size-md`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary fill; focus-visible uses the shared focus ring. | Native radio semantics, custom visual shell. |
 | `ToggleField` | `--card-bg`, `--gray-300`, `--primary`, `--border-subtle`, `--shadow-elev`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary track; knob motion uses foundation motion. | For binary settings where switch affordance is expected. |
 | `DropdownMenu` | `--card-bg`, `--gray-50`, `--border-subtle`, `--border-strong`, `--text-body`, `--text-title`, `--text-meta`, `--shadow-pop`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-icon-size-md` | `domain`, `icon`, `avatar`, and default trigger variants share the same panel and item rules; open state is native `details[open]`. | Use for domain, profile, settings, and overflow menus. |
-| `DateRangeControl` | `--card-bg`, `--gray-50`, `--text-title`, `--text-meta`, `--frgm-control-*`, `--frgm-date-range-*`, `--frgm-icon-size-md` | Preset selector composes `DropdownMenu`; date display is a button with calendar icon, optional compare line, and shared focus ring. | Mirrors the dashboard 44px two-part date control while keeping dropdown behavior in the atom foundation. |
+| `DateRangeControl` | `--card-bg`, `--gray-50`, `--text-title`, `--text-meta`, `--frgm-control-*`, `--frgm-date-range-*`, `--frgm-icon-size-md`, `--frgm-layer-popover` | Preset selector opens the dashboard-style range dialog; date display is a button with calendar icon, optional compare line, compare options, cancel, and apply. | Mirrors the dashboard 44px two-part date trigger and reusable date range behavior. |
 | `SecondaryTopbar` | `--card-bg`, `--border-subtle`, `--text-title`, `--text-meta`, `--gray-50`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-icon-size-md` | Breadcrumb, date controls, and optional actions stay visible in the normal row. | Use for second-row page context in the app shell. |
 | `SwitchButton` | `--gray-100`, `--gray-500`, `--card-bg`, `--text-title`, `--shadow-elev`, `--frgm-control-*`, `--frgm-pill-pad-y-sm`, `--frgm-state-muted-opacity` | Selected option uses `aria-pressed="true"` with card background/elevation; disabled uses muted opacity. | Covers All/Any segmented choice only. |
 | `Loader` | `--frgm-loader-*`, `--primary`, `--frgm-motion-spin-duration`, `--frgm-pill-radius` | Size maps to foundation `small/default/large`; optional color prop sets `--color`. | Replaces Ant Design icon dependency with CSS spinner. |
