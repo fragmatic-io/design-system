@@ -41,6 +41,15 @@ export const icons = {
     React.createElement('circle', { key: 'c', cx: 7, cy: 7, r: 4.5 }),
     React.createElement('path', { key: 'p', d: 'M11 11l3 3' }),
   ]),
+  alertTriangle: svg([
+    React.createElement('path', { key: 'p1', d: 'M8 2.5l6 10.5H2L8 2.5Z' }),
+    React.createElement('path', { key: 'p2', d: 'M8 6.5v3' }),
+    React.createElement('path', { key: 'p3', d: 'M8 12h.01' }),
+  ]),
+  checkCircle: svg([
+    React.createElement('circle', { key: 'c', cx: 8, cy: 8, r: 6 }),
+    React.createElement('path', { key: 'p', d: 'M5.5 8.2l1.7 1.7L10.8 6.3' }),
+  ]),
   dashboard: svg(React.createElement('path', { d: 'M18 20V10M12 20V4M6 20V14' }), '0 0 24 24'),
   onboarding: svg(React.createElement('path', { d: 'M18 20V10M12 20V4M6 20V14' }), '0 0 24 24'),
   experience: svg(React.createElement('path', { d: 'M2 17L12 22L22 17M2 12L12 17L22 12M12 2L2 7L12 12L22 7L12 2Z' }), '0 0 24 24'),

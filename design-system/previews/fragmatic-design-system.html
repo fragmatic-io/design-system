@@ -2306,7 +2306,7 @@
       <p>The atoms in <code>design-system/components/atoms/*</code>, organized by job. One row per atom, one demo per row — comprehensive coverage without sprawl.</p>
     </div>
 
-    <div class="group-head"><h3>Actions</h3><span class="note">Atoms / button · linkButton · dropdownMenu · switchButton</span></div>
+    <div class="group-head"><h3>Actions</h3><span class="note">Atoms / button · linkButton · dropdownMenu · switchButton · confirmationDialog</span></div>
 
     <div class="comp">
       <div class="comp-meta">
@@ -2389,6 +2389,15 @@
         <span class="ref"><b>Atoms/secondaryTopbar</b> · title/dateRange/collapsed</span>
       </div>
       <div class="comp-body wide" data-ds-secondary-topbar-demo></div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-meta">
+        <h4>ConfirmationDialog</h4>
+        <p>Shared confirmation surface for destructive deletes and edit-save confirmations. Dialog spacing, layer, icon treatment, and buttons come from foundation tokens.</p>
+        <span class="ref"><b>ConfirmationDialog</b> · danger/confirm</span>
+      </div>
+      <div class="comp-body surface" data-ds-confirmation-demo></div>
     </div>
 
     <div class="comp">
@@ -3784,11 +3793,21 @@
           <p>Try widening your date range, or clear filters to see all 24 active segments.</p>
           <div class="acts"><button class="btn btn-ghost btn-sm">Clear filters</button><button class="btn btn-primary btn-sm">+ New segment</button></div>
         </div>
-        <div class="modal-shell">
-          <div class="modal-card">
-            <div class="m-head"><span class="icon-circ"><svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2v7M8 12v.5"/></svg></span><div><h3>Delete "High-intent visitors"?</h3><div style="font-size:0.9286rem;color:var(--gray-500);margin-top:0.2857rem">This segment is referenced by 2 active journeys.</div></div></div>
-            <div class="m-body">Removing it will pause those journeys until you pick a replacement audience. This can't be undone.</div>
-            <div class="m-foot"><button class="btn btn-ghost btn-sm">Cancel</button><button class="btn btn-sm" style="background:var(--red-700);color: var(--primary-fg)">Delete segment</button></div>
+        <div class="modal-shell" data-confirmation-preview>
+          <div class="frgm-dialog" data-preview-card="true">
+            <div class="frgm-dialog-head">
+              <span class="frgm-dialog-icon" data-tone="danger"><span data-ds-icon-slot="alertTriangle"></span></span>
+              <div class="frgm-dialog-copy">
+                <span class="frgm-dialog-eyebrow">Confirmation pattern</span>
+                <h3>Confirm before changing state</h3>
+                <p>Use the same confirmation atom for destructive deletes and save/edit confirmations.</p>
+              </div>
+            </div>
+            <div class="frgm-dialog-body">Preview the exact dialogs through the buttons below. Delete uses danger tone; save uses confirm tone.</div>
+            <div class="frgm-dialog-actions">
+              <button class="frgm-button" data-variant="secondary" type="button" data-confirm-open="save">Preview save dialog</button>
+              <button class="frgm-button" data-variant="danger" type="button" data-confirm-open="delete">Preview delete dialog</button>
+            </div>
           </div>
         </div>
       </div>
@@ -3849,6 +3868,42 @@
 
 </div>
 
+<div class="frgm-dialog-overlay" data-confirm-dialog="delete" data-tone="danger" role="presentation" hidden>
+  <section class="frgm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-confirm-title" aria-describedby="delete-confirm-description">
+    <div class="frgm-dialog-head">
+      <span class="frgm-dialog-icon" aria-hidden="true"><span data-ds-icon-slot="alertTriangle"></span></span>
+      <div class="frgm-dialog-copy">
+        <span class="frgm-dialog-eyebrow">Delete confirmation</span>
+        <h3 id="delete-confirm-title">Delete "High-intent visitors"?</h3>
+        <p id="delete-confirm-description">This segment is referenced by 2 active journeys.</p>
+      </div>
+    </div>
+    <div class="frgm-dialog-body">Removing it will pause those journeys until you pick a replacement audience. This cannot be undone.</div>
+    <div class="frgm-dialog-actions">
+      <button class="frgm-button" data-variant="secondary" type="button" data-confirm-close>Cancel</button>
+      <button class="frgm-button" data-variant="danger" type="button" data-confirm-close>Delete segment</button>
+    </div>
+  </section>
+</div>
+
+<div class="frgm-dialog-overlay" data-confirm-dialog="save" data-tone="confirm" role="presentation" hidden>
+  <section class="frgm-dialog" role="dialog" aria-modal="true" aria-labelledby="save-confirm-title" aria-describedby="save-confirm-description">
+    <div class="frgm-dialog-head">
+      <span class="frgm-dialog-icon" aria-hidden="true"><span data-ds-icon-slot="checkCircle"></span></span>
+      <div class="frgm-dialog-copy">
+        <span class="frgm-dialog-eyebrow">Confirm save</span>
+        <h3 id="save-confirm-title">Save edits to this segment?</h3>
+        <p id="save-confirm-description">This will update the segment definition and re-sync the two journeys using it.</p>
+      </div>
+    </div>
+    <div class="frgm-dialog-body">Use this pattern before edit-save actions where the user should confirm the impact of their changes.</div>
+    <div class="frgm-dialog-actions">
+      <button class="frgm-button" data-variant="secondary" type="button" data-confirm-close>Keep editing</button>
+      <button class="frgm-button" type="button" data-confirm-close>Save changes</button>
+    </div>
+  </section>
+</div>
+
 <!-- Tweaks: three expressive levers — Temperament · Surface · Density -->
 <script>
   (() => {
@@ -3871,6 +3926,34 @@
     }, { rootMargin: '-20% 0px -65% 0px', threshold: [0, 0.25, 0.5, 0.75] });
 
     sections.forEach((section) => observer.observe(section));
+  })();
+</script>
+<script>
+  (() => {
+    const dialogs = [...document.querySelectorAll('[data-confirm-dialog]')];
+    const closeDialogs = () => dialogs.forEach((dialog) => { dialog.hidden = true; });
+
+    document.addEventListener('click', (event) => {
+      const opener = event.target.closest('[data-confirm-open]');
+      const closer = event.target.closest('[data-confirm-close]');
+      const overlay = event.target.closest('[data-confirm-dialog]');
+
+      if (opener) {
+        closeDialogs();
+        document.querySelector(`[data-confirm-dialog="${opener.dataset.confirmOpen}"]`)?.removeAttribute('hidden');
+        return;
+      }
+
+      if (closer || (overlay && event.target === overlay)) {
+        closeDialogs();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeDialogs();
+      }
+    });
   })();
 </script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>

@@ -168,6 +168,18 @@
   --frgm-layer-popover: 1000;
   --frgm-layer-shell-overlay: 1050;
   --frgm-layer-dropdown: 1100;
+  --frgm-layer-modal: 1200;
+  --frgm-dialog-width: 31.4286rem;
+  --frgm-dialog-pad: var(--space-5);
+  --frgm-dialog-gap: var(--space-4);
+  --frgm-dialog-icon-size: var(--frgm-control-h-md);
+  --frgm-dialog-scrim: var(--overlay-scrim);
+  --frgm-dialog-surface: var(--card-bg);
+  --frgm-dialog-border: var(--border-subtle);
+  --frgm-dialog-shadow: var(--shadow-pop);
+  --frgm-dialog-title-size: var(--frgm-control-font-size-lg);
+  --frgm-dialog-body-size: var(--frgm-control-font-size-md);
+  --frgm-dialog-body-line: 1.5;
 
   /* Dashboard date-range control geometry from `.custom-date-picker`.
      These are component foundations, not app-shell overrides. */

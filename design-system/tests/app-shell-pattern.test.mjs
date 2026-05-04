@@ -94,7 +94,7 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /const shellNavSections = \[/);
   assert.match(previewModule, /const shellContextItems = \[/);
   assert.match(previewModule, /const secondaryTopbarByPage = \{/);
-  assert.match(previewModule, /import \{ DateRangeControl, DropdownMenu, SearchInput, SecondaryTopbar \} from '\.\.\/components\/atoms\/index\.js'/);
+  assert.match(previewModule, /import \{ Button, ConfirmationDialog, DateRangeControl, DropdownMenu, SearchInput, SecondaryTopbar \} from '\.\.\/components\/atoms\/index\.js'/);
   assert.match(previewModule, /import \{ BrandLogoButton, FragmaticMark, FragmaticSidebarTile \} from '\.\.\/components\/brand\/index\.js'/);
   assert.match(previewModule, /const dropdownSlotRenderers = \{/);
   assert.match(previewModule, /domain: \(\) => React\.createElement\(DropdownMenu/);

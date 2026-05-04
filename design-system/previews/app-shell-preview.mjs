@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { DateRangeControl, DropdownMenu, SearchInput, SecondaryTopbar } from '../components/atoms/index.js';
+import { Button, ConfirmationDialog, DateRangeControl, DropdownMenu, SearchInput, SecondaryTopbar } from '../components/atoms/index.js';
 import { icons } from '../components/atoms/icons.js';
 import { BrandLogoButton, FragmaticMark, FragmaticSidebarTile } from '../components/brand/index.js';
 
@@ -63,6 +63,7 @@ const secondaryTopbarByPage = {
 
 const secondaryTopbarDemo = document.querySelector('[data-ds-secondary-topbar-demo]');
 const dateRangeDemos = document.querySelectorAll('[data-ds-date-range-demo]');
+const confirmationDialogDemo = document.querySelector('[data-ds-confirmation-demo]');
 
 if (secondaryTopbarDemo) {
   createRoot(secondaryTopbarDemo).render(React.createElement(SecondaryTopbar, {
@@ -80,6 +81,50 @@ dateRangeDemos.forEach((dateRangeDemo) => {
     defaultCompare: true,
   }));
 });
+
+function ConfirmationDialogDemo() {
+  const [activeDialog, setActiveDialog] = React.useState(null);
+  const closeDialog = () => setActiveDialog(null);
+
+  return React.createElement(
+    React.Fragment,
+    null,
+    React.createElement(
+      'div',
+      { className: 'confirmation-demo-actions' },
+      React.createElement(Button, { onClick: () => setActiveDialog('save') }, 'Preview save confirmation'),
+      React.createElement(Button, { variant: 'danger', onClick: () => setActiveDialog('delete') }, 'Preview delete confirmation'),
+    ),
+    React.createElement(ConfirmationDialog, {
+      id: 'save-confirmation-demo',
+      open: activeDialog === 'save',
+      tone: 'confirm',
+      eyebrow: 'Confirm save',
+      title: 'Save edits to this segment?',
+      description: 'This will update the segment definition and re-sync the two journeys using it.',
+      confirmLabel: 'Save changes',
+      cancelLabel: 'Keep editing',
+      onCancel: closeDialog,
+      onConfirm: closeDialog,
+    }, 'Use this pattern before edit-save actions where the user should confirm the impact of their changes.'),
+    React.createElement(ConfirmationDialog, {
+      id: 'delete-confirmation-demo',
+      open: activeDialog === 'delete',
+      tone: 'danger',
+      eyebrow: 'Delete confirmation',
+      title: 'Delete "High-intent visitors"?',
+      description: 'This segment is referenced by 2 active journeys.',
+      confirmLabel: 'Delete segment',
+      cancelLabel: 'Cancel',
+      onCancel: closeDialog,
+      onConfirm: closeDialog,
+    }, 'Removing it will pause those journeys until you pick a replacement audience. This cannot be undone.'),
+  );
+}
+
+if (confirmationDialogDemo) {
+  createRoot(confirmationDialogDemo).render(React.createElement(ConfirmationDialogDemo));
+}
 
 const dropdownSlotRenderers = {
   domain: () => React.createElement(DropdownMenu, {

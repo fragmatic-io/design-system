@@ -27,6 +27,7 @@ const atomNames = [
   'CheckboxField',
   'RadioField',
   'ToggleField',
+  'ConfirmationDialog',
   'DropdownMenu',
   'DateRangeControl',
   'SecondaryTopbar',
@@ -100,6 +101,10 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-textarea/);
   assert.match(css, /\.frgm-choice/);
   assert.match(css, /\.frgm-toggle-field/);
+  assert.match(css, /\.frgm-dialog-overlay/);
+  assert.match(css, /\.frgm-dialog/);
+  assert.match(css, /var\(--frgm-dialog-width\)/);
+  assert.match(css, /var\(--frgm-layer-modal\)/);
   assert.match(css, /\.frgm-dropdown/);
   assert.match(css, /\.frgm-dropdown-trigger/);
   assert.match(css, /\.frgm-dropdown-panel/);
@@ -152,6 +157,9 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-layer-popover:\s*1000/);
   assert.match(tokens, /--frgm-layer-shell-overlay:\s*1050/);
   assert.match(tokens, /--frgm-layer-dropdown:\s*1100/);
+  assert.match(tokens, /--frgm-layer-modal:\s*1200/);
+  assert.match(tokens, /--frgm-dialog-width:\s*31\.4286rem/);
+  assert.match(tokens, /--frgm-dialog-scrim:\s*var\(--overlay-scrim\)/);
   assert.match(tokens, /--frgm-date-range-font-size:\s*var\(--frgm-control-font-size-sm\)/);
   assert.match(tokens, /--frgm-date-range-calendar-font-size:\s*var\(--frgm-control-font-size-sm\)/);
   assert.match(tokens, /--frgm-date-range-popover-width:\s*50rem/);
@@ -225,6 +233,10 @@ test('preview form examples use foundation form primitives', async () => {
   assert.match(preview, /class="frgm-dropdown"/);
   assert.match(preview, /class="frgm-dropdown-trigger" data-variant="domain"/);
   assert.match(preview, /SecondaryTopbar/);
+  assert.match(preview, /ConfirmationDialog/);
+  assert.match(preview, /data-ds-confirmation-demo/);
+  assert.match(preview, /data-confirm-dialog="delete"/);
+  assert.match(preview, /data-confirm-dialog="save"/);
   assert.match(preview, /data-ds-secondary-topbar-demo/);
   assert.doesNotMatch(preview, /<span class="ref"><b>\.input-box<\/b>/);
   assert.doesNotMatch(preview, /class="field"/);
@@ -248,6 +260,8 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /## Dropdown Foundation/);
   assert.match(contract, /Domain switchers, profile menus, settings menus, and overflow menus/);
   assert.match(contract, /## Secondary Topbar Foundation/);
+  assert.match(contract, /## Confirmation Dialog Foundation/);
+  assert.match(contract, /Delete confirmations use `tone="danger"`/);
   assert.match(contract, /Dashboard-style page context bars use `SecondaryTopbar`/);
   assert.match(contract, /preserves the existing page breadcrumb/);
   assert.match(contract, /--frgm-date-range-h/);

@@ -34,6 +34,12 @@ Dropdowns use `DropdownMenu` and the `.frgm-dropdown-*` classes. Domain switcher
 
 Dropdown triggers use the shared control radius and border tokens. The `domain`, `icon`, and `avatar` variants change content density only; they do not create new shape rules outside the atom foundation.
 
+## Confirmation Dialog Foundation
+
+Confirmation flows use `ConfirmationDialog` and the `.frgm-dialog-*` classes. Delete confirmations use `tone="danger"` with danger state tokens; save/edit confirmations use the default confirm tone with selected/primary tokens. The overlay, card width, icon size, padding, border, elevation, text sizing, and z-axis come from `--frgm-dialog-*` and `--frgm-layer-modal`.
+
+Use this dialog before irreversible delete actions and before confirming edits that save changes. Do not create page-local modal cards for these flows; compose the atom so destructive and save confirmations share copy hierarchy, button order, keyboard dismissal, scrim behavior, and mobile sheet behavior.
+
 ## Secondary Topbar Foundation
 
 Dashboard-style page context bars use `SecondaryTopbar`, composed with `DateRangeControl`. Product shells should pass breadcrumb path, date preset, and date range through the component API instead of hand-maintaining breadcrumb/filter HTML in app shell patterns.
@@ -91,6 +97,7 @@ Only one app-shell page container should be visible for a selected context navig
 | `CheckboxField` | `--card-bg`, `--gray-300`, `--primary`, `--frgm-icon-size-md`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary fill; focus-visible uses the shared focus ring. | Native checkbox semantics, custom visual shell. |
 | `RadioField` | `--card-bg`, `--gray-300`, `--primary`, `--frgm-icon-size-md`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary fill; focus-visible uses the shared focus ring. | Native radio semantics, custom visual shell. |
 | `ToggleField` | `--card-bg`, `--gray-300`, `--primary`, `--border-subtle`, `--shadow-elev`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary track; knob motion uses foundation motion. | For binary settings where switch affordance is expected. |
+| `ConfirmationDialog` | `--frgm-dialog-*`, `--frgm-layer-modal`, `--overlay-scrim`, `--card-bg`, `--border-subtle`, `--shadow-pop`, `--frgm-state-danger-*`, `--frgm-state-selected-bg`, `--primary`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-icon-size-md` | `tone="danger"` maps icon/action to danger tokens; default confirm tone maps icon/action to primary tokens. Overlay click, cancel, and confirm callbacks are component behaviors. | Use for delete confirmations and save/edit confirmations before committing state-changing actions. |
 | `DropdownMenu` | `--card-bg`, `--gray-50`, `--border-subtle`, `--border-strong`, `--text-body`, `--text-title`, `--text-meta`, `--shadow-pop`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-icon-size-md` | `domain`, `icon`, `avatar`, and default trigger variants share the same panel and item rules; open state is native `details[open]`. | Use for domain, profile, settings, and overflow menus. |
 | `DateRangeControl` | `--card-bg`, `--gray-50`, `--text-title`, `--text-meta`, `--frgm-control-*`, `--frgm-date-range-*`, `--frgm-icon-size-md`, `--frgm-layer-popover` | Preset selector opens the dashboard-style range dialog; date display is a selected-state button with calendar icon, optional compare line, compare options, active date chips, selected range cells, cancel, apply, and viewport-aware `align`. | Mirrors the dashboard 44px two-part date trigger and reusable date range behavior. |
 | `SecondaryTopbar` | `--card-bg`, `--border-subtle`, `--text-title`, `--text-meta`, `--gray-50`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-icon-size-md` | Breadcrumb, date controls, and optional actions stay visible in the normal row. | Use for second-row page context in the app shell. |

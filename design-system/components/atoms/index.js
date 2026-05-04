@@ -341,6 +341,87 @@ export function ToggleField({ label, className = '', ...props }) {
   );
 }
 
+export function ConfirmationDialog({
+  open = false,
+  title = 'Confirm action',
+  description,
+  eyebrow,
+  tone = 'confirm',
+  confirmLabel = 'Confirm',
+  cancelLabel = 'Cancel',
+  onConfirm,
+  onCancel,
+  children,
+  className = '',
+  id,
+}) {
+  React.useEffect(() => {
+    if (!open) {
+      return undefined;
+    }
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') {
+        onCancel?.(event);
+      }
+    };
+
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [open, onCancel]);
+
+  if (!open) {
+    return null;
+  }
+
+  const titleId = id ? `${id}-title` : undefined;
+  const descriptionId = id ? `${id}-description` : undefined;
+  const icon = tone === 'danger' ? icons.alertTriangle : icons.checkCircle;
+
+  return React.createElement(
+    'div',
+    {
+      className: cx('frgm-dialog-overlay', className),
+      role: 'presentation',
+      'data-tone': tone,
+      onMouseDown: (event) => {
+        if (event.target === event.currentTarget) {
+          onCancel?.(event);
+        }
+      },
+    },
+    React.createElement(
+      'section',
+      {
+        className: 'frgm-dialog',
+        role: 'dialog',
+        'aria-modal': 'true',
+        'aria-labelledby': titleId,
+        'aria-describedby': description ? descriptionId : undefined,
+      },
+      React.createElement(
+        'div',
+        { className: 'frgm-dialog-head' },
+        React.createElement('span', { className: 'frgm-dialog-icon', 'aria-hidden': 'true' }, icon),
+        React.createElement(
+          'div',
+          { className: 'frgm-dialog-copy' },
+          eyebrow && React.createElement('span', { className: 'frgm-dialog-eyebrow' }, eyebrow),
+          React.createElement('h3', { id: titleId }, title),
+          description && React.createElement('p', { id: descriptionId }, description),
+        ),
+      ),
+      children && React.createElement('div', { className: 'frgm-dialog-body' }, children),
+      React.createElement(
+        'div',
+        { className: 'frgm-dialog-actions' },
+        React.createElement(Button, { variant: 'secondary', onClick: onCancel }, cancelLabel),
+        React.createElement(Button, { variant: tone === 'danger' ? 'danger' : 'primary', onClick: onConfirm }, confirmLabel),
+      ),
+    ),
+  );
+}
+
 export function DropdownMenu({
   label = 'Menu',
   caption,
