@@ -28,6 +28,7 @@ import { Button, Badge, Breadcrumb, SearchInput } from '@fragmatic/design-system
 ## Structure
 
 - `design-system/tokens/`: CSS custom properties.
+- `design-system/foundations/`: component-foundation contracts and audit notes.
 - `design-system/styles/`: extracted reference CSS.
 - `design-system/components/atoms/`: source snippets from the original export.
 - `design-system/previews/`: browsable design-system preview.
@@ -37,6 +38,8 @@ import { Button, Badge, Breadcrumb, SearchInput } from '@fragmatic/design-system
 ## Current Package Surface
 
 The stable package surface is CSS tokens, token-based atom styles, preview metadata, preview tooling, and hardened React atom exports. The original downloaded snippets remain under `design-system/components/atoms/*` as source references, but consumers should import atoms from `@fragmatic/design-system/atoms`.
+
+The atom contract audit lives in `design-system/foundations/component-contracts.md`. Exported atoms should not add reusable visual decisions unless those decisions are first formalized in `design-system/tokens/tokens.css`.
 
 ## Checks
 

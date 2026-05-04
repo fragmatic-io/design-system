@@ -197,7 +197,11 @@ export function SwitchButton({ isAnd = true, setIsAnd, isDisabled = false, class
 }
 
 export function Loader({ size = 'default', color, className = '' }) {
-  const sizeMap = { small: '1.1429rem', default: '2rem', large: '3rem' };
+  const sizeMap = {
+    small: 'var(--frgm-loader-size-sm)',
+    default: 'var(--frgm-loader-size-md)',
+    large: 'var(--frgm-loader-size-lg)',
+  };
   const spinnerSize = typeof size === 'number' ? `${size}px` : sizeMap[size] ?? sizeMap.default;
 
   return React.createElement('span', {

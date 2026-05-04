@@ -52,5 +52,17 @@ test('atom styles use design tokens', async () => {
 
   assert.match(css, /var\(--primary\)/);
   assert.match(css, /var\(--card-bg\)/);
-  assert.match(css, /var\(--border-subtle\)/);
+  assert.match(css, /var\(--frgm-control-border\)/);
+  assert.match(css, /var\(--frgm-control-h-md\)/);
+  assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);
+});
+
+test('every exported atom is documented in the foundation contract', async () => {
+  const contract = await readFile(new URL('../foundations/component-contracts.md', import.meta.url), 'utf8');
+
+  for (const atomName of atomNames) {
+    assert.ok(contract.includes(`| \`${atomName}\``), `${atomName} is missing from the foundation contract`);
+  }
+  assert.match(contract, /Component Foundation Contracts/);
+  assert.match(contract, /Audit Result/);
 });

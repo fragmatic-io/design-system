@@ -3,6 +3,7 @@
 This folder keeps the Claude export organized by design-system responsibility.
 
 - `tokens/`: source CSS custom properties for color, type, spacing, radius, shadows, and theme behavior.
+- `foundations/`: component-foundation contracts and audit notes.
 - `components/atoms/`: reusable component snippets exported from the product codebase.
 - `styles/`: extracted stylesheet reference from the original download.
 - `previews/`: browsable design-system documentation and component/pattern demos.
@@ -10,6 +11,8 @@ This folder keeps the Claude export organized by design-system responsibility.
 - `tests/`: smoke tests for preview wiring and design-system affordances.
 
 Keep preview UI token-driven. New styles should prefer `var(--*)` values from `tokens/` so tweaks and theme changes cascade through the page.
+
+Before changing exported atoms, update `foundations/component-contracts.md` if the change introduces a new reusable visual rule.
 
 ## Package Usage
 

@@ -108,6 +108,65 @@
   /* Type */
   --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'Fira Code', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Component foundations
+     These formalize the reusable atom rules so component CSS does not invent
+     sizes, gaps, states, or motion outside the foundation layer. Values are
+     rem-based so the density tweak can continue to scale the system. */
+  --frgm-control-h-sm: 2.1429rem;
+  --frgm-control-h-md: 2.5714rem;
+  --frgm-control-h-lg: 3rem;
+  --frgm-control-pad-x-sm: 0.8571rem;
+  --frgm-control-pad-x-md: 1rem;
+  --frgm-control-pad-x-lg: 1.1429rem;
+  --frgm-control-gap: 0.5714rem;
+  --frgm-control-radius: var(--r-6);
+  --frgm-control-border: var(--border-subtle);
+  --frgm-control-font-size-sm: 0.9286rem;
+  --frgm-control-font-size-md: 1rem;
+  --frgm-control-font-size-lg: 1.0714rem;
+  --frgm-control-font-weight: 500;
+  --frgm-control-strong-font-weight: 600;
+  --frgm-control-line: 1;
+  --frgm-breadcrumb-line: 1.4;
+  --frgm-control-focus-ring: var(--blue-300);
+  --frgm-control-focus-offset: 1px;
+  --frgm-control-border-width: 1px;
+  --frgm-search-width: 20rem;
+
+  --frgm-inline-gap-xs: 0.2857rem;
+  --frgm-inline-gap-sm: 0.4286rem;
+  --frgm-inline-gap-md: 0.5714rem;
+  --frgm-inline-gap-lg: 0.8571rem;
+
+  --frgm-icon-size-sm: 0.8571rem;
+  --frgm-icon-size-md: 1rem;
+  --frgm-dot-size: 0.4286rem;
+
+  --frgm-pill-radius: var(--r-pill);
+  --frgm-pill-pad-y-xs: 0.1429rem;
+  --frgm-pill-pad-y-sm: 0.2857rem;
+  --frgm-pill-pad-y-md: 0.7143rem;
+  --frgm-pill-pad-x-sm: 0.5714rem;
+  --frgm-pill-pad-x-md: 0.7143rem;
+  --frgm-pill-pad-x-lg: 0.8571rem;
+  --frgm-pill-pad-x-xl: 1.1429rem;
+  --frgm-pill-font-size: 0.8571rem;
+  --frgm-pill-line: 1.35;
+
+  --frgm-loader-size-sm: 1.1429rem;
+  --frgm-loader-size-md: 2rem;
+  --frgm-loader-size-lg: 3rem;
+  --frgm-loader-track: var(--gray-100);
+  --frgm-loader-stroke: 0.2143rem;
+
+  --frgm-motion-duration: 0.15s;
+  --frgm-motion-ease: ease;
+  --frgm-motion-hover-y: -1px;
+  --frgm-motion-spin-duration: 0.9s;
+  --frgm-motion-typing-duration: 1.4s;
+  --frgm-state-disabled-opacity: 0.55;
+  --frgm-state-muted-opacity: 0.5;
 }
 
 /* ── Dark mode ─────────────────────────────────────────────────────────
