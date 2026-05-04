@@ -108,6 +108,9 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-field-group-body\s*{[\s\S]*?margin-top:\s*var\(--frgm-inline-gap-xs\)/);
   assert.match(css, /\.frgm-dropdown\[open\]\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-dropdown\)/);
   assert.match(css, /\.frgm-dropdown-panel\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-dropdown\)/);
+  assert.match(css, /\.frgm-search:focus-within\s*{[\s\S]*?outline:\s*0/);
+  assert.doesNotMatch(css, /\.frgm-dropdown-trigger:hover,\s*\.frgm-dropdown\[open\] \.frgm-dropdown-trigger/);
+  assert.doesNotMatch(css, /\.frgm-dropdown\[open\] \.frgm-dropdown-trigger\[data-variant='domain'\] \.frgm-dropdown-caption/);
   assert.match(css, /\.frgm-date-range-control/);
   assert.match(css, /\.frgm-date-range-popover/);
   assert.match(css, /\.frgm-date-range-shortcuts/);
