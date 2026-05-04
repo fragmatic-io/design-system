@@ -62,7 +62,7 @@ const secondaryTopbarByPage = {
 };
 
 const secondaryTopbarDemo = document.querySelector('[data-ds-secondary-topbar-demo]');
-const dateRangeDemo = document.querySelector('[data-ds-date-range-demo]');
+const dateRangeDemos = document.querySelectorAll('[data-ds-date-range-demo]');
 
 if (secondaryTopbarDemo) {
   createRoot(secondaryTopbarDemo).render(React.createElement(SecondaryTopbar, {
@@ -72,12 +72,13 @@ if (secondaryTopbarDemo) {
   }));
 }
 
-if (dateRangeDemo) {
+dateRangeDemos.forEach((dateRangeDemo) => {
   createRoot(dateRangeDemo).render(React.createElement(DateRangeControl, {
     label: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
+    align: dateRangeDemo.dataset.dsDateRangeDemo || 'auto',
   }));
-}
+});
 
 const dropdownSlotRenderers = {
   domain: () => React.createElement(DropdownMenu, {

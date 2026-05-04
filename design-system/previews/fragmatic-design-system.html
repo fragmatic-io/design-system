@@ -412,6 +412,16 @@
     border-radius: var(--r-8);
     background: var(--gray-50);
   }
+  .date-range-demo-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--frgm-inline-gap-lg);
+    align-items: start;
+  }
+  .date-range-demo-grid [data-ds-date-range-demo='end'] {
+    justify-self: end;
+  }
   .comp:has(.frgm-dropdown[open]) {
     position: relative;
     z-index: var(--frgm-layer-popover);
@@ -2396,9 +2406,9 @@
 
     <div class="comp">
       <div class="comp-meta">
-        <h4>Dropdown and date controls</h4>
-        <p>Form-adjacent selectors use the dropdown foundation. Date range uses the dashboard-derived two-part control and stays tokenized.</p>
-        <span class="ref"><b>DropdownMenu</b> · <b>DateRangeControl</b></span>
+        <h4>Dropdown controls</h4>
+        <p>Form-adjacent selectors use the dropdown foundation. Domain, profile, and menu variants should compose this primitive.</p>
+        <span class="ref"><b>DropdownMenu</b></span>
       </div>
       <div class="comp-body surface">
         <details class="frgm-dropdown">
@@ -2412,7 +2422,20 @@
             <button class="frgm-dropdown-item" type="button" role="menuitem"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Paused</span><span class="frgm-dropdown-item-description">Excluded from automation</span></span></button>
           </div>
         </details>
-        <div data-ds-date-range-demo></div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-meta">
+        <h4>Date range control</h4>
+        <p>Dashboard-derived date picking stays compact through date-range tokens and resolves its popover direction from placement.</p>
+        <span class="ref"><b>DateRangeControl</b></span>
+      </div>
+      <div class="comp-body surface">
+        <div class="date-range-demo-grid">
+          <div data-ds-date-range-demo="start"></div>
+          <div data-ds-date-range-demo="end"></div>
+        </div>
       </div>
     </div>
 

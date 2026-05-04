@@ -161,6 +161,21 @@
   --frgm-date-range-divider: rgb(227, 232, 238);
   --frgm-date-range-text: rgb(121, 121, 121);
   --frgm-date-range-shadow: 0px 0px 12px 0px rgba(117, 117, 117, 0.08);
+  --frgm-date-range-popover-offset: var(--frgm-inline-gap-md);
+  --frgm-date-range-popover-width: 50rem;
+  --frgm-date-range-popover-max-width: calc(100vw - 2rem);
+  --frgm-date-range-shortcuts-width: 15.7143rem;
+  --frgm-date-range-panel-pad: var(--space-4);
+  --frgm-date-range-panel-gap: var(--frgm-inline-gap-md);
+  --frgm-date-range-option-h: var(--frgm-control-h-sm);
+  --frgm-date-range-switch-w: 2.8571rem;
+  --frgm-date-range-switch-h: 1.5714rem;
+  --frgm-date-range-switch-pad: 0.1429rem;
+  --frgm-date-range-compare-font-size: 0.6071rem;
+  --frgm-date-range-calendar-cell-h: 2rem;
+  --frgm-date-range-calendar-nav-h: var(--frgm-control-h-sm);
+  --frgm-date-range-footer-button-min-width: 7.7143rem;
+  --frgm-date-range-mobile-inset: var(--space-4);
 
   --frgm-inline-gap-xs: 0.2857rem;
   --frgm-inline-gap-sm: 0.4286rem;

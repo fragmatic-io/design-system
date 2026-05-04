@@ -447,10 +447,12 @@ export function DateRangeControl({
   onPresetSelect,
   onDateClick,
   onApply,
+  align = 'auto',
   className = '',
 }) {
   const rootRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
+  const [resolvedAlign, setResolvedAlign] = React.useState(align === 'end' ? 'end' : 'start');
   const [selectedLabel, setSelectedLabel] = React.useState(label);
   const [isCompare, setIsCompare] = React.useState(!!compareRange);
   const [selectedCompare, setSelectedCompare] = React.useState(comparisonOptions[0]?.key);
@@ -478,6 +480,39 @@ export function DateRangeControl({
     return () => document.removeEventListener('pointerdown', closeOnOutsidePointerDown);
   }, [isOpen]);
 
+  React.useLayoutEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const updatePopoverAlignment = () => {
+      if (align !== 'auto') {
+        setResolvedAlign(align === 'end' ? 'end' : 'start');
+        return;
+      }
+
+      const root = rootRef.current;
+      const popover = root?.querySelector('.frgm-date-range-popover');
+
+      if (!root || !popover || typeof window === 'undefined') {
+        return;
+      }
+
+      const rootRect = root.getBoundingClientRect();
+      const popoverWidth = popover.getBoundingClientRect().width;
+      const viewportPadding = 16;
+      const wouldOverflowRight = rootRect.left + popoverWidth > window.innerWidth - viewportPadding;
+      const fitsFromRightEdge = rootRect.right - popoverWidth >= viewportPadding;
+
+      setResolvedAlign(wouldOverflowRight && fitsFromRightEdge ? 'end' : 'start');
+    };
+
+    updatePopoverAlignment();
+    window.addEventListener('resize', updatePopoverAlignment);
+
+    return () => window.removeEventListener('resize', updatePopoverAlignment);
+  }, [align, isOpen]);
+
   const selectPreset = (preset) => {
     const presetLabel = typeof preset === 'string' ? preset : preset.label;
     setSelectedLabel(presetLabel);
@@ -497,7 +532,12 @@ export function DateRangeControl({
 
   return React.createElement(
     'div',
-    { ref: rootRef, className: cx('frgm-date-range-control', className), 'data-open': isOpen ? 'true' : undefined },
+    {
+      ref: rootRef,
+      className: cx('frgm-date-range-control', className),
+      'data-align': resolvedAlign,
+      'data-open': isOpen ? 'true' : undefined,
+    },
     React.createElement(
       'button',
       {

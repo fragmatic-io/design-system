@@ -48,6 +48,7 @@ test('hardened atoms export the public atom surface', async () => {
   assert.match(entry, /export const typingLoader/);
   assert.match(entry, /const rootRef = React\.useRef\(null\)/);
   assert.match(entry, /document\.addEventListener\('pointerdown', closeOnOutsidePointerDown\)/);
+  assert.match(entry, /window\.addEventListener\('resize', updatePopoverAlignment\)/);
   assert.match(entry, /root\.open = false/);
 });
 
@@ -94,9 +95,14 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /var\(--frgm-date-range-h\)/);
   assert.match(css, /var\(--frgm-date-range-border\)/);
   assert.match(css, /var\(--frgm-date-range-shadow\)/);
+  assert.match(css, /var\(--frgm-date-range-popover-width\)/);
+  assert.match(css, /var\(--frgm-date-range-shortcuts-width\)/);
+  assert.match(css, /\.frgm-date-range-control\[data-align='end'\]\s+\.frgm-date-range-popover/);
   assert.match(tokens, /--frgm-date-range-h:\s*3\.1429rem/);
   assert.match(tokens, /--frgm-date-range-pad-y:\s*0\.5714rem/);
   assert.match(tokens, /--frgm-date-range-pad-x:\s*0\.7143rem/);
+  assert.match(tokens, /--frgm-date-range-popover-width:\s*50rem/);
+  assert.match(tokens, /--frgm-date-range-panel-pad:\s*var\(--space-4\)/);
   assert.match(css, /\.frgm-secondary-topbar/);
   assert.match(css, /\.frgm-secondary-topbar-breadcrumb/);
   assert.match(css, /\.frgm-secondary-topbar-controls/);
@@ -116,8 +122,10 @@ test('preview form examples use foundation form primitives', async () => {
   assert.match(preview, /class="frgm-choice"/);
   assert.match(preview, /class="frgm-toggle-field"/);
   assert.match(preview, /class="frgm-field-group"/);
-  assert.match(preview, /Dropdown and date controls/);
-  assert.match(preview, /data-ds-date-range-demo/);
+  assert.match(preview, /Dropdown controls/);
+  assert.match(preview, /Date range control/);
+  assert.match(preview, /data-ds-date-range-demo="start"/);
+  assert.match(preview, /data-ds-date-range-demo="end"/);
   assert.match(preview, /DropdownMenu/);
   assert.match(preview, /class="frgm-dropdown"/);
   assert.match(preview, /class="frgm-dropdown-trigger" data-variant="domain"/);
@@ -147,6 +155,8 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /Dashboard-style page context bars use `SecondaryTopbar`/);
   assert.match(contract, /preserves the existing page breadcrumb/);
   assert.match(contract, /--frgm-date-range-h/);
+  assert.match(contract, /--frgm-date-range-popover-\*/);
+  assert.match(contract, /align` API \(`auto`, `start`, or `end`\)/);
   assert.match(contract, /react-date-range/);
   assert.match(contract, /compare toggle/);
   assert.match(contract, /dashboard 44px two-part date trigger/);
