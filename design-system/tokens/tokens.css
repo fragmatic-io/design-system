@@ -167,6 +167,10 @@
   --frgm-date-range-shortcuts-width: 15.7143rem;
   --frgm-date-range-panel-pad: var(--space-4);
   --frgm-date-range-panel-gap: var(--frgm-inline-gap-md);
+  --frgm-date-range-field-label-width: 5rem;
+  --frgm-date-range-field-chip-h: var(--frgm-control-h-lg);
+  --frgm-date-range-field-chip-pad-x: var(--frgm-control-pad-x-md);
+  --frgm-date-range-vs-size: 1.7143rem;
   --frgm-date-range-option-h: var(--frgm-control-h-sm);
   --frgm-date-range-switch-w: 2.8571rem;
   --frgm-date-range-switch-h: 1.5714rem;

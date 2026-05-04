@@ -91,6 +91,8 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-date-range-compare-toggle/);
   assert.match(css, /\.frgm-date-range-field-head/);
   assert.match(css, /\.frgm-date-range-field-row/);
+  assert.match(css, /\.frgm-date-range-field-label/);
+  assert.match(css, /\.frgm-date-range-vs/);
   assert.match(css, /\.frgm-date-range-month-nav/);
   assert.match(css, /\.frgm-date-range-footer/);
   assert.doesNotMatch(css, /frgm-date-range-presets/);
@@ -106,6 +108,7 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-date-range-pad-x:\s*0\.7143rem/);
   assert.match(tokens, /--frgm-date-range-popover-width:\s*50rem/);
   assert.match(tokens, /--frgm-date-range-panel-pad:\s*var\(--space-4\)/);
+  assert.match(tokens, /--frgm-date-range-vs-size:\s*1\.7143rem/);
   assert.match(tokens, /--frgm-date-range-edge-fill:\s*rgb\(26, 26, 26\)/);
   assert.match(css, /\.frgm-secondary-topbar/);
   assert.match(css, /\.frgm-secondary-topbar-breadcrumb/);
@@ -162,6 +165,7 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /--frgm-date-range-popover-\*/);
   assert.match(contract, /align` API \(`auto`, `start`, or `end`\)/);
   assert.match(contract, /react-date-range/);
+  assert.match(contract, /centered `vs` separator/);
   assert.match(contract, /compare toggle/);
   assert.match(contract, /dashboard 44px two-part date trigger/);
   assert.match(contract, /Audit Result/);

@@ -37,7 +37,7 @@ Dashboard-style page context bars use `SecondaryTopbar`, composed with `DateRang
 
 The app shell secondary topbar preserves the existing page breadcrumb and contextual action area; date fields are an additive control in the same row, not a replacement for the breadcrumb.
 
-`DateRangeControl` follows the dashboard `DateRangeDropdown` behavior: preset shortcuts (`Last 7/14/28/30/90 Days`, `Custom`), compare toggle, comparison options, draft selection, cancel, and apply. The dashboard code uses `react-date-range` with `date-fns`; the design-system component extracts that reusable UI contract while avoiding app-only Redux preference wiring.
+`DateRangeControl` follows the dashboard `DateRangeDropdown` behavior: preset shortcuts (`Last 7/14/28/30/90 Days`, `Custom`), compare toggle, comparison options, draft selection, cancel, and apply. The field area uses a compact Range row, a centered `vs` separator, and a Compare row when comparison is enabled. The dashboard code uses `react-date-range` with `date-fns`; the design-system component extracts that reusable UI contract while avoiding app-only Redux preference wiring.
 
 `DateRangeControl` uses the dashboard-derived date range tokens in `tokens/tokens.css`: `--frgm-date-range-h`, `--frgm-date-range-min-width`, `--frgm-date-range-max-width`, `--frgm-date-range-pad-*`, `--frgm-date-range-popover-*`, `--frgm-date-range-panel-*`, `--frgm-date-range-border`, `--frgm-date-range-divider`, `--frgm-date-range-text`, and `--frgm-date-range-shadow`. Do not resize this control with shell-local CSS.
 
