@@ -107,6 +107,13 @@
   --r-12:   12px;
   --r-pill: 9999px;
 
+  /* Space scale */
+  --space-1: 0.2857rem;
+  --space-2: 0.5714rem;
+  --space-3: 0.8571rem;
+  --space-4: 1.1429rem;
+  --space-5: 1.7143rem;
+
   /* Elevation — recipes from globals.css `.card` and `.card-style` */
   --shadow-card:
     0px 0.5px 0.5px -1.5px rgba(60, 40, 10, 0.18),
@@ -158,20 +165,35 @@
   --frgm-date-range-gap: 0.4286rem;
   --frgm-date-range-compare-gap: 0.1429rem;
   --frgm-date-range-border: rgb(223, 223, 223);
+  --frgm-date-range-border-active: var(--gray-400);
   --frgm-date-range-divider: rgb(227, 232, 238);
   --frgm-date-range-text: rgb(121, 121, 121);
   --frgm-date-range-shadow: 0px 0px 12px 0px rgba(117, 117, 117, 0.08);
+  --frgm-date-range-surface: var(--card-bg);
+  --frgm-date-range-trigger-active-bg: var(--gray-50);
   --frgm-date-range-popover-offset: var(--frgm-inline-gap-md);
   --frgm-date-range-popover-width: 50rem;
   --frgm-date-range-popover-max-width: calc(100vw - 2rem);
+  --frgm-date-range-popover-border: var(--border-subtle);
   --frgm-date-range-shortcuts-width: 15.7143rem;
   --frgm-date-range-panel-pad: var(--space-4);
   --frgm-date-range-panel-gap: var(--frgm-inline-gap-md);
+  --frgm-date-range-panel-section-gap: var(--frgm-inline-gap-lg);
+  --frgm-date-range-field-surface: var(--gray-100);
   --frgm-date-range-field-label-width: 5rem;
   --frgm-date-range-field-chip-h: var(--frgm-control-h-lg);
   --frgm-date-range-field-chip-pad-x: var(--frgm-control-pad-x-md);
+  --frgm-date-range-field-chip-bg: var(--card-bg);
+  --frgm-date-range-field-chip-border: var(--border-subtle);
+  --frgm-date-range-field-chip-active-bg: var(--card-bg);
+  --frgm-date-range-field-chip-active-border: var(--frgm-date-range-edge-fill);
+  --frgm-date-range-field-chip-active-shadow: 0 0 0 2px var(--frgm-date-range-compare-fill);
   --frgm-date-range-vs-size: 1.7143rem;
+  --frgm-date-range-vs-bg: var(--card-bg);
+  --frgm-date-range-vs-border: var(--border-subtle);
   --frgm-date-range-option-h: var(--frgm-control-h-sm);
+  --frgm-date-range-option-pad-x: var(--space-3);
+  --frgm-date-range-option-active-bg: var(--gray-100);
   --frgm-date-range-switch-w: 2.8571rem;
   --frgm-date-range-switch-h: 1.5714rem;
   --frgm-date-range-switch-pad: 0.1429rem;
@@ -183,6 +205,8 @@
   --frgm-date-range-selection-fill: rgb(193, 193, 193);
   --frgm-date-range-compare-fill: var(--gray-100);
   --frgm-date-range-edge-fill: rgb(26, 26, 26);
+  --frgm-date-range-edge-text: var(--primary-fg);
+  --frgm-date-range-footer-pad-y: var(--frgm-inline-gap-lg);
 
   --frgm-inline-gap-xs: 0.2857rem;
   --frgm-inline-gap-sm: 0.4286rem;

@@ -560,6 +560,7 @@ export function DateRangeControl({
       className: cx('frgm-date-range-control', className),
       'data-align': resolvedAlign,
       'data-open': isOpen ? 'true' : undefined,
+      'data-selected': selectedLabel ? 'true' : undefined,
     },
     React.createElement(
       'button',

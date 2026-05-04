@@ -542,11 +542,19 @@
   align-items: stretch;
   border: var(--frgm-control-border-width) solid var(--frgm-date-range-border);
   border-radius: var(--frgm-control-radius);
-  background: var(--card-bg);
+  background: var(--frgm-date-range-surface);
   color: var(--frgm-date-range-text);
   font-weight: var(--frgm-control-strong-font-weight);
   box-shadow: var(--frgm-date-range-shadow);
   overflow: visible;
+}
+
+.frgm-date-range-control[data-open='true'] {
+  border-color: var(--frgm-date-range-border-active);
+}
+
+.frgm-date-range-control[data-selected='true'] .frgm-date-range-display {
+  color: var(--text-title);
 }
 
 .frgm-date-range-preset-trigger,
@@ -591,7 +599,7 @@
 .frgm-date-range-display:hover,
 .frgm-date-range-control[data-open='true'] .frgm-date-range-preset-trigger,
 .frgm-date-range-control[data-open='true'] .frgm-date-range-display {
-  background: var(--gray-50);
+  background: var(--frgm-date-range-trigger-active-bg);
   color: var(--text-title);
 }
 
@@ -646,8 +654,9 @@
   width: min(var(--frgm-date-range-popover-width), var(--frgm-date-range-popover-max-width));
   display: grid;
   grid-template-columns: var(--frgm-date-range-shortcuts-width) minmax(0, 1fr);
+  border: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
   border-radius: var(--r-8);
-  background: var(--card-bg);
+  background: var(--frgm-date-range-surface);
   box-shadow: var(--shadow-pop);
   color: var(--frgm-date-range-text);
   overflow: hidden;
@@ -666,7 +675,7 @@
 .frgm-date-range-shortcuts {
   display: grid;
   align-content: start;
-  border-right: var(--frgm-control-border-width) solid var(--border-subtle);
+  border-right: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
 }
 
 .frgm-date-range-shortcut-list {
@@ -682,7 +691,7 @@
   min-height: var(--frgm-date-range-option-h);
   display: flex;
   align-items: center;
-  padding: 0 var(--frgm-date-range-panel-pad);
+  padding: 0 var(--frgm-date-range-option-pad-x);
   border: 0;
   border-radius: var(--r-6);
   background: transparent;
@@ -694,7 +703,7 @@
 
 .frgm-date-range-shortcut:hover,
 .frgm-date-range-shortcut[data-active='true'] {
-  background: var(--gray-100);
+  background: var(--frgm-date-range-option-active-bg);
 }
 
 .frgm-date-range-compare-toggle {
@@ -704,8 +713,8 @@
   justify-content: space-between;
   gap: var(--frgm-inline-gap-lg);
   padding: 0 var(--frgm-date-range-panel-pad);
-  border-top: var(--frgm-control-border-width) solid var(--border-subtle);
-  border-bottom: var(--frgm-control-border-width) solid var(--border-subtle);
+  border-top: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
+  border-bottom: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
   font: var(--frgm-control-strong-font-weight) var(--frgm-control-font-size-md)/1.2 var(--font-sans);
 }
 
@@ -736,7 +745,7 @@
   display: block;
   margin: var(--frgm-date-range-switch-pad);
   border-radius: var(--r-pill);
-  background: var(--card-bg);
+  background: var(--frgm-date-range-surface);
   box-shadow: var(--shadow-elev);
   transition: transform var(--frgm-motion-duration) var(--frgm-motion-ease);
 }
@@ -757,9 +766,10 @@
 
 .frgm-date-range-fields {
   display: grid;
-  gap: var(--frgm-inline-gap-sm);
+  gap: var(--frgm-date-range-panel-gap);
   padding: var(--frgm-date-range-panel-pad);
-  background: var(--gray-100);
+  border-bottom: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
+  background: var(--frgm-date-range-field-surface);
   color: var(--text-meta);
   font: var(--frgm-control-strong-font-weight) var(--frgm-control-font-size-md)/1.2 var(--font-sans);
 }
@@ -800,9 +810,9 @@
   min-width: 0;
   min-height: var(--frgm-date-range-field-chip-h);
   padding: 0 var(--frgm-date-range-field-chip-pad-x);
-  border: var(--frgm-control-border-width) solid var(--border-subtle);
+  border: var(--frgm-control-border-width) solid var(--frgm-date-range-field-chip-border);
   border-radius: var(--r-6);
-  background: var(--card-bg);
+  background: var(--frgm-date-range-field-chip-bg);
   color: inherit;
   box-shadow: var(--shadow-elev);
   font: inherit;
@@ -811,8 +821,10 @@
 }
 
 .frgm-date-range-fields button[data-active='true'] {
-  border-color: var(--gray-400);
+  border-color: var(--frgm-date-range-field-chip-active-border);
+  background: var(--frgm-date-range-field-chip-active-bg);
   color: var(--text-title);
+  box-shadow: var(--frgm-date-range-field-chip-active-shadow), var(--shadow-elev);
 }
 
 .frgm-date-range-vs {
@@ -822,9 +834,9 @@
   align-items: center;
   justify-content: center;
   justify-self: center;
-  border: var(--frgm-control-border-width) solid var(--border-subtle);
+  border: var(--frgm-control-border-width) solid var(--frgm-date-range-vs-border);
   border-radius: var(--r-pill);
-  background: var(--card-bg);
+  background: var(--frgm-date-range-vs-bg);
   color: var(--text-meta);
   box-shadow: var(--shadow-elev);
   font: var(--frgm-control-strong-font-weight) var(--frgm-control-font-size-sm)/1 var(--font-sans);
@@ -836,7 +848,7 @@
   grid-template-columns: auto 1fr 1fr auto;
   gap: var(--frgm-inline-gap-lg);
   align-items: center;
-  padding: var(--frgm-date-range-panel-pad) var(--frgm-date-range-panel-pad) var(--frgm-inline-gap-lg);
+  padding: var(--frgm-date-range-panel-section-gap) var(--frgm-date-range-panel-pad) var(--frgm-inline-gap-lg);
   color: var(--text-title);
   font: var(--frgm-control-font-weight) var(--frgm-control-font-size-md)/1.2 var(--font-sans);
 }
@@ -914,7 +926,7 @@
 .frgm-date-range-days button[data-compare-start='true'],
 .frgm-date-range-days button[data-compare-end='true'] {
   background: var(--frgm-date-range-edge-fill);
-  color: var(--primary-fg);
+  color: var(--frgm-date-range-edge-text);
 }
 
 .frgm-date-range-days button[data-selection-start='true'],
@@ -931,8 +943,8 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--frgm-inline-gap-lg);
-  padding: var(--frgm-inline-gap-lg) var(--frgm-date-range-panel-pad);
-  border-top: var(--frgm-control-border-width) solid var(--border-subtle);
+  padding: var(--frgm-date-range-footer-pad-y) var(--frgm-date-range-panel-pad);
+  border-top: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
 }
 
 .frgm-date-range-footer button {
@@ -965,7 +977,7 @@
 
   .frgm-date-range-shortcuts {
     border-right: 0;
-    border-bottom: var(--frgm-control-border-width) solid var(--border-subtle);
+    border-bottom: var(--frgm-control-border-width) solid var(--frgm-date-range-popover-border);
   }
 }
 
