@@ -1,0 +1,57 @@
+.frgm-brand-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--frgm-inline-gap-md);
+  min-height: var(--frgm-control-h-lg);
+  max-width: 100%;
+  padding: 0 var(--frgm-control-pad-x-sm);
+  border: 0;
+  border-radius: var(--frgm-control-radius);
+  background: transparent;
+  color: var(--text-title);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--frgm-motion-duration) var(--frgm-motion-ease),
+    color var(--frgm-motion-duration) var(--frgm-motion-ease);
+}
+
+.frgm-brand-button:hover {
+  background: var(--gray-50);
+}
+
+.frgm-brand-mark {
+  width: 2.8571rem;
+  height: 2.8571rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 2.8571rem;
+  box-sizing: border-box;
+  padding: 0.5714rem 0.7143rem;
+  border-radius: var(--r-8);
+  background: var(--emerald-950);
+}
+
+.frgm-brand-mark svg,
+.frgm-brand-mark img {
+  width: 1.5714rem;
+  height: 1.7143rem;
+  display: block;
+  max-width: none;
+}
+
+.frgm-brand-wordmark {
+  width: 7.7857rem;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  flex: 0 1 auto;
+}
+
+.frgm-brand-name {
+  font-weight: 650;
+  font-size: 0.9286rem;
+  color: var(--text-title);
+  white-space: nowrap;
+}

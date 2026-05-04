@@ -2,6 +2,23 @@
 
 Token-driven Fragmatic design-system assets packaged for reuse across Fragmatic apps.
 
+## License
+
+This repository is source-available for inspection only. It is not open source.
+See [LICENSE](./LICENSE) for the full all-rights-reserved terms.
+
+## Design System Pages
+
+The static preview is published through GitHub Pages from the `main` branch:
+
+https://fragmatic-io.github.io/design-system/
+
+The Pages workflow builds `public/` with:
+
+```bash
+npm run build:pages
+```
+
 ## Install
 
 ```bash
@@ -46,4 +63,5 @@ The atom contract audit lives in `design-system/foundations/component-contracts.
 ```bash
 npm test
 npm run pack:check
+npm run build:pages
 ```

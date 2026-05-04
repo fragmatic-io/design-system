@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "description": "Fragmatic token-driven design system assets, previews, and component source snippets.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/fragmatic-io/design-system.git"
+  },
+  "homepage": "https://fragmatic-io.github.io/design-system/",
   "type": "module",
   "sideEffects": [
     "**/*.css"
@@ -14,13 +20,20 @@
     ".": "./design-system/index.js",
     "./atoms": "./design-system/components/atoms/index.js",
     "./atoms.css": "./design-system/components/atoms/atoms.css",
+    "./brand": "./design-system/components/brand/index.js",
+    "./brand.css": "./design-system/components/brand/brand.css",
+    "./assets/brand/fragmatic-mark.svg": "./design-system/assets/brand/fragmatic-mark.svg",
+    "./assets/brand/fragmatic-sidebar-tile.svg": "./design-system/assets/brand/fragmatic-sidebar-tile.svg",
+    "./assets/brand/fragmatic-wordmark.svg": "./design-system/assets/brand/fragmatic-wordmark.svg",
     "./tokens.css": "./design-system/tokens/tokens.css",
     "./styles.css": "./design-system/styles/styles.css",
+    "./patterns/app-shell.css": "./design-system/patterns/app-shell/app-shell.css",
     "./preview": "./design-system/previews/fragmatic-design-system.html",
     "./tools/tweaks.jsx": "./design-system/tools/tweaks.jsx",
     "./tools/tweaks-panel.jsx": "./design-system/tools/tweaks-panel.jsx"
   },
   "scripts": {
+    "build:pages": "node scripts/build-pages.mjs",
     "test": "node --test design-system/tests/*.test.mjs",
     "pack:check": "npm pack --dry-run"
   },

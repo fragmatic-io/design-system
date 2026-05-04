@@ -7,7 +7,7 @@
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
   "temperament": "cool",
-  "surface": "paper",
+  "surface": "canvas",
   "density": "standard",
   "dark": false
 }/*EDITMODE-END*/;

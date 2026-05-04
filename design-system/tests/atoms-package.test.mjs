@@ -13,6 +13,16 @@ const atomNames = [
   'SegmentStatus',
   'ProgressBar',
   'SearchInput',
+  'Field',
+  'TextInput',
+  'SelectField',
+  'TextareaField',
+  'FieldGroup',
+  'FieldRow',
+  'CheckboxField',
+  'RadioField',
+  'ToggleField',
+  'DropdownMenu',
   'SwitchButton',
   'Loader',
   'TypingLoader',
@@ -34,6 +44,9 @@ test('hardened atoms export the public atom surface', async () => {
   }
   assert.match(entry, /export const customSpinner/);
   assert.match(entry, /export const typingLoader/);
+  assert.match(entry, /const rootRef = React\.useRef\(null\)/);
+  assert.match(entry, /document\.addEventListener\('pointerdown', closeOnOutsidePointerDown\)/);
+  assert.match(entry, /root\.open = false/);
 });
 
 test('hardened atoms do not depend on dashboard-local modules', async () => {
@@ -54,7 +67,36 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /var\(--card-bg\)/);
   assert.match(css, /var\(--frgm-control-border\)/);
   assert.match(css, /var\(--frgm-control-h-md\)/);
+  assert.match(css, /\.frgm-field/);
+  assert.match(css, /\.frgm-input/);
+  assert.match(css, /\.frgm-select/);
+  assert.match(css, /\.frgm-textarea/);
+  assert.match(css, /\.frgm-choice/);
+  assert.match(css, /\.frgm-toggle-field/);
+  assert.match(css, /\.frgm-dropdown/);
+  assert.match(css, /\.frgm-dropdown-trigger/);
+  assert.match(css, /\.frgm-dropdown-panel/);
   assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);
+});
+
+test('preview form examples use foundation form primitives', async () => {
+  const preview = await readFile(new URL('../previews/fragmatic-design-system.html', import.meta.url), 'utf8');
+
+  assert.match(preview, /Field · FieldGroup · text\/select\/textarea\/search\/choice\/toggle/);
+  assert.match(preview, /class="frgm-field-row"/);
+  assert.match(preview, /class="frgm-input"/);
+  assert.match(preview, /class="frgm-select"/);
+  assert.match(preview, /class="frgm-textarea"/);
+  assert.match(preview, /class="frgm-choice"/);
+  assert.match(preview, /class="frgm-toggle-field"/);
+  assert.match(preview, /class="frgm-field-group"/);
+  assert.match(preview, /DropdownMenu/);
+  assert.match(preview, /class="frgm-dropdown"/);
+  assert.match(preview, /class="frgm-dropdown-trigger" data-variant="domain"/);
+  assert.doesNotMatch(preview, /<span class="ref"><b>\.input-box<\/b>/);
+  assert.doesNotMatch(preview, /class="field"/);
+  assert.doesNotMatch(preview, /class="search"/);
+  assert.doesNotMatch(preview, /\.field input/);
 });
 
 test('every exported atom is documented in the foundation contract', async () => {
@@ -64,5 +106,12 @@ test('every exported atom is documented in the foundation contract', async () =>
     assert.ok(contract.includes(`| \`${atomName}\``), `${atomName} is missing from the foundation contract`);
   }
   assert.match(contract, /Component Foundation Contracts/);
+  assert.match(contract, /## Brand Logo Foundation/);
+  assert.match(contract, /components\/brand` is the source of truth/);
+  assert.match(contract, /40px` with `8px 10px` padding/);
+  assert.match(contract, /## Icon Foundation/);
+  assert.match(contract, /components\/atoms\/icons\.js` is the source of truth/);
+  assert.match(contract, /## Dropdown Foundation/);
+  assert.match(contract, /Domain switchers, profile menus, settings menus, and overflow menus/);
   assert.match(contract, /Audit Result/);
 });

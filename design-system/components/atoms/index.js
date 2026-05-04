@@ -183,6 +183,243 @@ export function SearchInput({
   );
 }
 
+export function Field({
+  id,
+  label,
+  hint,
+  error,
+  required = false,
+  children,
+  className = '',
+}) {
+  return React.createElement(
+    'label',
+    { className: cx('frgm-field', className), htmlFor: id },
+    label && React.createElement(
+      'span',
+      { className: 'frgm-field-label' },
+      label,
+      required && React.createElement('span', { className: 'frgm-field-required', 'aria-hidden': 'true' }, ' *'),
+    ),
+    children,
+    error
+      ? React.createElement('span', { className: 'frgm-field-error' }, error)
+      : hint && React.createElement('span', { className: 'frgm-field-hint' }, hint),
+  );
+}
+
+export function TextInput({
+  id,
+  label,
+  hint,
+  error,
+  required = false,
+  type = 'text',
+  className = '',
+  inputClassName = '',
+  ...props
+}) {
+  return React.createElement(
+    Field,
+    { id, label, hint, error, required, className },
+    React.createElement('input', {
+      ...props,
+      id,
+      type,
+      required,
+      'aria-invalid': error ? 'true' : undefined,
+      className: cx('frgm-input', inputClassName),
+    }),
+  );
+}
+
+export function SelectField({
+  id,
+  label,
+  hint,
+  error,
+  required = false,
+  options = [],
+  className = '',
+  selectClassName = '',
+  children,
+  ...props
+}) {
+  return React.createElement(
+    Field,
+    { id, label, hint, error, required, className },
+    React.createElement(
+      'select',
+      {
+        ...props,
+        id,
+        required,
+        'aria-invalid': error ? 'true' : undefined,
+        className: cx('frgm-select', selectClassName),
+      },
+      children ?? options.map((option) => React.createElement(
+        'option',
+        {
+          key: option.value ?? option.label ?? option,
+          value: option.value ?? option,
+        },
+        option.label ?? option,
+      )),
+    ),
+  );
+}
+
+export function TextareaField({
+  id,
+  label,
+  hint,
+  error,
+  required = false,
+  className = '',
+  textareaClassName = '',
+  ...props
+}) {
+  return React.createElement(
+    Field,
+    { id, label, hint, error, required, className },
+    React.createElement('textarea', {
+      ...props,
+      id,
+      required,
+      'aria-invalid': error ? 'true' : undefined,
+      className: cx('frgm-textarea', textareaClassName),
+    }),
+  );
+}
+
+export function FieldGroup({
+  legend,
+  description,
+  layout = 'stack',
+  children,
+  className = '',
+}) {
+  return React.createElement(
+    'fieldset',
+    { className: cx('frgm-field-group', className), 'data-layout': layout },
+    legend && React.createElement('legend', { className: 'frgm-field-legend' }, legend),
+    description && React.createElement('span', { className: 'frgm-field-description' }, description),
+    React.createElement('div', { className: 'frgm-field-group-body' }, children),
+  );
+}
+
+export function FieldRow({ children, className = '' }) {
+  return React.createElement('div', { className: cx('frgm-field-row', className) }, children);
+}
+
+export function CheckboxField({ label, className = '', ...props }) {
+  return React.createElement(
+    'label',
+    { className: cx('frgm-choice', className) },
+    React.createElement('input', { ...props, type: 'checkbox' }),
+    React.createElement('span', null, label),
+  );
+}
+
+export function RadioField({ label, className = '', ...props }) {
+  return React.createElement(
+    'label',
+    { className: cx('frgm-choice', className) },
+    React.createElement('input', { ...props, type: 'radio' }),
+    React.createElement('span', null, label),
+  );
+}
+
+export function ToggleField({ label, className = '', ...props }) {
+  return React.createElement(
+    'label',
+    { className: cx('frgm-toggle-field', className) },
+    React.createElement('input', { ...props, type: 'checkbox' }),
+    React.createElement('span', null, label),
+  );
+}
+
+export function DropdownMenu({
+  label = 'Menu',
+  caption,
+  meta,
+  initials,
+  icon,
+  items = [],
+  variant = 'default',
+  align = 'start',
+  className = '',
+}) {
+  const isCompactTrigger = ['icon', 'avatar'].includes(variant);
+  const rootRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const closeOnOutsidePointerDown = (event) => {
+      const root = rootRef.current;
+
+      if (!root?.open || root.contains(event.target)) {
+        return;
+      }
+
+      root.open = false;
+    };
+
+    document.addEventListener('pointerdown', closeOnOutsidePointerDown);
+    return () => document.removeEventListener('pointerdown', closeOnOutsidePointerDown);
+  }, []);
+
+  return React.createElement(
+    'details',
+    { ref: rootRef, className: cx('frgm-dropdown', className), 'data-align': align },
+    React.createElement(
+      'summary',
+      { className: 'frgm-dropdown-trigger', 'data-variant': variant },
+      icon && React.createElement('span', { className: 'frgm-dropdown-trigger-icon' }, icon),
+      initials && React.createElement('span', { className: 'frgm-dropdown-avatar' }, initials),
+      !isCompactTrigger && React.createElement(
+        'span',
+        { className: 'frgm-dropdown-trigger-copy' },
+        React.createElement('span', { className: 'frgm-dropdown-label' }, label),
+        caption && React.createElement('span', { className: 'frgm-dropdown-caption' }, caption),
+      ),
+      !isCompactTrigger && meta && React.createElement('span', { className: 'frgm-dropdown-meta' }, meta),
+      !isCompactTrigger && React.createElement('span', { className: 'frgm-dropdown-chevron' }, icons.chevronDown),
+    ),
+    React.createElement(
+      'div',
+      { className: 'frgm-dropdown-panel', role: 'menu' },
+      items.map((item, index) => {
+        if (item.type === 'separator') {
+          return React.createElement('span', { key: `separator-${index}`, className: 'frgm-dropdown-separator', role: 'separator' });
+        }
+
+        const Element = item.href ? 'a' : 'button';
+        return React.createElement(
+          Element,
+          {
+            key: item.key ?? item.label ?? index,
+            className: 'frgm-dropdown-item',
+            href: item.href,
+            type: item.href ? undefined : 'button',
+            role: 'menuitem',
+            'data-active': item.active ? 'true' : undefined,
+            'data-danger': item.danger ? 'true' : undefined,
+            onClick: item.onClick,
+          },
+          item.icon && React.createElement('span', { className: 'frgm-dropdown-item-icon' }, item.icon),
+          React.createElement(
+            'span',
+            { className: 'frgm-dropdown-item-copy' },
+            React.createElement('span', { className: 'frgm-dropdown-item-label' }, item.label),
+            item.description && React.createElement('span', { className: 'frgm-dropdown-item-description' }, item.description),
+          ),
+          item.meta && React.createElement('span', { className: 'frgm-dropdown-item-meta' }, item.meta),
+        );
+      }),
+    ),
+  );
+}
+
 export function SwitchButton({ isAnd = true, setIsAnd, isDisabled = false, className = '' }) {
   const select = (value) => {
     if (!isDisabled) setIsAnd?.(value);

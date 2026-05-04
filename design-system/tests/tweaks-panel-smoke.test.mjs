@@ -17,6 +17,15 @@ test('tweaks panel has a standalone browser launcher', async () => {
   assert.match(panel, /onClick=\{\(\) => setOpen\(true\)\}/);
 });
 
+test('canvas surface is the default tweak surface', async () => {
+  const tweaks = await readFile(new URL('../tools/tweaks.jsx', import.meta.url), 'utf8');
+
+  assert.match(tweaks, /"surface":\s*"canvas"/);
+  assert.match(tweaks, /canvas:\s*\{[\s\S]*?pageBg:\s*"#f6f3ec"/);
+  assert.match(tweaks, /canvas:\s*\{[\s\S]*?cardBg:\s*"#fdfaf3"/);
+  assert.match(tweaks, /applyTweaks\(TWEAK_DEFAULTS\)/);
+});
+
 test('design system has token-driven sidebar navigation', async () => {
   const html = await readFile(new URL('../previews/fragmatic-design-system.html', import.meta.url), 'utf8');
 

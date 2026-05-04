@@ -8,6 +8,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="../tokens/tokens.css" />
+<link rel="stylesheet" href="../components/atoms/atoms.css" />
+<link rel="stylesheet" href="../components/brand/brand.css" />
+<link rel="stylesheet" href="../patterns/app-shell/app-shell.css" />
 <style>
   *,*::before,*::after { box-sizing: border-box }
   html, body { margin: 0; padding: 0 }
@@ -53,7 +56,7 @@
     width: 2rem; height: 2rem; color: var(--emerald-800);
     display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto;
   }
-  .ds-nav-mark svg { width: 1.7143rem; height:auto }
+  .ds-nav-mark svg { width: 1.7143rem; height:auto; display:block }
   .ds-nav-title { display:flex; flex-direction:column; gap: 0.1429rem; min-width:0 }
   .ds-nav-title b { font-size: 0.9286rem; font-weight: 600; color: var(--gray-900) }
   .ds-nav-title span {
@@ -102,7 +105,7 @@
     display:inline-flex; align-items:center; justify-content:center;
     color: var(--emerald-800);
   }
-  .brand-mark svg { width: 2rem; height: auto }
+  .brand-mark svg { width: 2rem; height: auto; display:block }
   .brand-name {
     font-family: var(--font-mono); font-size: 0.8571rem; letter-spacing: 0.08em;
     color: var(--gray-500); text-transform: uppercase;
@@ -288,7 +291,101 @@
   .s-elev { box-shadow: var(--shadow-elev) }
   .s-pop  { box-shadow: var(--shadow-pop) }
 
-  /* ── 04 Components — comp rows ─────────────────── */
+  /* ── 04 Icons ───────────────────────────────────── */
+  .icon-foundation-grid {
+    display:grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    border: 1px solid var(--gray-200);
+    border-radius: 0.5714rem;
+    overflow: hidden;
+    background: var(--card-bg);
+  }
+  .icon-foundation-card {
+    min-height: 9.1429rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap: 1rem;
+    padding: 1.2857rem;
+    border-right: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .icon-foundation-card:nth-child(4n) { border-right: 0 }
+  .icon-foundation-card:nth-last-child(-n + 4) { border-bottom: 0 }
+  .icon-foundation-mark {
+    width: 2.2857rem;
+    height: 2.2857rem;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--gray-700);
+  }
+  .icon-foundation-mark svg {
+    width: 1.4286rem;
+    height: 1.4286rem;
+    display:block;
+  }
+  .icon-foundation-card b {
+    display:block;
+    color: var(--gray-900);
+    font-size: 0.9286rem;
+    font-weight: 500;
+  }
+  .icon-foundation-card code {
+    display:block;
+    margin-top: 0.2857rem;
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+    font-size: 0.7857rem;
+  }
+
+  .logo-foundation-grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.1429rem;
+  }
+  .logo-foundation-card {
+    min-height: 14rem;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap: 1.7143rem;
+    padding: 1.7143rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 0.5714rem;
+    background: var(--card-bg);
+  }
+  .logo-foundation-preview {
+    min-height: 5.7143rem;
+    display:flex;
+    align-items:center;
+    color: var(--gray-900);
+  }
+  .logo-foundation-preview[data-ds-brand-slot="sidebarTile"] svg {
+    width: 2.8571rem;
+    height: 2.8571rem;
+  }
+  .logo-foundation-preview[data-ds-brand-slot="wordmark"] img {
+    width: 12.1429rem;
+    max-width: 100%;
+    height: auto;
+    display:block;
+  }
+  .logo-foundation-card b {
+    display:block;
+    color: var(--gray-900);
+    font-size: 0.9286rem;
+    font-weight: 500;
+  }
+  .logo-foundation-card code {
+    display:block;
+    margin-top: 0.2857rem;
+    color: var(--gray-500);
+    font-family: var(--font-mono);
+    font-size: 0.7857rem;
+  }
+
+  /* ── 05 Components — comp rows ─────────────────── */
   .comp {
     padding: 2.5714rem 0;
     border-top: 1px solid var(--gray-200);
@@ -461,33 +558,7 @@
   }
   .kpi-card .desc { color: var(--gray-500); font-size: 0.9286rem; margin-top: 0.5714rem }
 
-  /* Inputs */
-  .field { display:flex; flex-direction:column; gap: 0.4286rem; min-width: 0; max-width: 25.7143rem }
-  .field label { font-weight: 500; font-size: 0.9286rem; color: var(--gray-700) }
-  .field .hint { font-size: 0.8571rem; color: var(--gray-500) }
-  .field input, .field select, .field textarea {
-    height: 2.8571rem; padding: 0 0.8571rem;
-    border-radius: 0.4286rem;
-    border: 1px solid var(--neutral-300); background: var(--neutral-100);
-    font-family: var(--font-sans); font-size: 1rem; color: var(--gray-900);
-  }
-  .field textarea { padding: 0.7143rem 0.8571rem; height: 5.7143rem; resize: vertical }
-  .field input:focus, .field select:focus, .field textarea:focus {
-    outline: 2px solid var(--blue-300); outline-offset: 1px;
-    border-color: var(--emerald-500);
-  }
-
-  /* Search */
-  .search {
-    display:inline-flex; align-items:center; gap: 0.5714rem;
-    height: 2.7143rem; padding: 0 0.8571rem;
-    border-radius: 0.4286rem; background: var(--card-bg);
-    border: 1px solid var(--gray-300); width: 20rem;
-  }
-  .search:focus-within { border-color: var(--emerald-500); outline: 2px solid var(--blue-300); outline-offset: 1px }
-  .search svg { width: 1rem; height: 1rem; color: var(--gray-400); flex: 0 0 auto }
-  .search input { border: 0; outline: 0; background: transparent; flex: 1; font-size: 1rem; min-width: 0 }
-  .search kbd {
+  .frgm-search kbd {
     font-family: var(--font-mono); font-size: 0.7857rem; color: var(--gray-500);
     background: var(--gray-100); padding: 2px 0.4286rem; border-radius: 0.2857rem;
   }
@@ -790,7 +861,8 @@
   .auth-frame .pane .brand {
     display:flex; align-items:center; gap: 0.7143rem; margin-bottom: 2.8571rem; font-weight: 600; color: var(--gray-900); font-size: 1.0714rem;
   }
-  .auth-frame .pane .brand .mark { width: 2.2857rem; height: 2.2857rem; border-radius: 0.5714rem; background: var(--primary); color: var(--primary-fg); display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight: 700 }
+  .auth-frame .pane .brand .mark { width: 2.2857rem; height: 2.2857rem; border-radius: 0.5714rem; background: var(--emerald-950); color: var(--primary-fg); display:flex; align-items:center; justify-content:center; padding: 0.5rem 0.625rem; box-sizing:border-box }
+  .auth-frame .pane .brand .mark svg { width: 100%; height: 100%; display:block }
   .auth-frame .pane h1 { font-family: var(--font-display); font-size: 2.2857rem; font-weight: 600; letter-spacing: -0.02em; color: var(--gray-900); margin: 0 0 0.5714rem }
   .auth-frame .pane .auth-sub { font-size: 1rem; color: var(--gray-500); margin-bottom: 2rem }
   .auth-frame .pane form { display:flex; flex-direction:column; gap: 1rem; max-width: 25.7143rem }
@@ -820,7 +892,8 @@
     padding: 1.7143rem 2.2857rem; display:flex; align-items:center; gap: 1.7143rem;
   }
   .wiz-frame .wiz-head .brand { display:flex; align-items:center; gap: 0.7143rem; font-weight: 600; color: var(--gray-900) }
-  .wiz-frame .wiz-head .brand .mark { width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--primary); color: var(--primary-fg); display:flex; align-items:center; justify-content:center; font-weight: 700; font-family: var(--font-display) }
+  .wiz-frame .wiz-head .brand .mark { width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--emerald-950); color: var(--primary-fg); display:flex; align-items:center; justify-content:center; padding: 0.4286rem 0.5357rem; box-sizing:border-box }
+  .wiz-frame .wiz-head .brand .mark svg { width: 100%; height: 100%; display:block }
   .wiz-frame .wiz-head .help { margin-left:auto; font-size: 0.9286rem; color: var(--gray-500) }
 
   .wiz-stepper { display:flex; align-items:center; gap: 0; padding: 1.1429rem 2.2857rem; background: var(--card-bg); border-bottom: 1px solid var(--gray-200) }
@@ -1444,15 +1517,6 @@
   .ex-builder .blk-rendered:hover { border-color: var(--gray-300) }
   .ex-builder .blk-rendered.sel { border-color: var(--emerald-700); border-style: solid; background: var(--emerald-50) }
   .ex-builder .form-fields { display:flex; flex-direction:column; gap: 0.8571rem }
-  .ex-builder .form-fields .field { display:flex; flex-direction:column; gap: 0.2857rem }
-  .ex-builder .form-fields .field label { font-family: var(--font-mono); font-size: 0.7143rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-500) }
-  .ex-builder .form-fields .field input,
-  .ex-builder .form-fields .field select,
-  .ex-builder .form-fields .field textarea {
-    width:100%; font: inherit; font-size: 0.9286rem; padding: 0.4286rem 0.5714rem; border: 1px solid var(--gray-200);
-    border-radius: 0.4286rem; color: var(--gray-900); background: var(--card-bg);
-  }
-  .ex-builder .toggle { display:flex; align-items:center; gap:0.5714rem; font-size:0.8571rem; color:var(--gray-700) }
 
   /* Campaign / experience builder — full inspector toolbar (BuilderToolbar.jsx) */
   .ex-builder.rich { grid-template-columns: 1fr 25.7143rem; min-height: 45.7143rem; gap: 1.1429rem }
@@ -1765,22 +1829,8 @@
     color: var(--text-title); background: var(--gray-100);
   }
 
-  /* Search input shorthand */
-  .search { display:inline-flex; align-items:center; gap: 0.5714rem; border: 1px solid var(--gray-200); border-radius: 0.4286rem; padding: 0 0.7143rem; background: var(--card-bg); height: 2.5714rem; color: var(--gray-500) }
-  .search svg { width: 1rem; height: 1rem }
-  .search input { font: inherit; font-size: 0.9286rem; border: 0; outline: 0; color: var(--gray-900); background: transparent; width: 14.2857rem }
-
   /* Form fields used in drawers/builders */
   .form-fields { display:flex; flex-direction:column; gap: 1rem }
-  .form-fields .field { display:flex; flex-direction:column; gap: 0.2857rem }
-  .form-fields .field label { font-family: var(--font-mono); font-size: 0.7143rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-500) }
-  .form-fields .field input,
-  .form-fields .field select,
-  .form-fields .field textarea {
-    width:100%; font: inherit; font-size: 0.9286rem; padding: 0.5714rem 0.7143rem; border: 1px solid var(--gray-200);
-    border-radius: 0.4286rem; color: var(--gray-900); background: var(--card-bg);
-  }
-  .form-fields .toggle { display:flex; align-items:center; gap:0.5714rem; font-size:0.8571rem; color:var(--gray-700) }
 
   /* Segment status (for utable) */
   .seg-status { display:inline-flex; align-items:center; gap: 0.4286rem; font-size: 0.8571rem; font-weight: 500; padding: 2px 0.5714rem; border-radius: 0.2857rem }
@@ -1823,15 +1873,7 @@
 <body>
 <aside class="ds-sidebar" aria-label="Design system navigation">
   <a class="ds-nav-brand" href="#overview">
-    <span class="ds-nav-mark" aria-hidden="true">
-      <svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg">
-        <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M 110 140 L 280 300 L 620 160 L 790 250" />
-          <path d="M 120 140 L 770 580" />
-          <path d="M 280 300 Q 480 470 770 580" />
-        </g>
-      </svg>
-    </span>
+    <span class="ds-nav-mark" data-ds-brand-slot="mark" aria-hidden="true"></span>
     <span class="ds-nav-title"><b>Fragmatic DS</b><span>Token driven</span></span>
   </a>
   <nav class="ds-nav">
@@ -1840,10 +1882,12 @@
     <a href="#color"><span>Color</span><span>01</span></a>
     <a href="#type"><span>Type</span><span>02</span></a>
     <a href="#space-radius-elevation"><span>Space, radius, elevation</span><span>03</span></a>
+    <a href="#logos"><span>Logos</span><span>04</span></a>
+    <a href="#icons"><span>Icons</span><span>05</span></a>
     <div class="ds-nav-group">Library</div>
-    <a href="#components"><span>Components</span><span>04</span></a>
-    <a href="#charts"><span>Charts</span><span>05</span></a>
-    <a href="#patterns"><span>Patterns</span><span>06</span></a>
+    <a href="#components"><span>Components</span><span>06</span></a>
+    <a href="#charts"><span>Charts</span><span>07</span></a>
+    <a href="#patterns"><span>Patterns</span><span>08</span></a>
   </nav>
 </aside>
 <div class="shell">
@@ -1851,15 +1895,7 @@
   <!-- ─── Masthead ───────────────────────────────── -->
   <header class="masthead" id="overview">
     <div class="brand-row">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 1000 720" xmlns="http://www.w3.org/2000/svg">
-          <g fill="none" stroke="currentColor" stroke-width="48" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M 110 140 L 280 300 L 620 160 L 790 250" />
-            <path d="M 120 140 L 770 580" />
-            <path d="M 280 300 Q 480 470 770 580" />
-          </g>
-        </svg>
-      </span>
+      <span class="brand-mark" data-ds-brand-slot="mark" aria-hidden="true"></span>
       <span class="brand-name"><b>Fragmatic</b> design system / v0.4</span>
     </div>
 
@@ -2052,15 +2088,63 @@
     </div>
   </section>
 
-  <!-- ─── 04 Components ────────────────────────────── -->
+  <!-- ─── 04 Logos ─────────────────────────────────── -->
+  <section class="section" id="logos">
+    <div class="section-head">
+      <div class="section-num">04 — Foundations</div>
+      <h2><em>Logos.</em></h2>
+      <p>Fragmatic logo assets are foundation items. Use <code>components/brand</code> or the exported raw SVG assets instead of recreating the mark in previews, patterns, or product UI.</p>
+    </div>
+
+    <div class="logo-foundation-grid" aria-label="Fragmatic logo foundation">
+      <div class="logo-foundation-card">
+        <span class="logo-foundation-preview" data-ds-brand-slot="mark"></span>
+        <div><b>Fragmatic mark</b><code>assets/brand/fragmatic-mark.svg</code></div>
+      </div>
+      <div class="logo-foundation-card">
+        <span class="logo-foundation-preview" data-ds-brand-slot="sidebarTile"></span>
+        <div><b>Sidebar tile</b><code>40px tile · 8px/10px padding</code></div>
+      </div>
+      <div class="logo-foundation-card">
+        <span class="logo-foundation-preview" data-ds-brand-slot="wordmark"></span>
+        <div><b>Wordmark</b><code>assets/brand/fragmatic-wordmark.svg</code></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── 05 Icons ─────────────────────────────────── -->
+  <section class="section" id="icons">
+    <div class="section-head">
+      <div class="section-num">05 — Foundations</div>
+      <h2><em>Icons.</em></h2>
+      <p>Icons are part of the foundation layer. Add or change icons in <code>components/atoms/icons.js</code> first, then render them through exported components or small preview slots. Product surfaces should not paste inline SVG paths.</p>
+    </div>
+
+    <div class="icon-foundation-grid" aria-label="Design-system icon foundation">
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="dashboard"></span><b>dashboard</b><code>Shell nav</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="analytics"></span><b>analytics</b><code>Reports</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="segments"></span><b>segments</b><code>Audience</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="journey"></span><b>journey</b><code>Flows</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="goal"></span><b>goal</b><code>Targets</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="content"></span><b>content</b><code>Assets</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="experience"></span><b>experience</b><code>Experiments</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="aiChip"></span><b>aiChip</b><code>AI tools</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="profiles"></span><b>profiles</b><code>People</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="gear"></span><b>gear</b><code>Settings</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="notification"></span><b>notification</b><code>Alerts</code></div>
+      <div class="icon-foundation-card"><span class="icon-foundation-mark" data-ds-icon-slot="lifeBuoy"></span><b>lifeBuoy</b><code>Support</code></div>
+    </div>
+  </section>
+
+  <!-- ─── 06 Components ────────────────────────────── -->
   <section class="section" id="components">
     <div class="section-head">
-      <div class="section-num">04 — Components</div>
+      <div class="section-num">06 — Components</div>
       <h2><em>Components.</em></h2>
       <p>The atoms in <code>design-system/components/atoms/*</code>, organized by job. One row per atom, one demo per row — comprehensive coverage without sprawl.</p>
     </div>
 
-    <div class="group-head"><h3>Actions</h3><span class="note">Atoms / button · linkButton · switchButton</span></div>
+    <div class="group-head"><h3>Actions</h3><span class="note">Atoms / button · linkButton · dropdownMenu · switchButton</span></div>
 
     <div class="comp">
       <div class="comp-meta">
@@ -2103,6 +2187,36 @@
       <div class="comp-body">
         <a href="#" class="link-btn">View all segments<svg class="arr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h6M7 3l3 3-3 3"/></svg></a>
         <a href="#" class="link-btn">Documentation<svg class="arr" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3h4v4M9 3L4 8"/></svg></a>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-meta">
+        <h4>DropdownMenu</h4>
+        <p>Shared trigger and panel primitive for domain switchers, settings menus, profile menus, and overflow actions.</p>
+        <span class="ref"><b>Atoms/dropdownMenu</b> · default/domain/icon/avatar</span>
+      </div>
+      <div class="comp-body">
+        <details class="frgm-dropdown">
+          <summary class="frgm-dropdown-trigger" data-variant="domain">
+            <span class="frgm-dropdown-trigger-copy"><span class="frgm-dropdown-label">acme.io</span><span class="frgm-dropdown-caption">Acme</span></span>
+            <span class="frgm-dropdown-chevron" data-ds-icon-slot="chevronDown"></span>
+          </summary>
+          <div class="frgm-dropdown-panel" role="menu">
+            <button class="frgm-dropdown-item" type="button" role="menuitem" data-active="true"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">acme.io</span><span class="frgm-dropdown-item-description">Acme organization</span></span><span class="frgm-dropdown-item-meta">live</span></button>
+            <button class="frgm-dropdown-item" type="button" role="menuitem"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">store.acme.io</span><span class="frgm-dropdown-item-description">Storefront workspace</span></span><span class="frgm-dropdown-item-meta">prod</span></button>
+          </div>
+        </details>
+        <details class="frgm-dropdown" data-align="end">
+          <summary class="frgm-dropdown-trigger" data-variant="avatar">
+            <span class="frgm-dropdown-avatar">SK</span>
+            <span class="frgm-dropdown-chevron" data-ds-icon-slot="chevronDown"></span>
+          </summary>
+          <div class="frgm-dropdown-panel" role="menu">
+            <button class="frgm-dropdown-item" type="button" role="menuitem" data-danger="true"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Logout</span></span></button>
+            <button class="frgm-dropdown-item" type="button" role="menuitem"><span class="frgm-dropdown-item-copy"><span class="frgm-dropdown-item-label">Profile Settings</span></span></button>
+          </div>
+        </details>
       </div>
     </div>
 
@@ -2203,25 +2317,42 @@
       </div>
     </div>
 
-    <div class="group-head"><h3>Forms</h3><span class="note">.input-box · .form-fields · Atoms / searchInput</span></div>
+    <div class="group-head"><h3>Forms</h3><span class="note">Field · FieldGroup · text/select/textarea/search/choice/toggle</span></div>
 
     <div class="comp">
       <div class="comp-meta">
-        <h4>Text input</h4>
-        <p>40px height. Neutral-100 fill keeps fields visually distinct from white card surfaces. Focus uses blue-300 ring + emerald-500 border.</p>
-        <span class="ref"><b>.input-box</b> · 40px · neutral-100</span>
+        <h4>Field stack</h4>
+        <p>Label, control, hint, required, and invalid states are one foundation stack. Neutral fill keeps controls distinct from card and canvas surfaces.</p>
+        <span class="ref"><b>Field</b> · <b>TextInput</b> · <b>SelectField</b></span>
       </div>
-      <div class="comp-body grid2">
-        <div class="field">
-          <label>Campaign name</label>
-          <input type="text" placeholder="Q3 reactivation">
-          <span class="hint">Visible only to your team.</span>
+      <div class="comp-body">
+        <div class="frgm-field-row">
+          <label class="frgm-field">
+            <span class="frgm-field-label">Campaign name <span class="frgm-field-required" aria-hidden="true">*</span></span>
+            <input class="frgm-input" type="text" placeholder="Q3 reactivation" required>
+            <span class="frgm-field-hint">Visible only to your team.</span>
+          </label>
+          <label class="frgm-field">
+            <span class="frgm-field-label">Channel</span>
+            <select class="frgm-select"><option>Email</option><option>SMS</option><option>Push</option></select>
+            <span class="frgm-field-hint">Add new channels in settings.</span>
+          </label>
         </div>
-        <div class="field">
-          <label>Channel</label>
-          <select><option>Email</option><option>SMS</option><option>Push</option></select>
-          <span class="hint">Add new channels in settings.</span>
-        </div>
+      </div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-meta">
+        <h4>Textarea and invalid state</h4>
+        <p>Textarea, error copy, and invalid border treatment reuse the same field stack instead of local inspector styles.</p>
+        <span class="ref"><b>TextareaField</b> · error · aria-invalid</span>
+      </div>
+      <div class="comp-body">
+        <label class="frgm-field" style="--frgm-field-width:34.2857rem">
+          <span class="frgm-field-label">Recommendation brief</span>
+          <textarea class="frgm-textarea" aria-invalid="true" placeholder="Summarize the audience, action, and expected lift."></textarea>
+          <span class="frgm-field-error">Brief needs an expected lift before publishing.</span>
+        </label>
       </div>
     </div>
 
@@ -2229,12 +2360,13 @@
       <div class="comp-meta">
         <h4>Search input</h4>
         <p>Header-bar search with leading icon and ⌘K hint. 38px tall — sits comfortably alongside small buttons.</p>
-        <span class="ref"><b>Atoms/searchInput</b></span>
+        <span class="ref"><b>SearchInput</b></span>
       </div>
       <div class="comp-body">
-        <label class="search">
+        <label class="frgm-search">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
-          <input type="text" placeholder="Search segments, campaigns…">
+          <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search workspace</span>
+          <input type="search" placeholder="Search segments, campaigns…">
           <kbd>⌘K</kbd>
         </label>
       </div>
@@ -2243,21 +2375,29 @@
     <div class="comp">
       <div class="comp-meta">
         <h4>Choice controls</h4>
-        <p>Checkbox, radio, and toggle. All check states use emerald — emerald-700 for hard checks, emerald-500 for the toggle.</p>
-        <span class="ref">checkbox · radio · toggle</span>
+        <p>Checkbox, radio, and toggle states are packaged controls. Use field groups for related choices and settings sections.</p>
+        <span class="ref"><b>FieldGroup</b> · <b>CheckboxField</b> · <b>RadioField</b> · <b>ToggleField</b></span>
       </div>
       <div class="comp-body grid2">
-        <div style="display:flex;flex-direction:column;gap:0.7143rem">
-          <label class="cbx"><input type="checkbox" checked> Auto-optimize budget</label>
-          <label class="cbx"><input type="checkbox"> Send weekly digest</label>
-          <label class="radio"><input type="radio" name="r" checked> All conditions match</label>
-          <label class="radio"><input type="radio" name="r"> Any condition matches</label>
-        </div>
-        <div style="display:flex;flex-direction:column;gap:0.7143rem">
-          <label class="toggle"><input type="checkbox" checked>Auto-optimize budget</label>
-          <label class="toggle"><input type="checkbox">Send weekly digest</label>
-          <label class="toggle"><input type="checkbox" checked>Notify on anomaly</label>
-        </div>
+        <fieldset class="frgm-field-group">
+          <legend class="frgm-field-legend">Budget rules</legend>
+          <span class="frgm-field-description">Controls that change automated spend behavior.</span>
+          <div class="frgm-field-group-body">
+            <label class="frgm-choice"><input type="checkbox" checked> <span>Auto-optimize budget</span></label>
+            <label class="frgm-choice"><input type="checkbox"> <span>Send weekly digest</span></label>
+            <label class="frgm-choice"><input type="radio" name="r" checked> <span>All conditions match</span></label>
+            <label class="frgm-choice"><input type="radio" name="r"> <span>Any condition matches</span></label>
+          </div>
+        </fieldset>
+        <fieldset class="frgm-field-group">
+          <legend class="frgm-field-legend">Notifications</legend>
+          <span class="frgm-field-description">Binary settings use switch affordances.</span>
+          <div class="frgm-field-group-body">
+            <label class="frgm-toggle-field"><input type="checkbox" checked> <span>Weekly performance digest</span></label>
+            <label class="frgm-toggle-field"><input type="checkbox"> <span>Budget warnings</span></label>
+            <label class="frgm-toggle-field"><input type="checkbox" checked> <span>Notify on anomaly</span></label>
+          </div>
+        </fieldset>
       </div>
     </div>
 
@@ -2356,10 +2496,10 @@
 
   </section>
 
-  <!-- ─── 05 Data viz ──────────────────────────────── -->
+  <!-- ─── 07 Data viz ──────────────────────────────── -->
   <section class="section" id="charts">
     <div class="section-head">
-      <div class="section-num">05 — Data visualization</div>
+      <div class="section-num">07 — Data visualization</div>
       <h2><em>Charts.</em></h2>
       <p>The chart vocabulary used across analytics, journeys, and segment performance. Built on echarts at runtime — these are the visual specs every chart should resolve to.</p>
     </div>
@@ -2531,75 +2671,226 @@
     </div>
   </section>
 
-  <!-- ─── 06 Patterns ──────────────────────────────── -->
+  <!-- ─── 08 Patterns ──────────────────────────────── -->
   <section class="section" id="patterns">
     <div class="section-head">
-      <div class="section-num">06 — Patterns</div>
+      <div class="section-num">08 — Patterns</div>
       <h2><em>Patterns.</em></h2>
       <p>How the atoms compose into the surfaces a marketer actually moves through — shells, lists, builders, detail views, and the small UI moments that wrap them. Patterns are referenced from real routes in the app, but they're cleaned up to read as the canonical version, not a snapshot of today's code.</p>
     </div>
 
     <!-- App shell -->
-    <div class="group-head"><h3>App shell</h3><span class="note">components/Navbar · 84/240px sidebar · 56px topbar</span></div>
+    <div class="group-head"><h3>App shell</h3><span class="note">design-system/patterns/app-shell · product routes, not dashboard UX</span></div>
     <div class="pattern-frame tight">
-      <div class="app-shell expanded">
-        <aside class="sidebar">
-          <div class="brand"><span class="mark">F</span><span class="nm">Fragmatic</span></div>
-          <div class="nav-section">Workspace</div>
-          <div class="nav-item is-active">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg>
-            <span class="lab">Overview</span>
+      <div class="frgm-app-shell">
+        <header class="frgm-app-topbar">
+          <div class="frgm-app-topbar-brand">
+            <a class="frgm-app-topbar-logo" href="#patterns" aria-label="Fragmatic home" data-ds-brand-slot="topbarMark"></a>
+            <span data-ds-dropdown-slot="domain"></span>
           </div>
-          <div class="nav-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12l4-4 3 3 5-6"/><circle cx="14" cy="5" r="1"/></svg>
-            <span class="lab">Analytics</span>
+          <div class="frgm-app-topbar-spacer"></div>
+          <div class="frgm-app-actions">
+            <label class="frgm-search frgm-app-command">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
+              <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search workspace</span>
+              <input type="search" placeholder="Search, jump, or ask..." />
+            </label>
+            <button class="frgm-app-icon-button" title="Notifications" type="button" data-context-open data-context-panel-target="notifications" aria-controls="frgm-recommendation-context" aria-expanded="false">
+              <span data-ds-icon-slot="notification"></span>
+            </button>
+            <span data-ds-dropdown-slot="profile"></span>
           </div>
-          <div class="nav-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="11" cy="11" r="3"/></svg>
-            <span class="lab">Segments</span><span class="badge">24</span>
+        </header>
+        <div class="frgm-app-secondary-topbar" aria-label="Current page context">
+          <div class="frgm-app-breadcrumb"><span>Analytics</span><span>›</span><b>Overview</b></div>
+          <div class="frgm-app-secondary-actions">
+            <button class="frgm-button" data-variant="secondary" data-size="sm" type="button" data-context-open data-context-panel-target="recommendation" aria-controls="frgm-recommendation-context" aria-expanded="false">Recommendation context</button>
           </div>
-          <div class="nav-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="3" cy="8" r="1.5"/><circle cx="8" cy="8" r="1.5"/><circle cx="13" cy="8" r="1.5"/><path d="M4.5 8h2M9.5 8h2"/></svg>
-            <span class="lab">Journeys</span>
-          </div>
-          <div class="nav-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="6"/><path d="M8 4v4l3 2"/></svg>
-            <span class="lab">Goals</span>
-          </div>
-          <div class="nav-section">Intelligence</div>
-          <div class="nav-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l1.8 4.2L14 8l-4.2 1.8L8 14l-1.8-4.2L2 8l4.2-1.8z"/></svg>
-            <span class="lab">AI Marketer</span><span class="badge" style="background:var(--emerald-50);color:var(--emerald-700)">12</span>
-          </div>
-          <div class="nav-item">
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
-            <span class="lab">Profiles</span>
-          </div>
+        </div>
+        <aside class="frgm-app-sidebar" aria-label="Product navigation">
+          <nav class="frgm-app-nav" data-ds-shell-nav></nav>
         </aside>
-        <div class="main">
-          <div class="topbar">
-            <div class="crumbs"><span>Workspace</span><span>›</span><b>Overview</b></div>
-            <div class="right">
-              <label class="search" style="height:2.2857rem;width:17.1429rem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg><input placeholder="Search or jump to… ⌘K"></label>
-              <div class="icon-btn"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2a4 4 0 014 4v3l1 2H3l1-2V6a4 4 0 014-4z"/><path d="M6.5 13a1.5 1.5 0 003 0"/></svg></div>
-              <span class="profile-tag"><span class="pic">SK</span>Sarah</span>
-            </div>
+
+        <aside class="frgm-app-context-nav" aria-label="Analytics navigation">
+          <div class="frgm-app-context-head">
+            <b>Analytics</b>
+            <span>Context navigation replaces page-level tabs.</span>
           </div>
-          <div class="content">
-            <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:1.1429rem">
-              <div>
-                <h2 style="font-family:var(--font-display);font-size:1.7143rem;font-weight:600;letter-spacing:-0.015em;color:var(--gray-900);margin:0">Welcome back, Sarah</h2>
-                <div style="font-size:0.9286rem;color:var(--gray-500);margin-top:0.2857rem">Here's what's moved since Monday.</div>
-              </div>
-              <div style="display:flex;gap:0.5714rem"><button class="btn btn-secondary btn-sm">Last 7 days</button><button class="btn btn-primary btn-sm">+ New campaign</button></div>
+          <nav class="frgm-app-context-list" data-ds-shell-context-nav></nav>
+        </aside>
+
+        <main class="frgm-app-main">
+          <section class="frgm-app-content">
+            <div class="frgm-app-workspace">
+              <section class="frgm-app-main-container" data-width="full" data-shell-page="analytics" aria-label="Full width analytics container">
+                <div class="frgm-app-page-head">
+                  <div class="frgm-app-page-title">
+                    <h3>Analytics overview</h3>
+                    <p>Full-width main container for data-heavy dashboards, charts, tables, and recommendation surfaces.</p>
+                  </div>
+                </div>
+
+                <div class="frgm-app-stat-row">
+                  <div class="frgm-app-stat"><span>Profiles</span><strong>28.4k</strong><small class="frgm-profit" data-direction="up">↗ 8.2%</small></div>
+                  <div class="frgm-app-stat"><span>Conversion</span><strong>4.82%</strong><small class="frgm-profit" data-direction="up">↗ 0.4 pts</small></div>
+                  <div class="frgm-app-stat"><span>Revenue influenced</span><strong>$84.2k</strong><small class="frgm-profit" data-direction="up">↗ 12.4%</small></div>
+                  <div class="frgm-app-stat"><span>Open recommendations</span><strong>12</strong><small class="frgm-profit" data-direction="down">↘ 3 overdue</small></div>
+                </div>
+
+                <div class="frgm-app-canvas">
+                  <div class="frgm-app-panel">
+                    <div class="frgm-app-panel-head">
+                      <div class="frgm-app-panel-title">
+                        <h4>Acquisition to activation</h4>
+                        <p>Journey and content performance over the last 7 days.</p>
+                      </div>
+                      <span class="frgm-segment-status" data-status="active"><span class="frgm-icon-dot"></span><span>active</span></span>
+                    </div>
+                    <div class="frgm-app-chart">
+                      <svg viewBox="0 0 680 220" role="img" aria-label="Activation trend chart">
+                        <g class="frgm-app-grid-line">
+                          <line x1="24" y1="42" x2="656" y2="42"/>
+                          <line x1="24" y1="92" x2="656" y2="92"/>
+                          <line x1="24" y1="142" x2="656" y2="142"/>
+                          <line x1="24" y1="192" x2="656" y2="192"/>
+                        </g>
+                        <g class="frgm-app-bars">
+                          <rect x="54" y="150" width="28" height="42" rx="4"/><rect x="142" y="130" width="28" height="62" rx="4"/>
+                          <rect x="230" y="116" width="28" height="76" rx="4"/><rect x="318" y="96" width="28" height="96" rx="4"/>
+                          <rect x="406" y="108" width="28" height="84" rx="4"/><rect x="494" y="82" width="28" height="110" rx="4"/>
+                          <rect x="582" y="62" width="28" height="130" rx="4"/>
+                        </g>
+                        <path class="frgm-app-series-muted" d="M54 170 C132 152 180 148 230 136 C314 116 358 126 406 110 C480 84 526 92 610 68"/>
+                        <path class="frgm-app-series" d="M54 182 C132 166 180 144 230 150 C314 158 358 96 406 92 C480 88 526 68 610 44"/>
+                      </svg>
+                      <div class="frgm-app-chart-labels"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                    </div>
+                  </div>
+
+                  <div class="frgm-app-panel">
+                    <div class="frgm-app-panel-head">
+                      <div class="frgm-app-panel-title">
+                        <h4>Top segments</h4>
+                        <p>Audiences currently shaping goals.</p>
+                      </div>
+                    </div>
+                    <div class="frgm-app-segments">
+                      <div class="frgm-app-segment"><span><strong>High-intent visitors</strong><span>Pricing + trial start in 7d</span></span><span class="frgm-profit" data-direction="up">↗ 18%</span></div>
+                      <div class="frgm-app-segment"><span><strong>Trial day 5</strong><span>Needs onboarding nudge</span></span><span class="frgm-profit" data-direction="up">↗ 9%</span></div>
+                      <div class="frgm-app-segment"><span><strong>Returning shoppers</strong><span>Cart abandoners with SMS gap</span></span><span class="frgm-profit" data-direction="down">↘ 6%</span></div>
+                      <div class="frgm-app-segment"><span><strong>Enterprise evaluators</strong><span>Security page + demo views</span></span><span class="frgm-profit" data-direction="up">↗ 14%</span></div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="frgm-app-reco-list">
+                  <article class="frgm-app-reco" data-context-card>
+                    <h4>AI Marketer recommends a 24h SMS journey for cart abandoners.</h4>
+                    <p>Impact estimate is based on 3,914 sessions, current channel coverage, and goal attribution from the last 30 days.</p>
+                    <div class="frgm-app-reco-foot">
+                      <span class="frgm-badge" data-status="active"><span>High confidence</span></span>
+                      <button class="frgm-button" data-variant="secondary" data-size="sm" type="button" data-context-open data-context-panel-target="recommendation" aria-controls="frgm-recommendation-context" aria-expanded="false">Open context panel</button>
+                    </div>
+                  </article>
+                </div>
+              </section>
+
+              <section class="frgm-app-main-container" data-width="narrow" data-shell-page="settings" aria-label="Narrow centered settings container" hidden>
+                <div class="frgm-app-page-head">
+                  <div class="frgm-app-page-title">
+                    <h3>Project settings</h3>
+                    <p>Centered narrow main container for forms, settings, and low-density configuration pages.</p>
+                  </div>
+                </div>
+                <div class="frgm-app-settings-card">
+                  <div class="frgm-app-settings-row">
+                    <div>
+                      <h4>Project name</h4>
+                      <p>Displayed throughout the workspace.</p>
+                    </div>
+                    <label class="frgm-field" style="--frgm-field-width:100%">
+                      <span class="frgm-field-label">Project name</span>
+                      <input class="frgm-input" type="text" value="FMEA">
+                    </label>
+                  </div>
+                  <div class="frgm-app-settings-row">
+                    <div>
+                      <h4>Default channel</h4>
+                      <p>New recommendations start with this channel.</p>
+                    </div>
+                    <label class="frgm-field" style="--frgm-field-width:100%">
+                      <span class="frgm-field-label">Default channel</span>
+                      <select class="frgm-select"><option>Email</option><option>SMS</option><option>Push</option></select>
+                    </label>
+                  </div>
+                  <div class="frgm-app-settings-row">
+                    <div>
+                      <h4>Workspace access</h4>
+                      <p>Binary settings keep the form compact.</p>
+                    </div>
+                    <div class="frgm-field-group-body">
+                      <label class="frgm-toggle-field"><input type="checkbox" checked> <span>Organization-wide access</span></label>
+                      <label class="frgm-toggle-field"><input type="checkbox"> <span>Require approval for drafts</span></label>
+                    </div>
+                  </div>
+                </div>
+              </section>
             </div>
-            <div class="detail-grid">
-              <div class="stat-card span-4"><span class="l">Revenue</span><span class="v">$84,210</span><span class="delta up">▲ 12.4%</span></div>
-              <div class="stat-card span-4"><span class="l">Conversion</span><span class="v">4.82<small>%</small></span><span class="delta up">▲ 0.4 pts</span></div>
-              <div class="stat-card span-4"><span class="l">CAC</span><span class="v">$42.10</span><span class="delta down">▼ 3.1%</span></div>
+          </section>
+        </main>
+
+        <div class="frgm-app-context-overlay" id="frgm-recommendation-context" data-context-overlay aria-label="Reusable context panel" aria-hidden="true">
+          <div class="frgm-app-context-scrim" data-context-close></div>
+          <div class="frgm-app-context-panel">
+            <div class="frgm-app-context-panel-head">
+              <div>
+                <h4 data-context-panel-title>Recommendation context</h4>
+                <p data-context-panel-description>Reusable right panel for selected rows, charts, segments, journey nodes, and AI recommendations.</p>
+              </div>
+              <button class="frgm-app-icon-button" type="button" title="Close context panel" data-context-close>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+              </button>
+            </div>
+            <div class="frgm-app-context-panel-body">
+              <div class="frgm-app-context-panel-content" data-context-panel-content="recommendation">
+                <div class="frgm-app-context-panel-section">
+                  <b>Selected item</b>
+                  <p>24h SMS journey for returning shoppers who abandoned cart after viewing pricing.</p>
+                </div>
+                <div class="frgm-app-context-panel-section">
+                  <b>Why it matters</b>
+                  <p>3,914 sessions match this behavior. SMS coverage is currently 0, and similar profiles convert 3.4x better when reached within one day.</p>
+                </div>
+                <div class="frgm-app-context-panel-section">
+                  <b>Actions</b>
+                  <button class="frgm-button" data-variant="primary" data-size="sm">Create journey draft</button>
+                  <button class="frgm-button" data-variant="secondary" data-size="sm">Save for later</button>
+                </div>
+              </div>
+              <div class="frgm-app-context-panel-content" data-context-panel-content="notifications" hidden>
+                <div class="frgm-app-context-panel-section">
+                  <b>Sync completed</b>
+                  <p>GA4 properties finished syncing 4 minutes ago. No action needed.</p>
+                </div>
+                <div class="frgm-app-context-panel-section">
+                  <b>Draft needs review</b>
+                  <p>The abandoned-cart recommendation has a new confidence estimate.</p>
+                </div>
+                <div class="frgm-app-context-panel-section">
+                  <b>Usage alert</b>
+                  <p>Profile ingestion is at 82 percent of the monthly plan limit.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        <nav class="frgm-app-mobilebar" aria-label="Mobile product navigation">
+          <span class="active"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg>Home</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12l4-4 3 3 5-6"/></svg>Analytics</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="6" cy="6" r="3"/><circle cx="11" cy="11" r="3"/></svg>Segments</span>
+          <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 2l1.8 4.2L14 8l-4.2 1.8L8 14l-1.8-4.2L2 8l4.2-1.8z"/></svg>AI</span>
+        </nav>
       </div>
     </div>
 
@@ -2608,12 +2899,12 @@
     <div class="pattern-frame tight">
       <div class="auth-frame">
         <div class="pane">
-          <div class="brand"><span class="mark">F</span>Fragmatic</div>
+          <div class="brand"><span class="mark" data-ds-brand-slot="mark"></span>Fragmatic</div>
           <h1>Welcome back.</h1>
           <p class="auth-sub">Sign in to your workspace to keep moving.</p>
           <form>
-            <div class="field"><label>Work email</label><input type="email" value="sarah@acme.io"></div>
-            <div class="field"><label>Password</label><input type="password" value="••••••••••"></div>
+            <label class="frgm-field"><span class="frgm-field-label">Work email</span><input class="frgm-input" type="email" value="sarah@acme.io"></label>
+            <label class="frgm-field"><span class="frgm-field-label">Password</span><input class="frgm-input" type="password" value="••••••••••"></label>
             <button class="btn btn-primary">Sign in</button>
             <div class="auth-divider">or</div>
             <button class="btn btn-secondary"><svg viewBox="0 0 16 16" width="14" height="14"><path fill="#4285F4" d="M15 8.2c0-.6 0-1.1-.1-1.6H8v3h3.9c-.2.9-.7 1.7-1.5 2.2v1.8h2.4c1.4-1.3 2.2-3.2 2.2-5.4z"/><path fill="#34A853" d="M8 15c2 0 3.7-.7 4.9-1.8l-2.4-1.8c-.7.4-1.5.7-2.5.7-1.9 0-3.6-1.3-4.2-3H1.3v1.9C2.5 13.4 5 15 8 15z"/><path fill="#FBBC05" d="M3.8 9.1c-.1-.4-.2-.9-.2-1.4s.1-.9.2-1.4V4.4H1.3C.8 5.5.5 6.7.5 8s.3 2.5.8 3.6l2.5-2z"/><path fill="#EA4335" d="M8 3.6c1.1 0 2.1.4 2.8 1.1l2.1-2.1C11.7 1.4 10 .7 8 .7 5 .7 2.5 2.3 1.3 4.4l2.5 1.9c.6-1.7 2.3-2.7 4.2-2.7z"/></svg>Continue with Google</button>
@@ -2638,7 +2929,7 @@
     <div class="pattern-frame tight">
       <div class="wiz-frame">
         <div class="wiz-head">
-          <div class="brand"><span class="mark">F</span>Fragmatic</div>
+          <div class="brand"><span class="mark" data-ds-brand-slot="mark"></span>Fragmatic</div>
           <div class="help">Step 3 of 5 · <a href="#" style="color:var(--gray-700)">Save and continue later</a></div>
         </div>
         <div class="wiz-stepper">
@@ -2826,9 +3117,10 @@
           <div class="p-sub">24 active · last refreshed 4 min ago</div>
         </div>
         <div class="actions">
-          <label class="search" style="height:2.2857rem;width:17.1429rem">
+          <label class="frgm-search" style="height:2.2857rem;width:17.1429rem">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg>
-            <input placeholder="Search segments…">
+            <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search segments</span>
+            <input type="search" placeholder="Search segments…">
           </label>
           <button class="btn btn-primary btn-sm">+ New segment</button>
         </div>
@@ -2888,7 +3180,7 @@
       </div>
     </div>
 
-    <div class="group-head"><h3>Settings page</h3><span class="note">.form-fields · 240px label column</span></div>
+    <div class="group-head"><h3>Settings page</h3><span class="note">Field primitives · 240px label column</span></div>
     <div class="pattern-frame">
       <div class="p-top">
         <div>
@@ -2906,24 +3198,24 @@
           <div class="lbl">Workspace name</div>
           <div class="desc">Shown in navigation and reports.</div>
         </div>
-        <div class="field" style="max-width:34.2857rem"><input type="text" value="Fragmatic — main"></div>
+        <label class="frgm-field" style="--frgm-field-width:34.2857rem"><span class="frgm-field-label">Workspace name</span><input class="frgm-input" type="text" value="Fragmatic — main"></label>
       </div>
       <div class="setting-row">
         <div>
           <div class="lbl">Default channel</div>
           <div class="desc">New campaigns start here.</div>
         </div>
-        <div class="field" style="max-width:34.2857rem"><select><option>Email</option><option>SMS</option><option>Push</option></select></div>
+        <label class="frgm-field" style="--frgm-field-width:34.2857rem"><span class="frgm-field-label">Default channel</span><select class="frgm-select"><option>Email</option><option>SMS</option><option>Push</option></select></label>
       </div>
       <div class="setting-row">
         <div>
           <div class="lbl">Notifications</div>
           <div class="desc">Pick what reaches your inbox.</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:0.7143rem">
-          <label class="toggle"><input type="checkbox" checked>Weekly performance digest</label>
-          <label class="toggle"><input type="checkbox" checked>Anomaly alerts</label>
-          <label class="toggle"><input type="checkbox">Budget warnings</label>
+        <div class="frgm-field-group-body">
+          <label class="frgm-toggle-field"><input type="checkbox" checked> <span>Weekly performance digest</span></label>
+          <label class="frgm-toggle-field"><input type="checkbox" checked> <span>Anomaly alerts</span></label>
+          <label class="frgm-toggle-field"><input type="checkbox"> <span>Budget warnings</span></label>
         </div>
       </div>
       <div class="setting-row">
@@ -3002,7 +3294,7 @@
     <div class="group-head"><h3>Universal table</h3><span class="note">components/organism/universalTable · sortable · paginated</span></div>
     <div class="utable" style="margin-top:1.7143rem">
       <div class="ut-head">
-        <label class="search" style="height:2.2857rem;width:20rem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg><input placeholder="Search profiles…"></label>
+        <label class="frgm-search" style="height:2.2857rem;width:20rem"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="4.5"/><path d="M11 11l3 3"/></svg><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Search profiles</span><input type="search" placeholder="Search profiles…"></label>
         <span class="pill">Status: All</span><span class="pill">Source: 3 selected</span><span class="pill">Date: Last 30d</span>
         <div class="right"><button class="btn btn-ghost btn-sm">Columns</button><button class="btn btn-secondary btn-sm">Export CSV</button></div>
       </div>
@@ -3205,8 +3497,10 @@
           <div class="element-path">…&nbsp;›&nbsp;section&nbsp;›&nbsp;div.hero&nbsp;›&nbsp;<span class="last">p.subhead</span></div>
 
           <!-- Text/HTML textarea -->
-          <div class="ta-label">Text / HTML</div>
-          <textarea class="insp-textarea">Start free. Upgrade when you're ready to send to your full audience — no surprise overages, no per-seat lock-in.</textarea>
+          <label class="frgm-field" style="--frgm-field-width:100%">
+            <span class="frgm-field-label">Text / HTML</span>
+            <textarea class="frgm-textarea insp-textarea">Start free. Upgrade when you're ready to send to your full audience — no surprise overages, no per-seat lock-in.</textarea>
+          </label>
 
           <!-- Regenerate / Apply -->
           <div class="rewrite-row">
@@ -3217,9 +3511,9 @@
           <!-- Typography editor -->
           <div class="type-editor">
             <div class="te-row">
-              <select class="te-family"><option>Inter</option><option>Untitled Sans</option></select>
-              <select class="te-weight"><option>Regular</option><option selected>Medium</option><option>Semibold</option></select>
-              <input class="te-size" value="14"/>
+              <select class="frgm-select te-family"><option>Inter</option><option>Untitled Sans</option></select>
+              <select class="frgm-select te-weight"><option>Regular</option><option selected>Medium</option><option>Semibold</option></select>
+              <input class="frgm-input te-size" value="14"/>
             </div>
             <div class="te-iconrow">
               <span class="te-icon" title="Bold"><b style="font-size:0.7857rem">B</b></span>
@@ -3319,10 +3613,10 @@
         <div class="d-head"><div><h3>Edit segment</h3><div style="font-size:0.8571rem;color:var(--gray-500);font-family:var(--font-mono);margin-top:2px">seg_hi_intent_v3</div></div><span class="x">×</span></div>
         <div class="d-body">
           <div class="form-fields">
-            <div class="field"><label>Name</label><input type="text" value="High-intent visitors"></div>
-            <div class="field"><label>Description</label><textarea rows="2">Visited pricing, started trial, opened ≥ 2 sessions in last 7d.</textarea></div>
-            <div class="field"><label>Match</label><div class="allany"><p class="active">All</p><p>Any</p></div></div>
-            <div class="field"><label>Status</label><select><option>Active</option><option>Draft</option><option>Scheduled</option></select></div>
+            <label class="frgm-field"><span class="frgm-field-label">Name</span><input class="frgm-input" type="text" value="High-intent visitors"></label>
+            <label class="frgm-field"><span class="frgm-field-label">Description</span><textarea class="frgm-textarea" rows="2">Visited pricing, started trial, opened ≥ 2 sessions in last 7d.</textarea></label>
+            <div class="frgm-field"><span class="frgm-field-label">Match</span><div class="allany"><p class="active">All</p><p>Any</p></div></div>
+            <label class="frgm-field"><span class="frgm-field-label">Status</span><select class="frgm-select"><option>Active</option><option>Draft</option><option>Scheduled</option></select></label>
           </div>
         </div>
         <div class="d-foot"><button class="btn btn-ghost btn-sm">Cancel</button><button class="btn btn-primary btn-sm">Save changes</button></div>
@@ -3395,6 +3689,15 @@
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "react": "https://esm.sh/react@18.3.1",
+      "react-dom/client": "https://esm.sh/react-dom@18.3.1/client"
+    }
+  }
+</script>
+<script type="module" src="./app-shell-preview.mjs"></script>
 <script type="text/babel" src="../tools/tweaks-panel.jsx?v=dark-contrast"></script>
 <script type="text/babel" src="../tools/tweaks.jsx?v=dark-contrast"></script>
 </body>

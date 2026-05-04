@@ -15,6 +15,37 @@ This document is the audit boundary for exported atoms. Components must consume 
 | Spacing | `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-pill-pad-*` | Control dimensions, atom gaps, pill padding. |
 | Motion/state | `--frgm-motion-*`, `--frgm-state-*` | Hover lift, transitions, loader timing, disabled opacity. |
 | Iconography | `components/atoms/icons.js`, `--frgm-icon-size-*`, `--frgm-dot-size` | Package-local line icons and dot indicators. |
+| Brand assets | `components/brand`, `assets/brand/*.svg`, `brandLogoItems` | Fragmatic mark, sidebar tile, and wordmark as reusable foundation items. |
+
+## Form Foundation
+
+Forms use a composed foundation rather than one-off `.field` snippets. Use `Field`, `FieldRow`, and `FieldGroup` for structure; use `TextInput`, `SelectField`, `TextareaField`, `SearchInput`, `CheckboxField`, `RadioField`, and `ToggleField` for controls. Pattern previews should use the same `frgm-*` classes even when written as static HTML.
+
+Form controls default to a neutral filled surface so they remain distinct from card surfaces, inherit density from the root rem scale, and share the primary border plus blue focus ring. Required, hint, invalid, disabled, checkbox, radio, and toggle states must be represented by atom classes and foundation tokens before being reused in components, patterns, charts, or inspectors.
+
+## Dropdown Foundation
+
+Dropdowns use `DropdownMenu` and the `.frgm-dropdown-*` classes. Domain switchers, profile menus, settings menus, and overflow menus should compose this atom instead of creating shell-local trigger, radius, panel, or menu item styles.
+
+Dropdown triggers use the shared control radius and border tokens. The `domain`, `icon`, and `avatar` variants change content density only; they do not create new shape rules outside the atom foundation.
+
+## Brand Logo Foundation
+
+`components/brand` is the source of truth for Fragmatic logo usage. Reusable logo placements must use `FragmaticMark`, `FragmaticSidebarTile`, `BrandLogoButton`, `brandLogoItems`, or the exported raw SVG assets instead of hand-drawn inline marks or text placeholders.
+
+The primary sidebar logo uses the dashboard-derived 40px tile treatment. Its shared CSS keeps the mark container at `40px` with `8px 10px` padding, matching the dashboard sidebar code.
+
+## Icon Foundation
+
+`components/atoms/icons.js` is the source of truth for reusable product icons. Add new icons there first, export them through the design-system package, and consume them by name from components, patterns, and previews. Do not paste inline SVG paths into product surfaces when the icon is reusable.
+
+Icons must inherit `currentColor`, use the established icon size tokens where CSS controls sizing, and stay free of dashboard-local imports. One-off diagrams and chart illustrations can remain local to their example, but navigation, actions, statuses, and repeated product concepts belong in the icon module.
+
+## App Shell Container Foundation
+
+The app shell exposes one main-content container API: `.frgm-app-main-container[data-width='full' | 'narrow']`. Use `full` for data-heavy dashboards, tables, charts, canvases, and recommendation workspaces that need all available horizontal space. Use `narrow` for settings, forms, and low-density configuration pages that should be centered for readability.
+
+Only one app-shell page container should be visible for a selected context navigation item. Context navigation owns page switching; previews and product shells should drive labels, counts, active state, target page, and container width from a component/data map instead of hand-maintained HTML.
 
 ## Atom Contracts
 
@@ -30,6 +61,16 @@ This document is the audit boundary for exported atoms. Components must consume 
 | `SegmentStatus` | `--gray-100`, `--gray-700`, `--emerald-50`, `--emerald-800`, `--amber-50`, `--amber-700`, `--r-4`, `--frgm-pill-*`, `--frgm-dot-size` | `active`, `scheduled/idle`, default neutral. | Dot uses `currentColor`, so it inherits status color. |
 | `ProgressBar` | `--gray-100`, `--primary`, `--frgm-dot-size`, `--frgm-pill-radius`, `--frgm-inline-gap-lg`, `--frgm-control-h-lg`, `--font-mono` | Fill defaults to `--primary`; optional `color` prop sets `--color` for data-viz overrides. | Native `progress` keeps semantics. |
 | `SearchInput` | `--card-bg`, `--text-title`, `--gray-300`, `--gray-400`, `--primary`, `--frgm-control-focus-ring`, `--frgm-control-*`, `--frgm-search-width` | `:focus-within` applies primary border and blue focus ring. | Includes visually hidden label for accessibility. |
+| `Field` | `--text-body`, `--text-meta`, `--red-700`, `--frgm-control-font-*`, `--frgm-inline-gap-sm` | Required marker uses red; error text replaces hint when present. | Structural wrapper for one label/control/help stack. |
+| `TextInput` | `--gray-100`, `--gray-300`, `--text-title`, `--text-caption`, `--primary`, `--red-700`, `--frgm-control-*`, `--frgm-state-disabled-opacity` | Focus, invalid, required, and disabled states map to shared field CSS. | Supports text-like input types through the `type` prop. |
+| `SelectField` | `--gray-100`, `--gray-300`, `--text-title`, `--primary`, `--red-700`, `--frgm-control-*`, `--frgm-state-disabled-opacity` | Focus, invalid, required, and disabled states map to shared field CSS. | Options can be passed as strings/objects or native children. |
+| `TextareaField` | `--gray-100`, `--gray-300`, `--text-title`, `--text-caption`, `--primary`, `--red-700`, `--frgm-control-*`, `--frgm-state-disabled-opacity` | Focus, invalid, required, and disabled states map to shared field CSS. | Uses the same field stack with a larger resizable control. |
+| `FieldGroup` | `--text-title`, `--text-meta`, `--frgm-control-font-*`, `--frgm-inline-gap-*` | `data-layout="inline"` wraps choice controls horizontally; default stacks content. | Use for related choices, settings sections, and inspector groups. |
+| `FieldRow` | `--frgm-inline-gap-md` | Auto-fit columns collapse responsively. | Use instead of ad hoc two-column field grids. |
+| `CheckboxField` | `--card-bg`, `--gray-300`, `--primary`, `--frgm-icon-size-md`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary fill; focus-visible uses the shared focus ring. | Native checkbox semantics, custom visual shell. |
+| `RadioField` | `--card-bg`, `--gray-300`, `--primary`, `--frgm-icon-size-md`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary fill; focus-visible uses the shared focus ring. | Native radio semantics, custom visual shell. |
+| `ToggleField` | `--card-bg`, `--gray-300`, `--primary`, `--border-subtle`, `--shadow-elev`, `--frgm-control-focus-ring`, `--frgm-state-disabled-opacity` | Checked state uses primary track; knob motion uses foundation motion. | For binary settings where switch affordance is expected. |
+| `DropdownMenu` | `--card-bg`, `--gray-50`, `--border-subtle`, `--border-strong`, `--text-body`, `--text-title`, `--text-meta`, `--shadow-pop`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-icon-size-md` | `domain`, `icon`, `avatar`, and default trigger variants share the same panel and item rules; open state is native `details[open]`. | Use for domain, profile, settings, and overflow menus. |
 | `SwitchButton` | `--gray-100`, `--gray-500`, `--card-bg`, `--text-title`, `--shadow-elev`, `--frgm-control-*`, `--frgm-pill-pad-y-sm`, `--frgm-state-muted-opacity` | Selected option uses `aria-pressed="true"` with card background/elevation; disabled uses muted opacity. | Covers All/Any segmented choice only. |
 | `Loader` | `--frgm-loader-*`, `--primary`, `--frgm-motion-spin-duration`, `--frgm-pill-radius` | Size maps to foundation `small/default/large`; optional color prop sets `--color`. | Replaces Ant Design icon dependency with CSS spinner. |
 | `TypingLoader` | `--frgm-control-gap`, `--frgm-inline-gap-sm`, `--primary`, `--frgm-motion-typing-duration`, `--frgm-pill-radius` | Three dots stagger using the typing duration token. | No inline keyframes in component JS. |

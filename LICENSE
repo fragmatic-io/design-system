@@ -1,0 +1,32 @@
+Fragmatic Design System Source-Available License
+
+Copyright (c) 2026 Fragmatic. All rights reserved.
+
+This repository is published publicly for inspection and evaluation only. No
+license is granted to copy, modify, merge, publish, distribute, sublicense,
+sell, host, embed, train on, or otherwise use the software, design assets,
+source code, documentation, logos, trademarks, visual language, or generated
+artifacts in this repository except as expressly permitted in writing by
+Fragmatic.
+
+You may view the contents of this repository through GitHub's normal web
+interface and clone a temporary local copy only for private evaluation of
+whether to request a separate written license from Fragmatic.
+
+The following are not permitted without prior written permission from
+Fragmatic:
+
+- production, commercial, internal business, or client use;
+- redistribution or publication of copies or derivative works;
+- reuse of design tokens, components, icons, logos, patterns, or visual assets;
+- removal or alteration of copyright, license, or ownership notices;
+- use of Fragmatic names, marks, logos, or trade dress;
+- automated extraction for model training, dataset creation, or design cloning.
+
+This software and all accompanying materials are provided "as is", without
+warranty of any kind, express or implied, including but not limited to the
+warranties of merchantability, fitness for a particular purpose, title, and
+noninfringement. Fragmatic is not liable for any claim, damages, or other
+liability arising from access to or evaluation of this repository.
+
+Any permission not explicitly granted above is reserved by Fragmatic.
