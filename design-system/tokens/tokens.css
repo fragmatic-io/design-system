@@ -164,6 +164,7 @@
   --frgm-control-focus-offset: 1px;
   --frgm-control-border-width: 1px;
   --frgm-search-width: 20rem;
+  --frgm-layer-sticky: 900;
   --frgm-layer-popover: 1000;
   --frgm-layer-shell-overlay: 1050;
   --frgm-layer-dropdown: 1100;

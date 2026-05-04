@@ -48,6 +48,7 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.doesNotMatch(preview, /New experience/);
   assert.match(preview, /data-ds-brand-slot="topbarMark"/);
   assert.match(preview, /data-ds-shell-nav/);
+  assert.match(preview, /data-ds-shell-mobile-nav/);
   assert.match(preview, /data-ds-shell-context-nav/);
   assert.doesNotMatch(preview, /<button class="frgm-app-context-item"/);
   assert.match(preview, /class="frgm-app-main-container" data-width="full" data-shell-page="analytics"/);
@@ -131,6 +132,9 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /dateRange: '4 Feb-4 May 2026'/);
   assert.match(previewModule, /breadcrumbPath: \[\{ label: 'Analytics' \}, \{ label: 'Project settings' \}\]/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-nav\]'\)/);
+  assert.match(previewModule, /const mobileNavItems = shellNavSections\.flatMap/);
+  assert.match(previewModule, /data-ds-shell-mobile-nav/);
+  assert.match(previewModule, /className: 'frgm-app-mobilebar-item'/);
   assert.match(previewModule, /querySelector\('\[data-ds-shell-context-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-secondary-topbar\]'\)/);
   assert.match(previewModule, /document\.querySelectorAll\('\[data-ds-search-slot\]'\)\.forEach\(renderSearchSlot\)/);
@@ -182,6 +186,13 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /\.frgm-app-sidebar\s*{[\s\S]*?grid-row:\s*2 \/ 4/);
   assert.match(css, /\.frgm-app-sidebar\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-shell-overlay\)/);
   assert.match(css, /\.frgm-app-main\s*{[\s\S]*?grid-row:\s*3/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?grid-template-rows:\s*auto auto auto minmax\(0,\s*1fr\) auto/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-context-nav\s*{[\s\S]*?grid-row:\s*3/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-context-list\s*{[\s\S]*?overflow-x:\s*auto/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-topbar-brand > \[data-ds-dropdown-slot\]\s*{[\s\S]*?flex:\s*1 1 auto/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-mobilebar\s*{[\s\S]*?position:\s*sticky/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-app-mobilebar\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-sticky\)/);
+  assert.match(css, /\.frgm-app-mobilebar-item\[aria-current="page"\]\s*{[\s\S]*?background:\s*var\(--frgm-state-selected-bg\)/);
   assert.match(css, /\.frgm-app-content\s*{[\s\S]*?background:\s*var\(--page-bg\)/);
   assert.doesNotMatch(css, /\.frgm-app-content\s*{[\s\S]*?linear-gradient/);
   assert.match(css, /\.frgm-app-main-container\s*{[\s\S]*?width:\s*100%/);

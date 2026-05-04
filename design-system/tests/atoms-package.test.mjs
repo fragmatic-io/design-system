@@ -147,6 +147,7 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-date-range-border:\s*transparent/);
   assert.match(tokens, /--frgm-date-range-border-active:\s*transparent/);
   assert.match(tokens, /--frgm-date-range-shadow:\s*none/);
+  assert.match(tokens, /--frgm-layer-sticky:\s*900/);
   assert.match(tokens, /--frgm-layer-popover:\s*1000/);
   assert.match(tokens, /--frgm-layer-shell-overlay:\s*1050/);
   assert.match(tokens, /--frgm-layer-dropdown:\s*1100/);
@@ -168,6 +169,10 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-secondary-topbar/);
   assert.match(css, /\.frgm-secondary-topbar-breadcrumb/);
   assert.match(css, /\.frgm-secondary-topbar-controls/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-secondary-topbar\s*{[\s\S]*?grid-template-columns:\s*minmax\(0,\s*1fr\)/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-date-range-control\s*{[\s\S]*?min-width:\s*0/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-date-range-primary > span:last-child/);
+  assert.match(css, /@media \(max-width:\s*52rem\)\s*{[\s\S]*?\.frgm-secondary-topbar-controls,\s*\.frgm-secondary-topbar-actions\s*{[\s\S]*?overflow-x:\s*auto/);
   assert.doesNotMatch(css, /frgm-secondary-topbar-toggle/);
   assert.doesNotMatch(css, /data-state='collapsed'/);
   assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);
@@ -243,6 +248,7 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /Date range borders have three defined types/);
   assert.match(contract, /Date field chips have normal, hover, and active definitions/);
   assert.match(contract, /align` API \(`auto`, `start`, or `end`\)/);
+  assert.match(contract, /--frgm-layer-sticky/);
   assert.match(contract, /--frgm-layer-shell-overlay/);
   assert.match(contract, /focus-within` preserves the neutral border/);
   assert.match(contract, /react-date-range/);

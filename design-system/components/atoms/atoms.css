@@ -1141,6 +1141,68 @@
   gap: var(--frgm-inline-gap-md);
 }
 
+@media (max-width: 52rem) {
+  .frgm-date-range-control {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    grid-template-columns: minmax(6rem, 0.86fr) minmax(0, 1.14fr);
+  }
+
+  .frgm-date-range-preset-trigger,
+  .frgm-date-range-display {
+    justify-content: flex-start;
+    padding-inline: var(--space-3);
+  }
+
+  .frgm-date-range-primary,
+  .frgm-date-range-compare {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .frgm-date-range-primary > span:last-child,
+  .frgm-date-range-preset-trigger > span:first-child,
+  .frgm-date-range-compare > span:last-child {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .frgm-secondary-topbar {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: stretch;
+    gap: var(--frgm-inline-gap-sm);
+    padding: 0.7143rem 1rem;
+  }
+
+  .frgm-secondary-topbar-breadcrumb {
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .frgm-secondary-topbar-controls,
+  .frgm-secondary-topbar-actions {
+    justify-content: flex-start;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .frgm-secondary-topbar-controls::-webkit-scrollbar,
+  .frgm-secondary-topbar-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .frgm-secondary-topbar-controls > *,
+  .frgm-secondary-topbar-actions > * {
+    flex: 0 0 auto;
+  }
+}
+
 .frgm-switch {
   display: inline-flex;
   align-items: center;

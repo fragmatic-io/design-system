@@ -16,7 +16,7 @@ This document is the audit boundary for exported atoms. Components must consume 
 | Spacing | `--space-*`, `--frgm-control-*`, `--frgm-inline-gap-*`, `--frgm-pill-pad-*` | Shared spacing scale, control dimensions, atom gaps, pill padding. |
 | Effects | `--shadow-*`, `--frgm-effect-*` | Elevation, focus/selected rings, hover shadows, and shared transition recipes. |
 | Motion/state | `--frgm-motion-*`, `--motion-fast`, `--motion-med`, `--frgm-state-*` | Hover lift, semantic transitions, loader timing, disabled, loading, readonly, hover, active, selected, and danger states. |
-| Layers | `--frgm-layer-popover`, `--frgm-layer-shell-overlay`, `--frgm-layer-dropdown` | Calendar popovers, shell hover overlays, menus, profile dropdowns, and overlays stack predictably. |
+| Layers | `--frgm-layer-sticky`, `--frgm-layer-popover`, `--frgm-layer-shell-overlay`, `--frgm-layer-dropdown` | Sticky mobile navigation, calendar popovers, shell hover overlays, menus, profile dropdowns, and overlays stack predictably. |
 | Iconography | `components/atoms/icons.js`, `--frgm-icon-size-*`, `--frgm-dot-size` | Package-local line icons and dot indicators. |
 | Brand assets | `components/brand`, `assets/brand/*.svg`, `brandLogoItems` | Fragmatic mark, sidebar tile, and wordmark as reusable foundation items. |
 

@@ -217,6 +217,28 @@ if (shellNav) {
   createRoot(shellNav).render(shellNavSections.flatMap(createShellNavSection));
 }
 
+const mobileNavItems = shellNavSections.flatMap((section) => section.items).filter((item) => (
+  ['Overview', 'Analytics', 'Segments', 'AI Marketer'].includes(item.label)
+));
+
+const createShellMobileNavItem = (item) => React.createElement(
+  'button',
+  {
+    className: 'frgm-app-mobilebar-item',
+    type: 'button',
+    'aria-current': item.active ? 'page' : undefined,
+    'data-ds-icon': item.icon,
+  },
+  React.createElement('span', { className: 'frgm-app-mobilebar-icon' }, icons[item.icon]),
+  React.createElement('span', null, item.label === 'AI Marketer' ? 'AI' : item.label),
+);
+
+document.querySelectorAll('[data-ds-shell-mobile-nav]').forEach((mobileNav) => {
+  createRoot(mobileNav).render(mobileNavItems.map((item) => (
+    React.cloneElement(createShellMobileNavItem(item), { key: item.label })
+  )));
+});
+
 const shellContextNav = document.querySelector('[data-ds-shell-context-nav]');
 const shellPages = document.querySelectorAll('[data-shell-page]');
 const secondaryTopbarSlot = document.querySelector('[data-ds-secondary-topbar]');
