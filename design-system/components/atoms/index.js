@@ -448,14 +448,35 @@ export function DateRangeControl({
   onDateClick,
   onApply,
   align = 'auto',
+  defaultCompare = false,
   className = '',
 }) {
   const rootRef = React.useRef(null);
   const [isOpen, setIsOpen] = React.useState(false);
   const [resolvedAlign, setResolvedAlign] = React.useState(align === 'end' ? 'end' : 'start');
   const [selectedLabel, setSelectedLabel] = React.useState(label);
-  const [isCompare, setIsCompare] = React.useState(!!compareRange);
+  const [isCompare, setIsCompare] = React.useState(!!compareRange || defaultCompare);
   const [selectedCompare, setSelectedCompare] = React.useState(comparisonOptions[0]?.key);
+  const calendarDays = [
+    { key: 'mar-29', label: '29', muted: true },
+    { key: 'mar-30', label: '30', muted: true },
+    { key: 'mar-31', label: '31', muted: true },
+    ...Array.from({ length: 30 }, (_, index) => {
+      const day = index + 1;
+      return {
+        key: `apr-${day}`,
+        label: String(day),
+        selection: day >= 28,
+        selectionStart: day === 28,
+        selectionEnd: day === 30,
+        compare: day >= 21 && day <= 27,
+        compareStart: day === 21,
+        compareEnd: day === 27,
+      };
+    }),
+    { key: 'may-1', label: '1', muted: true },
+    { key: 'may-2', label: '2', muted: true },
+  ];
   const presetItems = presets.map((preset) => {
     const presetLabel = typeof preset === 'string' ? preset : preset.label;
 
@@ -526,7 +547,7 @@ export function DateRangeControl({
 
   const cancelSelection = () => {
     setSelectedLabel(label);
-    setIsCompare(!!compareRange);
+    setIsCompare(!!compareRange || defaultCompare);
     setIsOpen(false);
   };
 
@@ -636,19 +657,31 @@ export function DateRangeControl({
         React.createElement(
           'div',
           { className: 'frgm-date-range-fields' },
-          React.createElement('span', null, 'Start date'),
-          React.createElement('span', null, '-'),
-          React.createElement('span', null, 'End date'),
-          React.createElement('button', { type: 'button', 'data-active': 'true' }, 'Feb 4, 2026'),
-          React.createElement('button', { type: 'button' }, 'May 4, 2026'),
-          isCompare && React.createElement('button', { type: 'button' }, 'Nov 5, 2025'),
-          isCompare && React.createElement('button', { type: 'button' }, 'Feb 2, 2026'),
+          React.createElement(
+            'div',
+            { className: 'frgm-date-range-field-head' },
+            React.createElement('span', null, 'Start date'),
+            React.createElement('span', null, '-'),
+            React.createElement('span', null, 'End date'),
+          ),
+          React.createElement(
+            'div',
+            { className: 'frgm-date-range-field-row' },
+            React.createElement('button', { type: 'button', 'data-active': 'true' }, 'Apr 28, 2026'),
+            React.createElement('button', { type: 'button' }, 'May 4, 2026'),
+          ),
+          isCompare && React.createElement(
+            'div',
+            { className: 'frgm-date-range-field-row' },
+            React.createElement('button', { type: 'button' }, 'Apr 21, 2026'),
+            React.createElement('button', { type: 'button' }, 'Apr 27, 2026'),
+          ),
         ),
         React.createElement(
           'div',
           { className: 'frgm-date-range-month-nav' },
           React.createElement('button', { type: 'button', 'aria-label': 'Previous month' }, '‹'),
-          React.createElement('b', null, 'February', React.createElement('span', null, '⌄')),
+          React.createElement('b', null, 'April', React.createElement('span', null, '⌄')),
           React.createElement('b', null, '2026', React.createElement('span', null, '⌄')),
           React.createElement('button', { type: 'button', 'aria-label': 'Next month' }, '›'),
         ),
@@ -660,26 +693,27 @@ export function DateRangeControl({
         React.createElement(
           'div',
           { className: 'frgm-date-range-month' },
-          React.createElement('b', null, 'Feb 2026'),
+          React.createElement('b', null, 'Apr 2026'),
           React.createElement(
             'div',
             { className: 'frgm-date-range-days' },
-            ...Array.from({ length: 28 }, (_, index) => {
-              const day = index + 1;
-              const isInRange = day >= 4;
-              return React.createElement(
-                'button',
-                {
-                  key: day,
-                  type: 'button',
-                  'data-range': isInRange ? 'true' : undefined,
-                  'data-start': day === 4 ? 'true' : undefined,
-                },
-                day,
-              );
-            }),
+            ...calendarDays.map((day) => React.createElement(
+              'button',
+              {
+                key: day.key,
+                type: 'button',
+                'data-muted': day.muted ? 'true' : undefined,
+                'data-selection': day.selection ? 'true' : undefined,
+                'data-selection-start': day.selectionStart ? 'true' : undefined,
+                'data-selection-end': day.selectionEnd ? 'true' : undefined,
+                'data-compare': isCompare && day.compare ? 'true' : undefined,
+                'data-compare-start': isCompare && day.compareStart ? 'true' : undefined,
+                'data-compare-end': isCompare && day.compareEnd ? 'true' : undefined,
+              },
+              day.label,
+            )),
           ),
-          React.createElement('b', null, 'Mar 2026'),
+          React.createElement('b', null, 'May 2026'),
         ),
         React.createElement(
           'div',

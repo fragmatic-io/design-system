@@ -77,6 +77,7 @@ dateRangeDemos.forEach((dateRangeDemo) => {
     label: 'Last 90 Days',
     dateRange: '4 Feb-4 May 2026',
     align: dateRangeDemo.dataset.dsDateRangeDemo || 'auto',
+    defaultCompare: true,
   }));
 });
 

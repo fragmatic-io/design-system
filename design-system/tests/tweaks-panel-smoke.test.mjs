@@ -19,10 +19,16 @@ test('tweaks panel has a standalone browser launcher', async () => {
 
 test('canvas surface is the default tweak surface', async () => {
   const tweaks = await readFile(new URL('../tools/tweaks.jsx', import.meta.url), 'utf8');
+  const tokens = await readFile(new URL('../tokens/tokens.css', import.meta.url), 'utf8');
+  const contract = await readFile(new URL('../foundations/component-contracts.md', import.meta.url), 'utf8');
 
   assert.match(tweaks, /"surface":\s*"canvas"/);
   assert.match(tweaks, /canvas:\s*\{[\s\S]*?pageBg:\s*"#f6f3ec"/);
   assert.match(tweaks, /canvas:\s*\{[\s\S]*?cardBg:\s*"#fdfaf3"/);
+  assert.match(tokens, /--page-bg:\s*#f6f3ec/);
+  assert.match(tokens, /--card-bg:\s*#fdfaf3/);
+  assert.match(tokens, /--border-subtle:\s*#e7e0cf/);
+  assert.match(contract, /default light surface is the canvas surface/);
   assert.match(tweaks, /applyTweaks\(TWEAK_DEFAULTS\)/);
 });
 

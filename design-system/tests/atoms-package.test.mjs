@@ -89,6 +89,8 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-date-range-popover/);
   assert.match(css, /\.frgm-date-range-shortcuts/);
   assert.match(css, /\.frgm-date-range-compare-toggle/);
+  assert.match(css, /\.frgm-date-range-field-head/);
+  assert.match(css, /\.frgm-date-range-field-row/);
   assert.match(css, /\.frgm-date-range-month-nav/);
   assert.match(css, /\.frgm-date-range-footer/);
   assert.doesNotMatch(css, /frgm-date-range-presets/);
@@ -97,12 +99,14 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /var\(--frgm-date-range-shadow\)/);
   assert.match(css, /var\(--frgm-date-range-popover-width\)/);
   assert.match(css, /var\(--frgm-date-range-shortcuts-width\)/);
+  assert.match(css, /var\(--frgm-date-range-selection-fill\)/);
   assert.match(css, /\.frgm-date-range-control\[data-align='end'\]\s+\.frgm-date-range-popover/);
   assert.match(tokens, /--frgm-date-range-h:\s*3\.1429rem/);
   assert.match(tokens, /--frgm-date-range-pad-y:\s*0\.5714rem/);
   assert.match(tokens, /--frgm-date-range-pad-x:\s*0\.7143rem/);
   assert.match(tokens, /--frgm-date-range-popover-width:\s*50rem/);
   assert.match(tokens, /--frgm-date-range-panel-pad:\s*var\(--space-4\)/);
+  assert.match(tokens, /--frgm-date-range-edge-fill:\s*rgb\(26, 26, 26\)/);
   assert.match(css, /\.frgm-secondary-topbar/);
   assert.match(css, /\.frgm-secondary-topbar-breadcrumb/);
   assert.match(css, /\.frgm-secondary-topbar-controls/);

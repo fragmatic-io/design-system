@@ -744,14 +744,25 @@
 
 .frgm-date-range-fields {
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
   gap: var(--frgm-date-range-panel-gap);
-  align-items: center;
   padding: var(--frgm-date-range-panel-pad);
   background: var(--gray-100);
   color: var(--text-meta);
   text-align: center;
   font: var(--frgm-control-strong-font-weight) var(--frgm-control-font-size-md)/1.2 var(--font-sans);
+}
+
+.frgm-date-range-field-head {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--frgm-date-range-panel-gap);
+}
+
+.frgm-date-range-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--frgm-date-range-panel-gap);
 }
 
 .frgm-date-range-fields button {
@@ -835,21 +846,32 @@
   font: var(--frgm-control-font-weight) var(--frgm-control-font-size-md)/1.2 var(--font-sans);
 }
 
-.frgm-date-range-days button[data-range='true'] {
-  background: rgb(193, 193, 193);
+.frgm-date-range-days button[data-muted='true'] {
+  color: var(--text-meta);
 }
 
-.frgm-date-range-days button[data-start='true'] {
-  background: rgb(26, 26, 26);
+.frgm-date-range-days button[data-compare='true'] {
+  background: var(--frgm-date-range-compare-fill);
+}
+
+.frgm-date-range-days button[data-selection='true'] {
+  background: var(--frgm-date-range-selection-fill);
+}
+
+.frgm-date-range-days button[data-selection-start='true'],
+.frgm-date-range-days button[data-compare-start='true'],
+.frgm-date-range-days button[data-compare-end='true'] {
+  background: var(--frgm-date-range-edge-fill);
   color: var(--primary-fg);
 }
 
-.frgm-date-range-days button:nth-child(7n + 4),
-.frgm-date-range-days button:nth-child(7n + 1) {
+.frgm-date-range-days button[data-selection-start='true'],
+.frgm-date-range-days button[data-compare-start='true'] {
   border-radius: var(--r-pill) 0 0 var(--r-pill);
 }
 
-.frgm-date-range-days button:nth-child(7n) {
+.frgm-date-range-days button[data-compare-end='true'],
+.frgm-date-range-days button[data-selection-end='true'] {
   border-radius: 0 var(--r-pill) var(--r-pill) 0;
 }
 

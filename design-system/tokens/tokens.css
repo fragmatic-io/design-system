@@ -74,10 +74,10 @@
   --lime-500: #b5d525; /* loader spinner only */
   --lime-700: #4d7c0f;
 
-  /* Semantic — dashboard skin (matches --dashboard-* aliases) */
-  --page-bg:        var(--gray-50);
-  --card-bg:        #ffffff;
-  --border-subtle:  var(--gray-200);
+  /* Semantic — canvas surface default. Tweaks may override these in previews. */
+  --page-bg:        #f6f3ec;
+  --card-bg:        #fdfaf3;
+  --border-subtle:  #e7e0cf;
   --text-title:     var(--gray-900);
   --text-body:      var(--gray-600);
   --text-caption:   var(--gray-400);
@@ -109,11 +109,11 @@
 
   /* Elevation — recipes from globals.css `.card` and `.card-style` */
   --shadow-card:
-    0px 0.483px 0.483px -1.875px rgba(0, 0, 0, 0.17),
-    0px 4px 4px -3.75px rgba(0, 0, 0, 0.06);
+    0px 0.5px 0.5px -1.5px rgba(60, 40, 10, 0.18),
+    0px 4px 6px -3.5px rgba(60, 40, 10, 0.08);
   --shadow-elev:
-    0px 1px 2px 0px rgba(16, 24, 40, 0.06),
-    0px 1px 3px 0px rgba(16, 24, 40, 0.10);
+    0px 1px 2px 0px rgba(60, 40, 10, 0.06),
+    0px 2px 6px 0px rgba(60, 40, 10, 0.08);
   --shadow-pop:
     0px 4px 6px -2px rgba(16, 24, 40, 0.04),
     0px 12px 16px -4px rgba(16, 24, 40, 0.08);
@@ -176,6 +176,9 @@
   --frgm-date-range-calendar-nav-h: var(--frgm-control-h-sm);
   --frgm-date-range-footer-button-min-width: 7.7143rem;
   --frgm-date-range-mobile-inset: var(--space-4);
+  --frgm-date-range-selection-fill: rgb(193, 193, 193);
+  --frgm-date-range-compare-fill: var(--gray-100);
+  --frgm-date-range-edge-fill: rgb(26, 26, 26);
 
   --frgm-inline-gap-xs: 0.2857rem;
   --frgm-inline-gap-sm: 0.4286rem;

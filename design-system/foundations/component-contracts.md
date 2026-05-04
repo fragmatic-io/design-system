@@ -17,6 +17,8 @@ This document is the audit boundary for exported atoms. Components must consume 
 | Iconography | `components/atoms/icons.js`, `--frgm-icon-size-*`, `--frgm-dot-size` | Package-local line icons and dot indicators. |
 | Brand assets | `components/brand`, `assets/brand/*.svg`, `brandLogoItems` | Fragmatic mark, sidebar tile, and wordmark as reusable foundation items. |
 
+The default light surface is the canvas surface from the tweaks model: `--page-bg: #f6f3ec`, `--card-bg: #fdfaf3`, and `--border-subtle: #e7e0cf`. Standalone previews, including the dedicated app shell page, must rely on these tokens instead of restamping their own surface values.
+
 ## Form Foundation
 
 Forms use a composed foundation rather than one-off `.field` snippets. Use `Field`, `FieldRow`, and `FieldGroup` for structure; use `TextInput`, `SelectField`, `TextareaField`, `SearchInput`, `CheckboxField`, `RadioField`, and `ToggleField` for controls. Pattern previews should use the same `frgm-*` classes even when written as static HTML.
