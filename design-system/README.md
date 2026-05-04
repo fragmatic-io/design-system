@@ -23,12 +23,14 @@ Import the token CSS in the app root before application styles:
 
 ```js
 import '@fragmatic/design-system/tokens.css';
+import '@fragmatic/design-system/atoms.css';
 ```
 
 Optional reference CSS from the original export is also available:
 
 ```js
 import '@fragmatic/design-system/styles.css';
+import { Button, Badge, Breadcrumb, SearchInput } from '@fragmatic/design-system/atoms';
 ```
 
-Component snippets currently remain source references under `components/atoms/`. Some snippets still depend on product-local icon and CSS files from the dashboard, so the first stable package surface is tokens/styles/preview. Harden component exports before importing atoms directly into production screens.
+The stable atom entrypoint is `@fragmatic/design-system/atoms`. Original downloaded snippets remain in their per-component folders as source references; avoid importing those paths directly from product code.

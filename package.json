@@ -12,6 +12,8 @@
   ],
   "exports": {
     ".": "./design-system/index.js",
+    "./atoms": "./design-system/components/atoms/index.js",
+    "./atoms.css": "./design-system/components/atoms/atoms.css",
     "./tokens.css": "./design-system/tokens/tokens.css",
     "./styles.css": "./design-system/styles/styles.css",
     "./preview": "./design-system/previews/fragmatic-design-system.html",

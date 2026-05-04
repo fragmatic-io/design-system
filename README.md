@@ -14,6 +14,7 @@ Import tokens in your app root before product styles:
 
 ```js
 import '@fragmatic/design-system/tokens.css';
+import '@fragmatic/design-system/atoms.css';
 ```
 
 Optional exported paths:
@@ -21,6 +22,7 @@ Optional exported paths:
 ```js
 import '@fragmatic/design-system/styles.css';
 import { paths, sections } from '@fragmatic/design-system';
+import { Button, Badge, Breadcrumb, SearchInput } from '@fragmatic/design-system/atoms';
 ```
 
 ## Structure
@@ -34,7 +36,7 @@ import { paths, sections } from '@fragmatic/design-system';
 
 ## Current Package Surface
 
-The stable package surface is CSS tokens, reference CSS, preview metadata, and preview tooling. Component snippets are included as source references, but several still depend on dashboard-local icon/CSS modules and should be hardened before direct production imports.
+The stable package surface is CSS tokens, token-based atom styles, preview metadata, preview tooling, and hardened React atom exports. The original downloaded snippets remain under `design-system/components/atoms/*` as source references, but consumers should import atoms from `@fragmatic/design-system/atoms`.
 
 ## Checks
 
