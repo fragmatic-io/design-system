@@ -743,8 +743,8 @@
     letter-spacing: -0.01em;
   }
   .app-shell .sidebar .brand .mark {
-    width: 2rem; height: 2rem; border-radius: 0.5714rem; background: var(--gray-900);
-    display:flex; align-items:center; justify-content:center; color: #fff; font-weight: 700; font-size: 1rem;
+    width: 2rem; height: 2rem; border-radius: 0.5714rem; background: var(--primary);
+    display:flex; align-items:center; justify-content:center; color: var(--primary-fg); font-weight: 700; font-size: 1rem;
     font-family: var(--font-display);
   }
   .app-shell .sidebar .nav-section { font-family: var(--font-mono); font-size: 0.7143rem; letter-spacing: 0.12em; color: var(--gray-500); text-transform: uppercase; padding: 0.8571rem 0.7143rem 0.4286rem; font-weight: 500 }
@@ -754,7 +754,7 @@
     font-size: 0.9286rem; font-weight: 500; cursor: default;
   }
   .app-shell .sidebar .nav-item.is-active { background: var(--card-bg); color: var(--gray-900); border: 1px solid var(--gray-200) }
-  .app-shell .sidebar .nav-item:hover:not(.is-active) { background: rgba(0,0,0,0.03) }
+  .app-shell .sidebar .nav-item:hover:not(.is-active) { background: var(--gray-50) }
   .app-shell .sidebar .nav-item svg { width: 1.1429rem; height: 1.1429rem; flex: 0 0 1.1429rem; color: var(--gray-500) }
   .app-shell .sidebar .nav-item.is-active svg { color: var(--gray-900) }
   .app-shell .sidebar .nav-item .badge { margin-left:auto; font-family: var(--font-mono); font-size: 0.7143rem; padding: 1px 0.4286rem; border-radius: 71.3571rem; background: var(--gray-200); color: var(--gray-700) }
@@ -790,7 +790,7 @@
   .auth-frame .pane .brand {
     display:flex; align-items:center; gap: 0.7143rem; margin-bottom: 2.8571rem; font-weight: 600; color: var(--gray-900); font-size: 1.0714rem;
   }
-  .auth-frame .pane .brand .mark { width: 2.2857rem; height: 2.2857rem; border-radius: 0.5714rem; background: var(--gray-900); color:#fff; display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight: 700 }
+  .auth-frame .pane .brand .mark { width: 2.2857rem; height: 2.2857rem; border-radius: 0.5714rem; background: var(--primary); color: var(--primary-fg); display:flex; align-items:center; justify-content:center; font-family: var(--font-display); font-weight: 700 }
   .auth-frame .pane h1 { font-family: var(--font-display); font-size: 2.2857rem; font-weight: 600; letter-spacing: -0.02em; color: var(--gray-900); margin: 0 0 0.5714rem }
   .auth-frame .pane .auth-sub { font-size: 1rem; color: var(--gray-500); margin-bottom: 2rem }
   .auth-frame .pane form { display:flex; flex-direction:column; gap: 1rem; max-width: 25.7143rem }
@@ -820,7 +820,7 @@
     padding: 1.7143rem 2.2857rem; display:flex; align-items:center; gap: 1.7143rem;
   }
   .wiz-frame .wiz-head .brand { display:flex; align-items:center; gap: 0.7143rem; font-weight: 600; color: var(--gray-900) }
-  .wiz-frame .wiz-head .brand .mark { width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--gray-900); color:#fff; display:flex; align-items:center; justify-content:center; font-weight: 700; font-family: var(--font-display) }
+  .wiz-frame .wiz-head .brand .mark { width: 2rem; height: 2rem; border-radius: 0.5rem; background: var(--primary); color: var(--primary-fg); display:flex; align-items:center; justify-content:center; font-weight: 700; font-family: var(--font-display) }
   .wiz-frame .wiz-head .help { margin-left:auto; font-size: 0.9286rem; color: var(--gray-500) }
 
   .wiz-stepper { display:flex; align-items:center; gap: 0; padding: 1.1429rem 2.2857rem; background: var(--card-bg); border-bottom: 1px solid var(--gray-200) }
@@ -832,7 +832,7 @@
     background: var(--gray-100); color: var(--gray-500); border: 1px solid var(--gray-200);
   }
   .wiz-stepper .step.done .dot { background: var(--emerald-700); color:#fff; border-color: var(--emerald-700) }
-  .wiz-stepper .step.active .dot { background: var(--gray-900); color: #fff; border-color: var(--gray-900) }
+  .wiz-stepper .step.active .dot { background: var(--primary); color: var(--primary-fg); border-color: var(--primary) }
   .wiz-stepper .step .lab { font-size: 0.9286rem; color: var(--gray-500); font-weight: 500 }
   .wiz-stepper .step.active .lab, .wiz-stepper .step.done .lab { color: var(--gray-900) }
   .wiz-stepper .step .line { flex: 1; height: 1px; background: var(--gray-200); margin: 0 0.8571rem }
@@ -878,7 +878,7 @@
   .rec-card .rc-icon svg { width: 1.2857rem; height: 1.2857rem }
   .rec-card .rc-icon.opt { background: var(--blue-50); color: var(--blue-700) }
   .rec-card .rc-icon.warn { background: var(--amber-50); color: var(--amber-700) }
-  .rec-card .rc-icon.exp { background: #f5f3ff; color: #6d28d9 }
+  .rec-card .rc-icon.exp { background: var(--blue-50); color: var(--blue-700) }
   .rec-card h4 { margin: 0 0 0.2857rem; font-size: 1.1429rem; font-weight: 600; color: var(--gray-900); letter-spacing: -0.01em }
   .rec-card .rc-meta { display:flex; gap: 0.5714rem; font-family: var(--font-mono); font-size: 0.7857rem; color: var(--gray-500); flex-wrap:wrap; align-items:center }
   .rec-card .rc-meta .pri { padding: 1px 0.5714rem; border-radius: 71.3571rem; font-weight: 500 }
@@ -1004,7 +1004,7 @@
     display:flex; align-items:center; gap: 0.7143rem;
     padding: 0.5rem 0.8571rem; border-radius: 0.4286rem; font-size: 0.9286rem; color: var(--gray-700); cursor:default;
   }
-  .config-shell .subnav .nv:hover { background: rgba(0,0,0,0.03) }
+  .config-shell .subnav .nv:hover { background: var(--gray-100) }
   .config-shell .subnav .nv.active { background: var(--card-bg); color: var(--gray-900); font-weight: 500; border: 1px solid var(--gray-200) }
   .config-shell .subnav .nv svg { width: 1rem; height: 1rem; color: var(--gray-500) }
   .config-shell .config-body { padding: 2.2857rem }
@@ -1121,7 +1121,7 @@
     width: 2rem; height: 2rem; border-radius: 0.3571rem; display:flex; align-items:center; justify-content:center;
     font-family: var(--font-mono); font-size: 0.8571rem; color: var(--gray-700); cursor:default;
   }
-  .utable .ut-foot .pager .pg.active { background: var(--gray-900); color: #fff }
+  .utable .ut-foot .pager .pg.active { background: var(--primary); color: var(--primary-fg) }
   .utable .ut-foot .pager .pg:hover:not(.active) { background: var(--gray-100) }
 
   /* Toasts */
@@ -1297,7 +1297,7 @@
   }
   .utable .ut-foot .pager { margin-left:auto; display:flex; gap: 0.2857rem; align-items:center }
   .utable .ut-foot .pg { width: 2rem; height: 2rem; border-radius: 0.4286rem; display:inline-flex; align-items:center; justify-content:center; font-family: var(--font-mono); font-size: 0.8571rem; color: var(--gray-700); cursor:default }
-  .utable .ut-foot .pg.active { background: var(--gray-900); color: #fff }
+  .utable .ut-foot .pg.active { background: var(--primary); color: var(--primary-fg) }
   .utable .ut-foot .pg:hover:not(.active) { background: var(--gray-100) }
 
   /* Profile detail hero */
@@ -1384,7 +1384,7 @@
     background: var(--card-bg); border: 1px solid var(--gray-200); border-radius: 0.4286rem; padding: 2px;
   }
   .journey-detail .canvas .tb-btn { width: 1.8571rem; height: 1.8571rem; border-radius: 0.2857rem; display:flex; align-items:center; justify-content:center; color: var(--gray-500); font-size: 1rem; font-family: var(--font-mono) }
-  .journey-detail .canvas .tb-btn.active { background: var(--gray-900); color:#fff }
+  .journey-detail .canvas .tb-btn.active { background: var(--primary); color: var(--primary-fg) }
   .journey-detail .canvas .zoom { position:absolute; bottom: 0.8571rem; right: 0.8571rem; font-family: var(--font-mono); font-size: 0.7857rem; color: var(--gray-500); background: var(--card-bg); border: 1px solid var(--gray-200); border-radius: 0.2857rem; padding: 0.2857rem 0.5714rem }
   .canvas-node {
     position:absolute; background: var(--card-bg); border: 1px solid var(--gray-200); border-radius: 0.5714rem;
@@ -1554,7 +1554,7 @@
     font-family: var(--font-mono); font-size: 0.7857rem; color: var(--gray-500);
     line-height: 1.5; word-break: break-all;
   }
-  .ex-builder.rich .element-path .last { background: #d5ff17; color: var(--gray-900); padding: 1px 0.2857rem; border-radius: 0.2143rem }
+  .ex-builder.rich .element-path .last { background: var(--emerald-50); color: var(--emerald-800); padding: 1px 0.2857rem; border-radius: 0.2143rem }
   .ex-builder.rich .ta-label {
     font-size: 0.7857rem; font-weight: 600; color: var(--gray-700);
     letter-spacing: 0.06em; text-transform: uppercase;
@@ -1569,15 +1569,15 @@
   }
   /* AI rewrite suggestion card (AiCard) */
   .ex-builder.rich .ai-card {
-    background: linear-gradient(180deg, #f5f3ff 0%, #fff 100%);
-    border: 1px solid #e0e7ff; border-radius: 0.7143rem; padding: 1rem;
+    background: linear-gradient(180deg, var(--emerald-50) 0%, var(--card-bg) 100%);
+    border: 1px solid var(--emerald-100); border-radius: 0.7143rem; padding: 1rem;
     display:flex; flex-direction:column; gap: 0.7143rem;
   }
   .ex-builder.rich .ai-card .head {
     display:flex; align-items:center; gap: 0.5714rem;
     font-size: 0.9286rem; font-weight: 600; color: var(--gray-900);
   }
-  .ex-builder.rich .ai-card .head svg { width: 1rem; height: 1rem; color: #6366f1 }
+  .ex-builder.rich .ai-card .head svg { width: 1rem; height: 1rem; color: var(--emerald-800) }
   .ex-builder.rich .ai-card p { margin: 0; font-size: 0.8571rem; color: var(--gray-700); line-height: 1.5 }
   .ex-builder.rich .ai-card .cta {
     align-self: flex-start; font-size: 0.8571rem; color: var(--emerald-700); font-weight: 500;
@@ -1610,7 +1610,7 @@
     width: 2rem; height: 2rem; border-radius: 0.4286rem; border: 1px solid var(--gray-200);
     display:flex; align-items:center; justify-content:center; color: var(--gray-700); cursor:default;
   }
-  .ex-builder.rich .type-editor .te-icon.on { background: var(--gray-900); color: #fff; border-color: var(--gray-900) }
+  .ex-builder.rich .type-editor .te-icon.on { background: var(--primary); color: var(--primary-fg); border-color: var(--primary) }
   /* Collapse rows */
   .ex-builder.rich .insp-collapse { display:flex; flex-direction:column; gap: 0; border-top: 1px solid var(--gray-200) }
   .ex-builder.rich .insp-collapse .row {
@@ -1644,9 +1644,9 @@
     font-size: 0.9286rem; color: var(--gray-700); cursor:default;
   }
   .config-shell .subnav .nv:hover { background: var(--gray-50); color: var(--gray-900) }
-  .config-shell .subnav .nv.active { background: var(--gray-900); color: #fff }
+  .config-shell .subnav .nv.active { background: var(--primary); color: var(--primary-fg) }
   .config-shell .subnav .nv svg { width: 1rem; height: 1rem; flex: 0 0 1rem; color: var(--gray-500) }
-  .config-shell .subnav .nv.active svg { color: #fff }
+  .config-shell .subnav .nv.active svg { color: currentColor }
   .config-shell .config-body { padding-left: 0.5714rem }
 
   /* Empty state */

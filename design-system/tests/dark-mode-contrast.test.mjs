@@ -74,10 +74,16 @@ test('chart and pattern examples use formal tokens directly', async () => {
   assert.match(preview, /\.chart-surface\s*\{\s*background:\s*var\(--card-bg\)/);
   assert.match(preview, /\.ex-builder\.rich \.select-banner[\s\S]*background:\s*var\(--card-bg\)/);
   assert.match(preview, /\.chat-bubble\.user[\s\S]*background:\s*var\(--primary\)/);
+  assert.match(preview, /\.ex-builder\.rich \.ai-card\s*\{[\s\S]*background:\s*linear-gradient\(180deg, var\(--emerald-50\) 0%, var\(--card-bg\) 100%\)/);
+  assert.match(preview, /\.ex-builder\.rich \.type-editor \.te-icon\.on\s*\{\s*background:\s*var\(--primary\)/);
+  assert.match(preview, /\.config-shell \.subnav \.nv\.active\s*\{\s*background:\s*var\(--primary\)/);
   assert.doesNotMatch(preview, /Dark preview repairs/);
   assert.doesNotMatch(preview, /:root\[data-theme="dark"\] svg \[stroke=/);
   assert.doesNotMatch(preview, /background:#fff/);
   assert.doesNotMatch(preview, /stroke="#(?:f3f4f6|065f46|9ca3af|d1d5db|f59e0b|3b82f6)"/);
+  assert.doesNotMatch(preview, /#(?:f5f3ff|e0e7ff|6366f1|d5ff17|6d28d9)/i);
+  assert.doesNotMatch(preview, /rgba\(0,0,0,0\.03\)/);
+  assert.doesNotMatch(preview, /background:\s*var\(--gray-900\);\s*color:\s*#fff/);
 });
 
 test('protected email labels inherit readable metadata color', async () => {
