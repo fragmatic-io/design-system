@@ -165,6 +165,7 @@
   --frgm-control-border-width: 1px;
   --frgm-search-width: 20rem;
   --frgm-layer-popover: 1000;
+  --frgm-layer-dropdown: 1100;
 
   /* Dashboard date-range control geometry from `.custom-date-picker`.
      These are component foundations, not app-shell overrides. */
@@ -176,12 +177,15 @@
   --frgm-date-range-gap: 0.4286rem;
   --frgm-date-range-compare-gap: 0.1429rem;
   --frgm-date-range-border: transparent;
-  --frgm-date-range-border-active: var(--border-interactive);
+  --frgm-date-range-border-active: transparent;
   --frgm-date-range-divider: rgb(227, 232, 238);
   --frgm-date-range-text: rgb(121, 121, 121);
   --frgm-date-range-shadow: none;
   --frgm-date-range-surface: var(--card-bg);
-  --frgm-date-range-trigger-active-bg: var(--gray-50);
+  --frgm-date-range-trigger-hover-bg: var(--gray-50);
+  --frgm-date-range-trigger-active-bg: transparent;
+  --frgm-date-range-font-size: var(--frgm-control-font-size-sm);
+  --frgm-date-range-calendar-font-size: var(--frgm-control-font-size-sm);
   --frgm-date-range-popover-offset: var(--frgm-inline-gap-md);
   --frgm-date-range-popover-width: 50rem;
   --frgm-date-range-popover-max-width: calc(100vw - 2rem);

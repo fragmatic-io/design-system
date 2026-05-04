@@ -106,8 +106,8 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-search kbd\s*{[\s\S]*?font:\s*var\(--frgm-control-font-size-sm\)\/var\(--frgm-control-line\) var\(--font-mono\)/);
   assert.match(css, /\.frgm-field-group\s*{[\s\S]*?gap:\s*var\(--frgm-inline-gap-md\)/);
   assert.match(css, /\.frgm-field-group-body\s*{[\s\S]*?margin-top:\s*var\(--frgm-inline-gap-xs\)/);
-  assert.match(css, /\.frgm-dropdown\[open\]\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
-  assert.match(css, /\.frgm-dropdown-panel\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-popover\)/);
+  assert.match(css, /\.frgm-dropdown\[open\]\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-dropdown\)/);
+  assert.match(css, /\.frgm-dropdown-panel\s*{[\s\S]*?z-index:\s*var\(--frgm-layer-dropdown\)/);
   assert.match(css, /\.frgm-date-range-control/);
   assert.match(css, /\.frgm-date-range-popover/);
   assert.match(css, /\.frgm-date-range-shortcuts/);
@@ -134,6 +134,7 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /var\(--frgm-effect-transition\)/);
   assert.match(css, /var\(--frgm-date-range-selection-fill\)/);
   assert.match(css, /\.frgm-date-range-control\[data-open='true'\]\s*{[\s\S]*?border-color:\s*var\(--frgm-date-range-border-active\)/);
+  assert.doesNotMatch(css, /\.frgm-date-range-control\[data-open='true'\]\s+\.frgm-date-range-preset-trigger,\s*\.frgm-date-range-control\[data-open='true'\]\s+\.frgm-date-range-display\s*{[\s\S]*?background:\s*var\(--frgm-date-range-trigger-hover-bg\)/);
   assert.match(css, /\.frgm-date-range-control\[data-selected='true'\]\s+\.frgm-date-range-display/);
   assert.match(css, /\.frgm-date-range-control\[data-align='end'\]\s+\.frgm-date-range-popover/);
   assert.match(tokens, /--frgm-date-range-h:\s*3\.1429rem/);
@@ -141,7 +142,11 @@ test('atom styles use design tokens', async () => {
   assert.match(tokens, /--frgm-date-range-pad-y:\s*0\.5714rem/);
   assert.match(tokens, /--frgm-date-range-pad-x:\s*var\(--space-3\)/);
   assert.match(tokens, /--frgm-date-range-border:\s*transparent/);
+  assert.match(tokens, /--frgm-date-range-border-active:\s*transparent/);
   assert.match(tokens, /--frgm-date-range-shadow:\s*none/);
+  assert.match(tokens, /--frgm-layer-dropdown:\s*1100/);
+  assert.match(tokens, /--frgm-date-range-font-size:\s*var\(--frgm-control-font-size-sm\)/);
+  assert.match(tokens, /--frgm-date-range-calendar-font-size:\s*var\(--frgm-control-font-size-sm\)/);
   assert.match(tokens, /--frgm-date-range-popover-width:\s*50rem/);
   assert.match(tokens, /--frgm-date-range-popover-border:\s*var\(--border-subtle\)/);
   assert.match(tokens, /--frgm-date-range-panel-pad:\s*var\(--space-4\)/);
