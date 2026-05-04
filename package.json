@@ -1,0 +1,30 @@
+{
+  "name": "@fragmatic/design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fragmatic token-driven design system assets, previews, and component source snippets.",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "design-system"
+  ],
+  "exports": {
+    ".": "./design-system/index.js",
+    "./tokens.css": "./design-system/tokens/tokens.css",
+    "./styles.css": "./design-system/styles/styles.css",
+    "./preview": "./design-system/previews/fragmatic-design-system.html",
+    "./tools/tweaks.jsx": "./design-system/tools/tweaks.jsx",
+    "./tools/tweaks-panel.jsx": "./design-system/tools/tweaks-panel.jsx"
+  },
+  "scripts": {
+    "test": "node --test design-system/tests/*.test.mjs",
+    "pack:check": "npm pack --dry-run"
+  },
+  "peerDependencies": {
+    "next": ">=14",
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

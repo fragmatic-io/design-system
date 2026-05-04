@@ -1,0 +1,27 @@
+import { readFile } from 'node:fs/promises';
+import test from 'node:test';
+import assert from 'node:assert/strict';
+
+test('design system loads the tweak scripts', async () => {
+  const html = await readFile(new URL('../previews/fragmatic-design-system.html', import.meta.url), 'utf8');
+
+  assert.match(html, /src="\.\.\/tools\/tweaks-panel\.jsx"/);
+  assert.match(html, /src="\.\.\/tools\/tweaks\.jsx"/);
+});
+
+test('tweaks panel has a standalone browser launcher', async () => {
+  const panel = await readFile(new URL('../tools/tweaks-panel.jsx', import.meta.url), 'utf8');
+
+  assert.match(panel, /\.twk-launch/);
+  assert.match(panel, /className="twk-launch"/);
+  assert.match(panel, /onClick=\{\(\) => setOpen\(true\)\}/);
+});
+
+test('design system has token-driven sidebar navigation', async () => {
+  const html = await readFile(new URL('../previews/fragmatic-design-system.html', import.meta.url), 'utf8');
+
+  assert.match(html, /<aside class="ds-sidebar"/);
+  assert.match(html, /href="#components"/);
+  assert.match(html, /background: var\(--emerald-50\)/);
+  assert.match(html, /<section class="section" id="patterns">/);
+});
