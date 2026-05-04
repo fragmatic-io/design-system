@@ -3,6 +3,7 @@
   --frgm-app-sidebar-expanded: 15.7143rem;
   --frgm-app-context-nav-width: 14.2857rem;
   --frgm-app-menu-item-height: 2.2857rem;
+  --frgm-app-menu-item-gap: 0.0714rem;
   --frgm-app-nav-item-collapsed-width: 3.4286rem;
 
   min-height: 45rem;
@@ -151,6 +152,9 @@
 .frgm-app-nav {
   flex: 1;
   min-height: 0;
+  display: grid;
+  align-content: start;
+  gap: var(--frgm-app-menu-item-gap);
   overflow: auto;
   padding: 0.8571rem 0.5714rem;
 }
@@ -193,9 +197,7 @@
 }
 
 .frgm-app-shell:not(:has(.frgm-app-sidebar:hover)):not(:has(.frgm-app-sidebar:focus-within)) .frgm-app-nav {
-  display: grid;
-  align-content: start;
-  gap: 0;
+  gap: var(--frgm-app-menu-item-gap);
   overflow: hidden;
   padding-inline: 0.5714rem;
 }
@@ -315,7 +317,7 @@
 
 .frgm-app-context-list {
   display: grid;
-  gap: 0.1429rem;
+  gap: var(--frgm-app-menu-item-gap);
   padding: 0.7143rem 0.5714rem;
 }
 

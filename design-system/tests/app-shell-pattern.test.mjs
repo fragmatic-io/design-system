@@ -185,14 +185,17 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.doesNotMatch(css, /frgm-app-user/);
   assert.match(css, /--frgm-app-sidebar-collapsed:\s*4\.5714rem/);
   assert.match(css, /--frgm-app-menu-item-height:\s*2\.2857rem/);
+  assert.match(css, /--frgm-app-menu-item-gap:\s*0\.0714rem/);
   assert.match(css, /--frgm-app-nav-item-collapsed-width:\s*3\.4286rem/);
+  assert.match(css, /\.frgm-app-nav\s*{[\s\S]*?gap:\s*var\(--frgm-app-menu-item-gap\)/);
+  assert.match(css, /\.frgm-app-context-list\s*{[\s\S]*?gap:\s*var\(--frgm-app-menu-item-gap\)/);
   assert.match(css, /\.frgm-app-nav-item\s*{[\s\S]*?height:\s*var\(--frgm-app-menu-item-height\)/);
   assert.match(css, /\.frgm-app-context-item\s*{[\s\S]*?height:\s*var\(--frgm-app-menu-item-height\)/);
   assert.match(css, /\.frgm-app-nav-kicker\s*{[\s\S]*?min-height:\s*2\.5714rem/);
   assert.match(css, /:has\(\.frgm-app-sidebar:hover\)/);
   assert.match(css, /\.frgm-app-sidebar:hover,\s*\.frgm-app-sidebar:focus-within\s*{\s*width:\s*var\(--frgm-app-sidebar-expanded\)/);
   assert.match(css, /\.frgm-app-nav-kicker::before\s*{[\s\S]*?background:\s*var\(--border-subtle\)/);
-  assert.match(css, /\.frgm-app-shell:not\(:has\(\.frgm-app-sidebar:hover\)\):not\(:has\(\.frgm-app-sidebar:focus-within\)\) \.frgm-app-nav\s*{[\s\S]*?gap:\s*0;/);
+  assert.match(css, /\.frgm-app-shell:not\(:has\(\.frgm-app-sidebar:hover\)\):not\(:has\(\.frgm-app-sidebar:focus-within\)\) \.frgm-app-nav\s*{[\s\S]*?gap:\s*var\(--frgm-app-menu-item-gap\)/);
   assert.match(css, /\.frgm-app-shell:not\(:has\(\.frgm-app-sidebar:hover\)\):not\(:has\(\.frgm-app-sidebar:focus-within\)\) \.frgm-app-nav\s*{[\s\S]*?padding-inline:\s*0\.5714rem/);
   assert.doesNotMatch(css, /\.frgm-app-shell:not\(:has\(\.frgm-app-sidebar:hover\)\):not\(:has\(\.frgm-app-sidebar:focus-within\)\) \.frgm-app-nav-kicker\s*{\s*display:\s*none/);
   assert.match(css, /\.frgm-app-nav-item > span:not\(\.frgm-app-nav-icon\)\s*{\s*display:\s*none;/);
