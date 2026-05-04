@@ -163,6 +163,15 @@ const renderSearchSlot = (slot) => {
     className: 'frgm-app-command',
     label: 'Search workspace',
     placeholder: 'Search, jump, or ask...',
+    shortcut: '⌘K',
+  }));
+};
+
+const renderSearchDemo = (slot) => {
+  createRoot(slot).render(React.createElement(SearchInput, {
+    label: 'Search workspace',
+    placeholder: 'Search segments, campaigns...',
+    shortcut: '⌘K',
   }));
 };
 
@@ -332,4 +341,5 @@ document.querySelectorAll('[data-ds-icon-slot]').forEach(renderIconSlot);
 document.querySelectorAll('[data-ds-brand-slot]').forEach(renderBrandSlot);
 document.querySelectorAll('[data-ds-dropdown-slot]').forEach(renderDropdownSlot);
 document.querySelectorAll('[data-ds-search-slot]').forEach(renderSearchSlot);
+document.querySelectorAll('[data-ds-search-demo]').forEach(renderSearchDemo);
 initializeDropdownDismissal();

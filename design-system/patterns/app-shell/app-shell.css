@@ -434,11 +434,6 @@
 
 .frgm-app-command {
   width: clamp(12rem, 24vw, 22rem);
-  height: var(--frgm-control-h-md);
-}
-
-.frgm-app-command.frgm-search input {
-  font-size: var(--frgm-control-font-size-sm);
 }
 
 .frgm-app-command svg {

@@ -126,7 +126,9 @@ test('app shell preview uses product concepts from the dashboard reference', asy
   assert.match(previewModule, /querySelector\('\[data-ds-shell-context-nav\]'\)/);
   assert.match(previewModule, /querySelector\('\[data-ds-secondary-topbar\]'\)/);
   assert.match(previewModule, /document\.querySelectorAll\('\[data-ds-search-slot\]'\)\.forEach\(renderSearchSlot\)/);
+  assert.match(previewModule, /document\.querySelectorAll\('\[data-ds-search-demo\]'\)\.forEach\(renderSearchDemo\)/);
   assert.match(previewModule, /React\.createElement\(SearchInput/);
+  assert.match(previewModule, /shortcut: '⌘K'/);
   assert.match(previewModule, /React\.createElement\(SecondaryTopbar/);
   assert.match(previewModule, /className: 'frgm-app-secondary-topbar-surface'/);
   assert.doesNotMatch(previewModule, /actions:\s*React\.createElement\([\s\S]*Recommendation context/);
@@ -155,6 +157,8 @@ test('app shell stylesheet stays token-driven', async () => {
   assert.match(css, /var\(--card-bg\)/);
   assert.match(css, /var\(--border-subtle\)/);
   assert.match(css, /var\(--frgm-control-h-md\)/);
+  assert.doesNotMatch(css, /\.frgm-app-command\s*{[^}]*height:\s*var\(--frgm-control-h-md\)/);
+  assert.doesNotMatch(css, /\.frgm-app-command\.frgm-search input/);
   assert.doesNotMatch(css, /\.frgm-app-secondary-topbar[\s\S]*?frgm-date-range/);
   assert.match(css, /var\(--chart-primary\)/);
   assert.match(css, /box-shadow:\s*var\(--shadow-pop\)/);

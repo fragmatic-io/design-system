@@ -171,6 +171,7 @@ export function SearchInput({
   onChange,
   placeholder = 'Search',
   label = 'Search',
+  shortcut,
   className = '',
   ...props
 }) {
@@ -180,6 +181,7 @@ export function SearchInput({
     icons.search,
     React.createElement('span', { style: { position: 'absolute', width: 1, height: 1, overflow: 'hidden', clip: 'rect(0 0 0 0)' } }, label),
     React.createElement('input', { ...props, type: 'search', value, defaultValue, onChange, placeholder }),
+    shortcut && React.createElement('kbd', null, shortcut),
   );
 }
 
