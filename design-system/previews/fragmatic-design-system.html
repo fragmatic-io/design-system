@@ -2222,6 +2222,15 @@
 
     <div class="comp">
       <div class="comp-meta">
+        <h4>SecondaryTopbar</h4>
+        <p>Dashboard-derived page-context bar with stable collapse behavior and a shared date range control.</p>
+        <span class="ref"><b>Atoms/secondaryTopbar</b> · title/dateRange/collapsed</span>
+      </div>
+      <div class="comp-body wide" data-ds-secondary-topbar-demo></div>
+    </div>
+
+    <div class="comp">
+      <div class="comp-meta">
         <h4>All / Any switch</h4>
         <p>Two-option segmented control for boolean logic operators. Used in segment builders and filter rules.</p>
         <span class="ref"><b>Atoms/switchButton</b></span>
@@ -2701,12 +2710,7 @@
             <span data-ds-dropdown-slot="profile"></span>
           </div>
         </header>
-        <div class="frgm-app-secondary-topbar" aria-label="Current page context">
-          <div class="frgm-app-breadcrumb"><span>Analytics</span><span>›</span><b>Overview</b></div>
-          <div class="frgm-app-secondary-actions">
-            <button class="frgm-button" data-variant="secondary" data-size="sm" type="button" data-context-open data-context-panel-target="recommendation" aria-controls="frgm-recommendation-context" aria-expanded="false">Recommendation context</button>
-          </div>
-        </div>
+        <div class="frgm-app-secondary-topbar" data-ds-secondary-topbar></div>
         <aside class="frgm-app-sidebar" aria-label="Product navigation">
           <nav class="frgm-app-nav" data-ds-shell-nav></nav>
         </aside>

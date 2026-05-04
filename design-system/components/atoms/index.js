@@ -404,7 +404,12 @@ export function DropdownMenu({
             role: 'menuitem',
             'data-active': item.active ? 'true' : undefined,
             'data-danger': item.danger ? 'true' : undefined,
-            onClick: item.onClick,
+            onClick: (event) => {
+              item.onClick?.(event);
+              if (!event.defaultPrevented) {
+                rootRef.current?.removeAttribute('open');
+              }
+            },
           },
           item.icon && React.createElement('span', { className: 'frgm-dropdown-item-icon' }, item.icon),
           React.createElement(
@@ -417,6 +422,108 @@ export function DropdownMenu({
         );
       }),
     ),
+  );
+}
+
+export function DateRangeControl({
+  label = 'Last 90 Days',
+  dateRange = '4 Feb-4 May 2026',
+  presets = ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
+  onPresetSelect,
+  onDateClick,
+  className = '',
+}) {
+  const [selectedLabel, setSelectedLabel] = React.useState(label);
+  const presetItems = presets.map((preset) => {
+    const presetLabel = typeof preset === 'string' ? preset : preset.label;
+
+    return {
+      key: typeof preset === 'string' ? preset : preset.key ?? preset.label,
+      label: presetLabel,
+      active: presetLabel === selectedLabel,
+      onClick: () => {
+        setSelectedLabel(presetLabel);
+        onPresetSelect?.(preset);
+      },
+    };
+  });
+
+  return React.createElement(
+    'div',
+    { className: cx('frgm-date-range-control', className) },
+    React.createElement(DropdownMenu, {
+      label: selectedLabel,
+      variant: 'date-range',
+      items: presetItems,
+      className: 'frgm-date-range-presets',
+    }),
+    React.createElement(
+      'button',
+      {
+        className: 'frgm-date-range-display',
+        type: 'button',
+        onClick: onDateClick,
+        'aria-label': `Date range ${dateRange}`,
+      },
+      React.createElement('span', { className: 'frgm-date-range-icon' }, icons.calendar),
+      React.createElement('span', null, dateRange),
+    ),
+  );
+}
+
+export function SecondaryTopbar({
+  title = 'Overview',
+  datePreset = 'Last 90 Days',
+  dateRange = '4 Feb-4 May 2026',
+  presets,
+  expanded,
+  defaultExpanded = true,
+  onExpandedChange,
+  onPresetSelect,
+  className = '',
+  actions,
+}) {
+  const isControlled = typeof expanded === 'boolean';
+  const [internalExpanded, setInternalExpanded] = React.useState(defaultExpanded);
+  const isExpanded = isControlled ? expanded : internalExpanded;
+  const setExpanded = (nextExpanded) => {
+    if (!isControlled) {
+      setInternalExpanded(nextExpanded);
+    }
+
+    onExpandedChange?.(nextExpanded);
+  };
+
+  return React.createElement(
+    'section',
+    {
+      className: cx('frgm-secondary-topbar', className),
+      'data-state': isExpanded ? 'expanded' : 'collapsed',
+      'aria-label': 'Current page context',
+    },
+    React.createElement(
+      'button',
+      {
+        className: 'frgm-secondary-topbar-toggle',
+        type: 'button',
+        'aria-expanded': isExpanded,
+        'aria-label': isExpanded ? 'Collapse page context' : 'Expand page context',
+        onClick: () => setExpanded(!isExpanded),
+      },
+      icons.panelLeft,
+    ),
+    React.createElement(
+      'div',
+      { className: 'frgm-secondary-topbar-body' },
+      React.createElement('h2', { className: 'frgm-secondary-topbar-title' }, title),
+      React.createElement(DateRangeControl, {
+        label: datePreset,
+        dateRange,
+        presets,
+        onPresetSelect,
+      }),
+    ),
+    actions && React.createElement('div', { className: 'frgm-secondary-topbar-actions' }, actions),
   );
 }
 

@@ -23,6 +23,8 @@ const atomNames = [
   'RadioField',
   'ToggleField',
   'DropdownMenu',
+  'DateRangeControl',
+  'SecondaryTopbar',
   'SwitchButton',
   'Loader',
   'TypingLoader',
@@ -76,6 +78,9 @@ test('atom styles use design tokens', async () => {
   assert.match(css, /\.frgm-dropdown/);
   assert.match(css, /\.frgm-dropdown-trigger/);
   assert.match(css, /\.frgm-dropdown-panel/);
+  assert.match(css, /\.frgm-date-range-control/);
+  assert.match(css, /\.frgm-secondary-topbar/);
+  assert.match(css, /\.frgm-secondary-topbar\[data-state='collapsed'\]/);
   assert.doesNotMatch(css, /#[0-9a-fA-F]{3,8}/);
 });
 
@@ -93,6 +98,8 @@ test('preview form examples use foundation form primitives', async () => {
   assert.match(preview, /DropdownMenu/);
   assert.match(preview, /class="frgm-dropdown"/);
   assert.match(preview, /class="frgm-dropdown-trigger" data-variant="domain"/);
+  assert.match(preview, /SecondaryTopbar/);
+  assert.match(preview, /data-ds-secondary-topbar-demo/);
   assert.doesNotMatch(preview, /<span class="ref"><b>\.input-box<\/b>/);
   assert.doesNotMatch(preview, /class="field"/);
   assert.doesNotMatch(preview, /class="search"/);
@@ -113,5 +120,7 @@ test('every exported atom is documented in the foundation contract', async () =>
   assert.match(contract, /components\/atoms\/icons\.js` is the source of truth/);
   assert.match(contract, /## Dropdown Foundation/);
   assert.match(contract, /Domain switchers, profile menus, settings menus, and overflow menus/);
+  assert.match(contract, /## Secondary Topbar Foundation/);
+  assert.match(contract, /Dashboard-style page context bars use `SecondaryTopbar`/);
   assert.match(contract, /Audit Result/);
 });

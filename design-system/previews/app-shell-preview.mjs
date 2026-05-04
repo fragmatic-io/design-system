@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import { DropdownMenu } from '../components/atoms/index.js';
+import { DropdownMenu, SecondaryTopbar } from '../components/atoms/index.js';
 import { icons } from '../components/atoms/icons.js';
 import { BrandLogoButton, FragmaticMark, FragmaticSidebarTile } from '../components/brand/index.js';
 
@@ -47,6 +47,32 @@ const shellContextItems = [
   { label: 'Recommendations', count: '12', page: 'analytics' },
   { label: 'Settings', count: 'form', page: 'settings' },
 ];
+
+const secondaryTopbarByPage = {
+  analytics: {
+    title: 'Overview',
+    datePreset: 'Last 90 Days',
+    dateRange: '4 Feb-4 May 2026',
+    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
+  },
+  settings: {
+    title: 'Project Settings',
+    datePreset: 'Last 90 Days',
+    dateRange: '4 Feb-4 May 2026',
+    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
+  },
+};
+
+const secondaryTopbarDemo = document.querySelector('[data-ds-secondary-topbar-demo]');
+
+if (secondaryTopbarDemo) {
+  createRoot(secondaryTopbarDemo).render(React.createElement(SecondaryTopbar, {
+    title: 'Overview',
+    datePreset: 'Last 90 Days',
+    dateRange: '4 Feb-4 May 2026',
+    presets: ['Last 7 Days', 'Last 30 Days', 'Last 90 Days', 'Custom range'],
+  }));
+}
 
 const dropdownSlotRenderers = {
   domain: () => React.createElement(DropdownMenu, {
@@ -169,11 +195,27 @@ if (shellNav) {
 
 const shellContextNav = document.querySelector('[data-ds-shell-context-nav]');
 const shellPages = document.querySelectorAll('[data-shell-page]');
+const secondaryTopbarSlot = document.querySelector('[data-ds-secondary-topbar]');
+const secondaryTopbarRoot = secondaryTopbarSlot ? createRoot(secondaryTopbarSlot) : null;
+
+const renderSecondaryTopbar = (activeItem) => {
+  const topbar = secondaryTopbarByPage[activeItem.page] ?? secondaryTopbarByPage.analytics;
+
+  secondaryTopbarRoot?.render(React.createElement(SecondaryTopbar, {
+    ...topbar,
+    className: 'frgm-app-secondary-topbar-surface',
+    onExpandedChange: (isExpanded) => {
+      secondaryTopbarSlot.closest('.frgm-app-shell')?.setAttribute('data-secondary-topbar-state', isExpanded ? 'expanded' : 'collapsed');
+    },
+  }));
+};
 
 const setShellPage = (activeItem) => {
   shellPages.forEach((page) => {
     page.hidden = page.dataset.shellPage !== activeItem.page;
   });
+
+  renderSecondaryTopbar(activeItem);
 
   shellContextNav?.querySelectorAll('[data-shell-context-item]').forEach((button) => {
     if (button.dataset.shellContextItem === activeItem.label) {

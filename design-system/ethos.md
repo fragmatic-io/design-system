@@ -40,16 +40,19 @@ This design system is a contract, not a collection of attractive snippets. Every
 12. App surfaces choose documented container variants.
    Use the app shell `full` container for dense workspaces and the `narrow` container for settings or forms. Do not stack multiple shell page variants in one preview state or invent page-width rules outside the app shell container contract.
 
-13. Hardening means formalizing, not hiding.
+13. Secondary topbars are components, not page snippets.
+   Use `SecondaryTopbar` and `DateRangeControl` for page-context rows with titles, filters, dates, or collapse behavior. Add missing behavior to the component/foundation contract before using it in app shell patterns.
+
+14. Hardening means formalizing, not hiding.
    If cleanup exposes an invented value, either remove it or promote it into the foundation contract with a clear name and usage. Avoid compatibility shims unless they are temporary, documented, and tested.
 
-14. Accessibility is a release condition.
+15. Accessibility is a release condition.
    Text, controls, charts, states, and focus indicators must remain readable in light and dark themes. Contrast-sensitive changes need tests or a browser smoke check.
 
-15. Keep files modular.
+16. Keep files modular.
    Split large additions into focused files and folders when the design system grows. Prefer small, named contracts over long anonymous blocks.
 
-16. Test every meaningful change.
+17. Test every meaningful change.
     Add or update smoke, package, contrast, or browser tests for each change. If a change cannot be covered immediately, document the gap in the final handoff.
 
 ## Review Checklist
@@ -60,6 +63,7 @@ This design system is a contract, not a collection of attractive snippets. Every
 - Does every reusable Fragmatic logo come from `components/brand` or `assets/brand`?
 - Do forms use packaged field, input, search, choice, and group primitives?
 - Do domain, profile, settings, and overflow menus use the dropdown foundation?
+- Do secondary topbars use the shared `SecondaryTopbar` and `DateRangeControl` components?
 - Is repeated UI composed from a named data map or component contract instead of duplicated markup?
 - Does dark mode work without dark-only hacks?
 - Are package exports, preview examples, and docs still in sync?
